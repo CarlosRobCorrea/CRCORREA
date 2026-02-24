@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5EF10DD-605E-4A61-850E-4A5C86479424}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CRCorreaInfo</RootNamespace>
+    <AssemblyName>CRCorreaInfo</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clsBancosInfo.cs" />
+    <Compile Include="clsCentrocustosInfo.cs" />
+    <Compile Include="clsCfopInfo.cs" />
+    <Compile Include="clsClienteContatoInfo.cs" />
+    <Compile Include="clsClienteEnderecoInfo.cs" />
+    <Compile Include="clsClienteInfo.cs" />
+    <Compile Include="clsClienteObservaInfo.cs" />
+    <Compile Include="clsCompras1Info.cs" />
+    <Compile Include="clsComprasEntregaInfo.cs" />
+    <Compile Include="clsComprasEntregaValoresInfo.cs" />
+    <Compile Include="clsComprasInfo.cs" />
+    <Compile Include="clsCondpagtoInfo.cs" />
+    <Compile Include="clsContacontabilInfo.cs" />
+    <Compile Include="clsCotacao1Info.cs" />
+    <Compile Include="clsCotacao2Info.cs" />
+    <Compile Include="clsCotacaoentregaInfo.cs" />
+    <Compile Include="clsCotacaoInfo.cs" />
+    <Compile Include="clsDanfeInfo.cs" />
+    <Compile Include="clsDizeresnfvInfo.cs" />
+    <Compile Include="clsDocFiscalInfo.cs" />
+    <Compile Include="clsEmpresaInfo.cs" />
+    <Compile Include="clsEmpresaFolhaInfo.cs" />
+    <Compile Include="clsEmpresaGereInfo.cs" />
+    <Compile Include="clsEscFormInfo.cs" />
+    <Compile Include="clsEstadosicmsInfo.cs" />
+    <Compile Include="clsEstadosInfo.cs" />
+    <Compile Include="clsFechamentoCaixaInfo.cs" />
+    <Compile Include="clsFeriadosInfo.cs" />
+    <Compile Include="clsFormIdInfo.cs" />
+    <Compile Include="clsFormsInfo.cs" />
+    <Compile Include="clsFormsObjetoInfo.cs" />
+    <Compile Include="clsHistoricosInfo.cs" />
+    <Compile Include="clsIpiEstadosicmsInfo.cs" />
+    <Compile Include="clsIpiInfo.cs" />
+    <Compile Include="clsMaqctInfo.cs" />
+    <Compile Include="clsMaqctprecoInfo.cs" />
+    <Compile Include="clsMovpecasInfo.cs" />
+    <Compile Include="clsMovPecasMesInfo.cs" />
+    <Compile Include="clsNfCompra1Info.cs" />
+    <Compile Include="clsNfCompraInfo.cs" />
+    <Compile Include="clsNfCompraPagarInfo.cs" />
+    <Compile Include="clsNFCompraResumidaInfo.cs" />
+    <Compile Include="clsNFVendaInfo.cs" />
+    <Compile Include="clsOperacoesInfo.cs" />
+    <Compile Include="clsOrcamento1Info.cs" />
+    <Compile Include="clsOrcamentoInfo.cs" />
+    <Compile Include="clsPagar01Info.cs" />
+    <Compile Include="clsPagarInfo.cs" />
+    <Compile Include="clsPagarObservaInfo.cs" />
+    <Compile Include="clsPagas01Info.cs" />
+    <Compile Include="clsPagasInfo.cs" />
+    <Compile Include="clsPagasobservaInfo.cs" />
+    <Compile Include="clsPecasclassifica1Info.cs" />
+    <Compile Include="clsPecasclassifica2Info.cs" />
+    <Compile Include="clsPecasclassificaInfo.cs" />
+    <Compile Include="clsPecasCustoInfo.cs" />
+    <Compile Include="clsPecasFamiliaInfo.cs" />
+    <Compile Include="clsPecasCadastroInfo.cs" />
+    <Compile Include="clsPecasInfo.cs" />
+    <Compile Include="clsPecasObservaInfo.cs" />
+    <Compile Include="clsPecasPrecoInfo.cs" />
+    <Compile Include="clsPecasTipoInfo.cs" />
+    <Compile Include="clsPedido1Info.cs" />
+    <Compile Include="clsPedido2Info.cs" />
+    <Compile Include="clsPedidoInfo.cs" />
+    <Compile Include="clsPedidoReceberInfo.cs" />
+    <Compile Include="clsPromissoriaReceberInfo.cs" />
+    <Compile Include="clsReceber01Info.cs" />
+    <Compile Include="clsReceberInfo.cs" />
+    <Compile Include="clsReceberObservaInfo.cs" />
+    <Compile Include="clsRecebida01Info.cs" />
+    <Compile Include="clsRecebidaInfo.cs" />
+    <Compile Include="clsRecebidaObservaInfo.cs" />
+    <Compile Include="clsRegimeapuracaoInfo.cs" />
+    <Compile Include="clsRegimeTributarioInfo.cs" />
+    <Compile Include="clsRequisicao1Info.cs" />
+    <Compile Include="clsRequisicaoInfo.cs" />
+    <Compile Include="clsRptAcumulaAnoInfo.cs" />
+    <Compile Include="clsRptFluxoFinanceiroInfo.cs" />
+    <Compile Include="clsRptPecasAcumulaInfo.cs" />
+    <Compile Include="clsRptPecasInfo.cs" />
+    <Compile Include="clsSitefdInfo.cs" />
+    <Compile Include="clsSittribcofinsInfo.cs" />
+    <Compile Include="clsSitTribIpiInfo.cs" />
+    <Compile Include="clsSittribpisInfo.cs" />
+    <Compile Include="clsSittributariaaInfo.cs" />
+    <Compile Include="clsSittributariabInfo.cs" />
+    <Compile Include="clsSituacaocobrancacod1Info.cs" />
+    <Compile Include="clsSituacaocobrancacodInfo.cs" />
+    <Compile Include="clsSituacaotipotituloInfo.cs" />
+    <Compile Include="clsSituacaotituloInfo.cs" />
+    <Compile Include="clsSolicitacaoentregaInfo.cs" />
+    <Compile Include="clsSolicitacaoFornecedorInfo.cs" />
+    <Compile Include="clsSolicitacaoInfo.cs" />
+    <Compile Include="clsTab_BancosInfo.cs" />
+    <Compile Include="clsTab_Danfe_IndISSInfo.cs" />
+    <Compile Include="clsTab_Danfe_ModBcInfo.cs" />
+    <Compile Include="clsTab_Danfe_ModBcStInfo.cs" />
+    <Compile Include="clsTab_Danfe_MotDesIcmsInfo.cs" />
+    <Compile Include="clsTab_PaisesInfo.cs" />
+    <Compile Include="clsTiponotaInfo.cs" />
+    <Compile Include="clsToleranciaInfo.cs" />
+    <Compile Include="clsUnidadeInfo.cs" />
+    <Compile Include="clsUsuarioInfo.cs" />
+    <Compile Include="clsXmlNFCompra1Info.cs" />
+    <Compile Include="clsXmlNFCompraInfo.cs" />
+    <Compile Include="clsZonasInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

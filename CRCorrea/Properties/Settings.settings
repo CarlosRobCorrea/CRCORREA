@@ -1,0 +1,32 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CRCorrea.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="arquivos" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\CasaCorrea\Sistema\Arquivos\</Value>
+    </Setting>
+    <Setting Name="caminhorelatorios" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\CasaCorrea\Sistema\Relatorios\</Value>
+    </Setting>
+    <Setting Name="conexaosqlfolha" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=SERVIDOR-PC\SQLEXPRESS;Initial Catalog=CRCFOLHA;User ID=sa;Password=Apli5800;</Value>
+    </Setting>
+    <Setting Name="conexaorpt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=\\SERVIDOR-PC\CasaCorrea\Sistema\Relatorios\;Initial Catalog=RPTSQL;User ID=sa;Password=Apli5800;
+</Value>
+    </Setting>
+    <Setting Name="conexaoimagem" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\CasaCorrea\ImagensIcones\</Value>
+    </Setting>
+    <Setting Name="conexaosqldados" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=SERVIDOR-PC\SQLEXPRESS;Initial Catalog=CRCDADOS;User ID=sa;Password=Apli5800;
+</Value>
+    </Setting>
+    <Setting Name="conexaosqlbanco" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=SERVIDOR-PC\SQLEXPRESS;Initial Catalog=CRCBANCO;User ID=sa;Password=Apli5800;</Value>
+    </Setting>
+    <Setting Name="SaidaXML" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">c:\CasaCorrea\XML\Saidas\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

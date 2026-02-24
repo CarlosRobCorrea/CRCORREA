@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CRCorreaInfo
+{
+    public class Emitente
+    {
+//        public string Nome { get; set; }
+//        public decimal Preco { get; set; }
+        public String cnpj_emitente { get; set; }
+        public String data_emissao { get; set; }
+        public String indicador_inscricao_estadual_destinatario { get; set; }
+        public String modalidade_frete { get; set; }
+        public String local_destino { get; set; }
+        public String presenca_comprador { get; set; }
+        public String natureza_operacao { get; set; }
+
+    }
+    public class Itens
+    {
+        public String numero_item { get; set; }
+        public String codigo_ncm { get; set; }
+        public String quantidade_comercial { get; set; }
+        public String quantidade_tributavel { get; set; }
+        public String cfop { get; set; }
+        public String valor_unitario_tributavel { get; set; }
+        public String valor_unitario_comercial { get; set; }
+        public String valor_desconto { get; set; }
+        public String descricao { get; set; }
+        public String codigo_produto { get; set; }
+        public String icms_origem { get; set; }
+        public String icms_situacao_tributaria { get; set; }
+        public String unidade_comercial { get; set; }
+        public String unidade_tributavel { get; set; }
+        public String valor_total_tributos { get; set; }
+
+    }
+
+    public class Pagamentos
+    {
+        public String forma_pagamento { get; set; }
+        public String valor_pagamento { get; set; }
+        public String nome_credenciadora { get; set; }
+        public String bandeira_operadora { get; set; }
+        public String numero_autorizacao { get; set; }
+
+    }
+
+    public class RespostaApi
+    {
+        public Emitente MetaData { get; set; } // O Item único
+        public List<Itens> Itens { get; set; } // A Lista
+        //public Pagamentos MetaData { get; set; } // Os Pagamentos
+        public Pagamentos Formas_Pagamento { get; set; } // Item Unico
+    }
+}

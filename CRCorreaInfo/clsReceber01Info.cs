@@ -1,0 +1,113 @@
+using System;
+
+namespace CRCorreaInfo
+{
+    public class clsReceber01Info
+    {
+        private Int32 _id;
+        private Int32 _idduplicata;
+        private DateTime _dataenvio;
+        private DateTime _dataok;
+        private Int32 _idcobrancacod;
+        private Int32 _idcobrancahis;
+        private Decimal _valor;
+        private String _debcred;
+        private Int32 _idrecebida01;
+        private String _motivo;
+        private Int32 _idhistorico;
+        private Int32 _idcentrocusto;
+        private Int32 _idcodigoctabil;
+        private Decimal _valorcomissao;
+        private Decimal _valorcomissaoger;
+
+        public Int32 id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        public Int32 idduplicata
+        {
+            get { return _idduplicata; }
+            set { _idduplicata = value; }
+        }
+
+        public DateTime dataenvio
+        {
+            get { return _dataenvio; }
+            set { _dataenvio = value; }
+        }
+
+        public DateTime dataok
+        {
+            get { return _dataok; }
+            set { _dataok = value; }
+        }
+
+        public Int32 idcobrancacod
+        {
+            get { return _idcobrancacod; }
+            set { _idcobrancacod = value; }
+        }
+
+        public Int32 idcobrancahis
+        {
+            get { return _idcobrancahis; }
+            set { _idcobrancahis = value; }
+        }
+
+        public Decimal valor
+        {
+            get { return _valor; }
+            set { _valor = value; }
+        }
+
+        public String debcred
+        {
+            get { return _debcred; }
+            set { _debcred = value; }
+        }
+
+        public Int32 idrecebida01
+        {
+            get { return _idrecebida01; }
+            set { _idrecebida01 = value; }
+        }
+
+        public String motivo
+        {
+            get { return _motivo; }
+            set { _motivo = value; }
+        }
+
+        public Int32 idhistorico
+        {
+            get { return _idhistorico; }
+            set { _idhistorico = value; }
+        }
+
+        public Int32 idcentrocusto
+        {
+            get { return _idcentrocusto; }
+            set { _idcentrocusto = value; }
+        }
+
+        public Int32 idcodigoctabil
+        {
+            get { return _idcodigoctabil; }
+            set { _idcodigoctabil = value; }
+        }
+
+        public Decimal valorcomissao
+        {
+            get { return _valorcomissao; }
+            set { _valorcomissao = value; }
+        }
+
+        public Decimal valorcomissaoger
+        {
+            get { return _valorcomissaoger; }
+            set { _valorcomissaoger = value; }
+        }
+    }
+}

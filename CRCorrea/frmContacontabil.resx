@@ -1,0 +1,920 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="groupBox1.AccessibleDescription" xml:space="preserve">
+    <value>Conta Contabil</value>
+  </data>
+  <data name="tbxReduzido.AccessibleDescription" xml:space="preserve">
+    <value>Código Reduzido</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="tbxReduzido.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tbxReduzido.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 148</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tbxReduzido.MaxLength" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="tbxReduzido.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 21</value>
+  </data>
+  <data name="tbxReduzido.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tbxReduzido.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="tbxReduzido.ToolTip" xml:space="preserve">
+    <value>Codigo Reduzido da Conta</value>
+  </data>
+  <data name="&gt;&gt;tbxReduzido.Name" xml:space="preserve">
+    <value>tbxReduzido</value>
+  </data>
+  <data name="&gt;&gt;tbxReduzido.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbxReduzido.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;tbxReduzido.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 132</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 13</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Codigo Reduzido</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox4.AccessibleDescription" xml:space="preserve">
+    <value>Ativo Inativo</value>
+  </data>
+  <data name="rbnAtivoN.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbnAtivoN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbnAtivoN.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 43</value>
+  </data>
+  <data name="rbnAtivoN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 17</value>
+  </data>
+  <data name="rbnAtivoN.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="rbnAtivoN.Text" xml:space="preserve">
+    <value>Inativo</value>
+  </data>
+  <data name="rbnAtivoN.ToolTip" xml:space="preserve">
+    <value>opção que a conta esta inativa</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoN.Name" xml:space="preserve">
+    <value>rbnAtivoN</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoN.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoN.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoN.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rbnAtivoS.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbnAtivoS.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbnAtivoS.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 20</value>
+  </data>
+  <data name="rbnAtivoS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 17</value>
+  </data>
+  <data name="rbnAtivoS.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbnAtivoS.Text" xml:space="preserve">
+    <value>Sim Ativo</value>
+  </data>
+  <data name="rbnAtivoS.ToolTip" xml:space="preserve">
+    <value>opção que a conta esta ativa</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoS.Name" xml:space="preserve">
+    <value>rbnAtivoS</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoS.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoS.Parent" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;rbnAtivoS.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>480, 20</value>
+  </data>
+  <data name="groupBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 71</value>
+  </data>
+  <data name="groupBox4.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="groupBox4.ToolTip" xml:space="preserve">
+    <value>Grupo Ativo /Inativo</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Name" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBox2.AccessibleDescription" xml:space="preserve">
+    <value>Tipo Conta</value>
+  </data>
+  <data name="rbnAnalitica.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbnAnalitica.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbnAnalitica.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 40</value>
+  </data>
+  <data name="rbnAnalitica.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 17</value>
+  </data>
+  <data name="rbnAnalitica.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="rbnAnalitica.Text" xml:space="preserve">
+    <value>A = Analitica</value>
+  </data>
+  <data name="rbnAnalitica.ToolTip" xml:space="preserve">
+    <value>opção que a conta é analitica</value>
+  </data>
+  <data name="&gt;&gt;rbnAnalitica.Name" xml:space="preserve">
+    <value>rbnAnalitica</value>
+  </data>
+  <data name="&gt;&gt;rbnAnalitica.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbnAnalitica.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;rbnAnalitica.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rbnTotalizadora.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbnTotalizadora.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbnTotalizadora.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 18</value>
+  </data>
+  <data name="rbnTotalizadora.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 17</value>
+  </data>
+  <data name="rbnTotalizadora.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rbnTotalizadora.Text" xml:space="preserve">
+    <value>T = Totalizadora</value>
+  </data>
+  <data name="rbnTotalizadora.ToolTip" xml:space="preserve">
+    <value>opção que a conta é totalizadora</value>
+  </data>
+  <data name="&gt;&gt;rbnTotalizadora.Name" xml:space="preserve">
+    <value>rbnTotalizadora</value>
+  </data>
+  <data name="&gt;&gt;rbnTotalizadora.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbnTotalizadora.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;rbnTotalizadora.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>355, 20</value>
+  </data>
+  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 68</value>
+  </data>
+  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupBox2.ToolTip" xml:space="preserve">
+    <value>Grupo de Tipo da Conta</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 78</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 13</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Descrição da Conta // Detalhe Tecnico</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tbxNome.AccessibleDescription" xml:space="preserve">
+    <value>Descrição da Conta // Detalhe Tecnico</value>
+  </data>
+  <data name="tbxNome.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tbxNome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 94</value>
+  </data>
+  <data name="tbxNome.MaxLength" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="tbxNome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>900, 21</value>
+  </data>
+  <data name="tbxNome.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="tbxNome.ToolTip" xml:space="preserve">
+    <value>Nome/Descrição da Conta</value>
+  </data>
+  <data name="&gt;&gt;tbxNome.Name" xml:space="preserve">
+    <value>tbxNome</value>
+  </data>
+  <data name="&gt;&gt;tbxNome.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbxNome.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;tbxNome.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tbxCodigo.AccessibleDescription" xml:space="preserve">
+    <value>Código da Conta Contabil</value>
+  </data>
+  <data name="tbxCodigo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tbxCodigo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 44</value>
+  </data>
+  <data name="tbxCodigo.MaxLength" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="tbxCodigo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 21</value>
+  </data>
+  <data name="tbxCodigo.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tbxCodigo.ToolTip" xml:space="preserve">
+    <value>Numero da Conta Contabil</value>
+  </data>
+  <data name="&gt;&gt;tbxCodigo.Name" xml:space="preserve">
+    <value>tbxCodigo</value>
+  </data>
+  <data name="&gt;&gt;tbxCodigo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbxCodigo.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;tbxCodigo.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 28</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Codigo da Conta Contabil</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 30</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>943, 366</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBox1.ToolTip" xml:space="preserve">
+    <value>Grupo Registrando Conta Contabil</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="tspTool.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>0, 615</value>
+  </metadata>
+  <data name="tspTool.AccessibleDescription" xml:space="preserve">
+    <value>Barra de Opções</value>
+  </data>
+  <data name="tspTool.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tspTool.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 9pt</value>
+  </data>
+  <data name="tspSalvar.AccessibleDescription" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="tspSalvar.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tspSalvar.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tspSalvar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAABGRJREFUSEu9lntM
+        lXUYx6nVH23N5VrWH9ZmY4vIrdaiizNFQCMr8jZt2DJZLFI3uRwQiXxLJTyIBkQKCKJlkVwShtzkInIN
+        UQiEAxwucR0cUOEV4lK6T897YKcDGzb+qLN9926/93mez/M8v/P7Pa+Nzf/x26F885iL33c7Nx2IVzyC
+        DitHdO5KWMCHC5Lm4xF4UHELjldcdNGe7oGhiy25awt7Uusp6lXJykmi4ccPMFUELUgtaTs5kxxLdJPK
+        5nP1OOlOfmoBaJkXSvDOu1BZfoHu/L0wkLAgaQnFpcSjN4yxr8LEu8FxyixAbrdK658Qeu7sP4DOcOg4
+        IgqF9q+n1RYiOjyt1kOyJu8kGQ2wLSSMJ6MbWXK8FqeAmNmAi10qhinQnTotAG9xSoRft0HxOrjsAoVr
+        oGAVXFoJuW9AzquQ9YqsO5ttTZXBbDmkZ3FkA4v013HUWQE2SIsyOlXqJ8FPAxT6w9BPcM0DyjdB6QYo
+        cYMr7wjwbSh6SwKvFaAEL91otjVVfSWAsPkBaR0qNePgGyeA4mAYzoD+09AXB72aYmcUAz0nZ3Ri+p3Y
+        mq6F3R9wvl2l6g/w0QAl0t/RAqjxlAokwzKtgvekgvVSgatUINlrrSmQtpVuNtuaaqLuD0hqU6kYA28N
+        UKaH8TLZA3cJ5CSBHKX3b0LeCun/65DtABdfhsyX5L3skdia6mIEcHT+Fv3QqnLlDuyNFUBlBEzVgipV
+        DOfOKEeeotvZM8qSp2g4z2xrunHmPgA5fYlGlSJVqyCR7irp8z3jgmQy/MzWkGMsiTbweHgNjtZ/U+14
+        J7So5I+Af8JZGtL3Y2pKWZBaLoXw0ZFj2MYbeeZbOclzAbHNKjm3wTP9GrsiItkTFb0g7Y6MxDXhMg5J
+        v7P8lAGXuYCTAsgUwMfFQ6zN6OOJLwr/VU99Wcxr37exMqmLVcnduKT3mn1XnGvFJdDqoGkt0i6pjFvg
+        VXGLjXkDLPXP5FRJB8nVPfPq6YBsFumus3hfPctCm3DL7jf7Oqd0sC7Q6i7SAFEGlbQhOWjVKjuu3MT+
+        QC4DdyYZmbiLYWCClsFJJv66xz1k72f0gpJvAdjqm9leNGT2fT+jazZgrX9MsHdBF8kC+LxujD1VqhnQ
+        L4Bf6kbMGdoebKRRQHLhWmQNeO5oC17lw2Zf99w+XIOsKljtG2X3kFdql19xL1EdUwTUjvK8APoEkGoF
+        uCEAuXAtsgbYHzPiI9X7i69HYf9sgI0ND2iQR3anJW5NbBqNaJ8yA3oEkNGomrN3CG+mYXACuQ8tsrdq
+        0fLjRoKkeqVxnF0lg6y3rsAyGBTlwYc/S43cfsGInQA6BTAge1ArmddL8GHZA7muLLIGvBjRyuGmCfSt
+        U/hW3pwHIKTVAZFLbT45X7dsfxZ5xiGu9qnz6tmgXB71rZSNrsZO34BPxRABV2/hnPDb7JE598NCgzjp
+        TiibZOxtkVkxnzQbR19NMTLoYxStLdqoXDN36P+XXy5/A64+WkyttIoCAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="tspSalvar.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tspSalvar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 42</value>
+  </data>
+  <data name="tspSalvar.Text" xml:space="preserve">
+    <value>&amp;Salvar</value>
+  </data>
+  <data name="tspSalvar.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="tspPrimeiro.AccessibleDescription" xml:space="preserve">
+    <value>Primeiro</value>
+  </data>
+  <data name="tspPrimeiro.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tspPrimeiro.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tspPrimeiro.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAA/pJREFUSEvdlXtM
+        W2UYxpmJmugwcVskw6hzLsPhzNRE42Y0RplLjEuM00MW52Vjjm3ayRi3AVIBVzs37hVX2CplIOA22mzl
+        MrkIgsCQ2xBK1zoathIKtVB6zmlPL/D4tVUuYT3yh3/5JU/OH+c555fnfd/v+wIC/ldrx/npkO1ltujt
+        pR7R0a97dJ6ODgjAiuUE3ZpPP7StYPwZv96wH2xUtd6JIYsbQ1NuDEy6IR/gQNa/AkIl4ytflppkrxaa
+        sngANKXQOXDd5EIfUfe4C4W9dn4AgT+bNxL85vcmmbD5T+5IlcU/4JUiC1U+aEf7qANtRK23HZBcYxHA
+        k2BztjHoNemYVNbDoOm2E7E1fIBzFkrWY0PdMIe6mxxqdRxOtzB+AaHCgXt2SI3i3J8NM51GJ+r1HKJU
+        Zv8JXiqwUJIOFgq1HZUkycXf7UhrsN4BgBWhGbdWvZBtEMerJq2XNXY0kp8rNTYcUvIAXvzOTJ1soiHv
+        tnkl67QhodqyBPCkSL36adGtr8Mr9DNn2hmU9dlxacAOeQ+LiAs8gOclE1RSjRU5v7DIJspsYvFZ5dQi
+        gKcsT53Qi8MKdTMp1TRONjLIa2VR0GFDTiuD3aU8U/RczgQlUEwj9ScGqVcZpNQw+Lh8HhASOxS4Me1m
+        eljeiHVvqQWCS1bEX6HxZS0DUT2Lr+ppvFfMA9iSaaA+KrMgSknjKNERBQ1KbvYmWE1+vj5JG/eW1Mjt
+        L5/GwQu0V4cvEl+lzx+nsuJt2bj/Jm8+5QMIFMycqCIf4OH4G1u2nRpRx1Ux+Fw5/36hN7aK5gdsEo9Q
+        +36cRrTKNqfdxZNewAZB9b3rkjThb+TqTTGkLPHV855//Cl1LHYV8STYmDZMRZK6JtRyc3q/ZEGThbjr
+        sQTt3p1nDGPpjTYkXp33eb4RNdsRXsLTgyeEw9RRFQ1howNfNDi8z4gKX4KF58v64+p3dkpGzWd7nEht
+        8nk9ymqzY08JT4J1yToqmUyQqMWFtGYXRK0uMqZL90HQsb77Hz+uPbSn2GjO7XBATHwef/5vHD4s5QE8
+        EqehTpDZP93hhrjNjYxrbsSolgK8aQ503b0hRRuxv2RiTN7vgrjdjXN9Tuwr4wEEE0Dmryxyu2eR0TkL
+        Sc8skmv9AP6uWahQ+25k2dhU7cgsKtROfMIHCDo2SM4iG/J7gawuQHodZNPxA1YJtQ9sStUlxqjMdKWG
+        Q2QFT4I1gn6qqJvF5WGg8g/gih74pmHxUXGny2StsOu+EOGNxA/ko5ZdhQb/G+3Bw71UgtKIb1umvJIQ
+        RZYYeO+DhcDg2MGDpI/pfm+0ldGaNYGf9m8NPLBYy7mPPR7PdD0apV67XP9/4vsLG1UPzU+JGVUAAAAA
+        SUVORK5CYII=
+</value>
+  </data>
+  <data name="tspPrimeiro.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tspPrimeiro.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 42</value>
+  </data>
+  <data name="tspPrimeiro.Text" xml:space="preserve">
+    <value>Pr&amp;imeiro</value>
+  </data>
+  <data name="tspPrimeiro.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="tspAnterior.AccessibleDescription" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="tspAnterior.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tspAnterior.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tspAnterior.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAABBBJREFUSEvllXtM
+        W2UYh7tEjZmL6IwudFsXI0jGkgXSaHRK3NCoZWB20yXTxUUUOxPGnPQySjkO7NqBsTA61stamBtjriCb
+        qyuYjbK4MFbZRJyDXlkLpbSlDHpOrzBez+EyaLm0iX/a5E3/eb7v+d7fm+87JNL/5vd6FfrCJqkjJZaG
+        qRJT3KtVzrRY2EkmWeRYkSZxKTbLXMJoi4jNN59yqtOk7gvRWBIJYFlqpYWcUe1SIC1Dgc9+di8poJYP
+        U7J+dIjFt72wRzkSXZB6zELeIhk8pbiDgdochC+WEFAFpjia3CEW/vHAr3WEYK9yeGlBMuJYkX5yQHG8
+        zQPawRBc1vthn3LhDojNqcI+ddnvo6C1h6DVGoQ95xeLCI8lCbGQN1X0KZh1Q4FfevzQ0huA83974ZO6
+        +YJkgYnyZnm/mKN+AAR7zRwAFX6YXbWLCBJ4+udTS++fyG1wg6TdC3Wdfmi46wepFoPdZ8OHvA7pffK1
+        Umv5fuWQX6ElWN8kW4v/b69xzY8oGbn7xEa+RZBRbX5YpEahtAWDyhtekLb7oKwVhW01jkdDJjZfz7PI
+        dggNE9wrKJRpMBBNs6I2L9DkzrkCWLYGsa7cUNIreKfS4sk+Nwq5DR5gXUbh22YMjl71ArfJAzTZlODF
+        w12rNh4187aWGiay63C23gNs1SzLxw/2rmSOgMy+91xioYG/RWZ8mPOTB+hKdLK+qkfhQCMKX1/E69Io
+        vCexC4mTJxebeRniXnSGi2Q5ePfpVYOzHVAO97zxSpnVxlBhcOAiBrmN8+vgJc+kgJyvS6HyTf25jZ4F
+        OWItt9kbLlj1TedTa5k9+7NEdjfzVwwYV3xwSBVeLDWGR2QXvoVoHnu50PB5VpW9j9PkBeYCLL/VB2+f
+        tEcMOafj8QSOPvsjab+dp/EBuzkA7KbZQvA5ZOICYgbxiG15YqFxX6bCFvpO4wfOb+Fsxc0APoNIwfTD
+        kcDt3vmx3D4svROCI5ogcK9NFf+6Dz6QDYQ9FWvyddt3yAeGj7cHoWiaI1jZ7SC8v5hgJaJ/OpFrKPi0
+        fgitvBUEwY0xKL4+Bj+0+WBbhICIK6XEkE+/4HSJO0JwbJo90xUE2mKCqQg6lr/E1RXknLaNnO4aA8HN
+        cRBpA7BTEd4BwT7L6ohLKtIxvpQbJwj2+1vjoOwZg60SW/THLgnpptOVTqzJMgHVnbggooO5z/FqRnde
+        9rlBrEE/DirTOGTGIliX9+cz64/oCvNVbrT2Lx98uEAHMxLiflB5RiZb5XJdvR/CBf3RO5iJKwnRFeyt
+        sY3QTliX/B4QcW0oNjIOnTFOpFdYYxPMnJDM+IeO35WS6F8pEmktS5+3mtVdEwv7iCEuI+XgvfhYFhFx
+        xbNMlFjY/8z8CzTF61xlavViAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="tspAnterior.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tspAnterior.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 42</value>
+  </data>
+  <data name="tspAnterior.Text" xml:space="preserve">
+    <value>&amp;Anterior</value>
+  </data>
+  <data name="tspAnterior.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="tspProximo.AccessibleDescription" xml:space="preserve">
+    <value>Próximo</value>
+  </data>
+  <data name="tspProximo.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tspProximo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tspProximo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAABEBJREFUSEvdlGtM
+        m1UcxqvGLxqjHzSbbMA2lxFkESOLmGxTXDZF0U2WVeZkiUQzQGUOxv2yjpsw5wDX0qVlw4GMsHKTAVIZ
+        F8kYL4xNcINwK+VaSjugtO9LWwrh8bxFkGtp4jdP8v/S93n+v/95zunhcP4Xa69ows41fcTR2s24iib2
+        uYgUz1ir57wjUnPfFqtbXdNGN1lj2i8aq3ITj0VaozVrTuaNcxPqaHxyY6zmrSuDb3J4eNKS2adYQ/Fq
+        dJP7rzz2dU7te2FDEAvIbdOjqMsA77yxWqdLKmdLptOlGqpeYUJE4SSzVzAS7cLbIK4TBJDZMoXmURPy
+        CeijzJHW3Ynrx+VPdlA/PI17ShNiKjXMnrQhy3F53VBzBY00avuMkPYYcalOCze+osY5uXfNuHwkE1SF
+        zIhquRGSR3r45SsmnZOHfO1568Tl+bOae6FOh+J2AyQPDch+oEdk+STeFShuO8TJHVbGdfLmOJX3lx6F
+        bQbkthiQfpeBp1DFOCX3B7uI7j+9Kl6Pq2pulFSLjCY9hA16pNQxiPudxqmM/jmXHwarHELqn1tq8spS
+        U0JqCqJGPfj1U7hQwyCqXIePBaPjjvH9X64CuIuU3KCSSSRVTyG+koh/oxFYTMP3phZHU+Vzryf1SXZG
+        dL/KAZ5gzUeuqamkagaJVQx4UgahpTS+KdDhixwNDqQOK3dEy45uOtv67CLogFDJ9SvQIKiExne/EnEh
+        Df98mmQ7X59els85J8hKbKO6X2FNZMdUaBmNM0QbUETj64J/tV/labEvZXh8e1Snv8upf+JiAf6FWgQU
+        M6vqNPktuIzBQf6Aziakw48FfJihokLKV2tZ/5kSBt8WabE7tqfJPqxjm3kXhwgg8JYWQWX6ZRVcTg5b
+        qsdn2Y+nnM7L+DsD/nyJ1R8mEcVULtey3rAKPc6W6vBGorxtS2iXB4crecoMcCeA8AodwqXGZRVfYyAH
+        3TfrcK43dhev88WFTNkzSKw1LNPG3DaCV6Sce58//GhzyMM9i83NAHLIvCoaMdXT5jpHStBkQkjphN6J
+        1xO38lYcu66ifrw7r2Ur4Y9piO8b4SEYajc3X7ncRcPcxFoacXUz+P7ODNKbTYi8pTC5JsmytwZ2bVmp
+        98pSUYJ7JsQT/cWGGVxuNOAD4ZB8e3THiWWTLxg9CODiHQbJDbO42jqDGKkGjjyZ+OWwNru13qTjOSpK
+        3DKDtOZZZDwwgps52G8T3HWQs3BrVppYwE8NDAp65sAjkzud7xZZeuy8yQ4knbOo7J+F57UhuU04aW5p
+        HSYAIXmLYssVJreUvl/Wm3yhh3eWgirqMOJ45pB8V3Sv9+J9Xw9yKG2A65OjxGtxMvGOsN41Y1nqfY8/
+        QH1+fbDfjky+YXPWaBvWeWRraKfFWJYCbEO7c9nmFmNZ+pFM/fzmiPk/kTVrW1S7vVWTW9Psv2r+BsOP
+        4VJYBtGaAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="tspProximo.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tspProximo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 42</value>
+  </data>
+  <data name="tspProximo.Text" xml:space="preserve">
+    <value>Pró&amp;ximo</value>
+  </data>
+  <data name="tspProximo.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="tspUltimo.AccessibleDescription" xml:space="preserve">
+    <value>Último</value>
+  </data>
+  <data name="tspUltimo.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tspUltimo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tspUltimo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAABABJREFUSEvdlV9M
+        U1ccx1n2sL0YH9yWqWMqDhecfxaTJbq9bGFs2b/MjOwaMyPqA9NNQRpZacUV6hAmUOSPOAbyR0S2EihM
+        5J+AwKBG7EQxlj+3UECwHX8Eetvb2xbPd6c0bEh2Wx72tJt8ch/u75zP+f5yzrl+fv+r5+3sidd35U1t
+        WW6o4MtcVHAxJwkpccNLQkp5SXCp/V3R8TsvjDPvXZy8syPTvHU5EkWdmXRPuaCfnkPPzBy0Zhe+b7On
+        eRXEacfmwtSPr795bjzQT61+1ptIUW0it81OdE24cI/S8tCJk828uOCtrHGmql9ARZ8dH+SY2remek8S
+        qxkjrSMCOsYcuEmpGxAQfd0iLtiRbmLK9Dx0dFVVvXZ8UWBuCTr9aJ1Yiu9+HSU1rB0NdOLGQQHlejsi
+        rvkQFHbZcMMooMEgQNk+KXyUY1IH/jCy1g94Zqko4vIIUd/nUf7ADg2lqIvHkcoZ8QTbVSYmS8vNF6u7
+        7Si8zSO6ZJhsSzRWBSkNgUsF4flDJK/ThgIdj6I/eGRpbThUNuVNMMokNHHIvcUjmxarWm1Q1nM4dOUx
+        tiU+bFl/cvCpdu37yUhSWqxIa7MhnXKmyYq9Jd4EyaOMvMaCH5vpxA1WyGusiNJYEP7LLD7/eULYfmao
+        dE2MftVCktD0QXKq1oq4eiviKdJqDrsLJ8QTbKGCiMpZRF/lEKnhcLScw5EyDocp4WoLQi8aXRtje/Nf
+        lQ+tdks+TjGQiAoOxys5RFG+LpvFhzl/iguCkoaZ41UWSH6z4pjmaSIqrThRbcX7GUbXWql+/7wg2UAW
+        14WXWRDiSyCt5RBTy0NS/Q8nrvGQ0nbtKRy2bJCzslXRPSvcgk9ogsV139DUXgWbEoaZuEYrFI0CYuo8
+        yOoFJLcLCCsY5zbHs2f9vsTfp/uzVANZqHO/I6/aaItM4i3apBxkkujOSWhz4FSTA4pmB7I6nTh4ZRwB
+        8j7Va8f6n1u8VUPPsST+hqfWjbyBx6e5XgQbqUDVYUOK1kUlLqTfciCqaooLkLOql2X9Ly49B19lGcjZ
+        DheUrR5Ot9DT71WgGGTO0zOQoZtDif4JlNUz3M5kY/K6MOPz/3ZdHLzAkkzdEyRp5+ZJvenAnvxH4i1a
+        H8sy+XfsqB0iSGyewRvxhoylbVksOpzLkrxugtROD9k6J/Ze8iEovmtDWse0fXMcW7xGct/f23X9bV4/
+        KXoApOk85HY5sc+bwF/GMvuLzcI7qQMFAdKBlb5+OpF5faRuGKgwABpKeY8TBwpHxVvkL+tlXpH1XAqQ
+        6nxO7pbvTrxHMtumcf53D4n1kwhRseKC1ZLeFwIUhpd8rXzh+4rw7l1LWXn07obljv9P6v4CEfDv/Zer
+        CPcAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="tspUltimo.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tspUltimo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 42</value>
+  </data>
+  <data name="tspUltimo.Text" xml:space="preserve">
+    <value>&amp;Último</value>
+  </data>
+  <data name="tspUltimo.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="tspRetornar.AccessibleDescription" xml:space="preserve">
+    <value>Retornar</value>
+  </data>
+  <data name="tspRetornar.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tspRetornar.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt, style=Bold</value>
+  </data>
+  <data name="tspRetornar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        fD0SMx4U9G+SdU0E1Yka2gAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="tspRetornar.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tspRetornar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 42</value>
+  </data>
+  <data name="tspRetornar.Text" xml:space="preserve">
+    <value>Retorna&amp;r</value>
+  </data>
+  <data name="tspRetornar.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="tspTool.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 615</value>
+  </data>
+  <data name="tspTool.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1024, 45</value>
+  </data>
+  <data name="tspTool.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tspTool.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;tspTool.Name" xml:space="preserve">
+    <value>tspTool</value>
+  </data>
+  <data name="&gt;&gt;tspTool.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tspTool.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tspTool.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1024, 660</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 8.25pt</value>
+  </data>
+  <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 50</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Conta Contabil - Registrando</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value>Conta Contabil - Registrando</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tspSalvar.Name" xml:space="preserve">
+    <value>tspSalvar</value>
+  </data>
+  <data name="&gt;&gt;tspSalvar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tspPrimeiro.Name" xml:space="preserve">
+    <value>tspPrimeiro</value>
+  </data>
+  <data name="&gt;&gt;tspPrimeiro.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tspAnterior.Name" xml:space="preserve">
+    <value>tspAnterior</value>
+  </data>
+  <data name="&gt;&gt;tspAnterior.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tspProximo.Name" xml:space="preserve">
+    <value>tspProximo</value>
+  </data>
+  <data name="&gt;&gt;tspProximo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tspUltimo.Name" xml:space="preserve">
+    <value>tspUltimo</value>
+  </data>
+  <data name="&gt;&gt;tspUltimo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tspRetornar.Name" xml:space="preserve">
+    <value>tspRetornar</value>
+  </data>
+  <data name="&gt;&gt;tspRetornar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>frmContacontabil</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>
