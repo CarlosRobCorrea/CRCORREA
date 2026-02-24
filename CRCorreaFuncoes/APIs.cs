@@ -30,6 +30,7 @@ namespace CRCorreaFuncoes
         // campos de erro
         public String codigo { get; set; }
         public String mensagem { get; set; }
+        public String resposta_raw { get; set; }
     }
 
     public class APIs
@@ -122,10 +123,11 @@ namespace CRCorreaFuncoes
                         resposta.mensagem = "Resposta vazia da API. HTTP Status: " + httpResponse.StatusCode;
                     }
 
-                    // Se HTTP nao foi sucesso, gravar o status code
+                    resposta.resposta_raw = "HTTP " + (int)httpResponse.StatusCode + ": " + respostaString;
+
                     if (!httpResponse.IsSuccessStatusCode && String.IsNullOrEmpty(resposta.mensagem))
                     {
-                        resposta.mensagem = "HTTP " + (int)httpResponse.StatusCode + ": " + respostaString;
+                        resposta.mensagem = resposta.resposta_raw;
                     }
                 }
             }

@@ -1083,14 +1083,15 @@ namespace CRCorrea
                 FocusNFeResponse respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
 
                 if (respostaFocus.status == "erro" ||
-                    respostaFocus.status == "erro_autorizacao")
+                    respostaFocus.status == "erro_autorizacao" ||
+                    String.IsNullOrEmpty(respostaFocus.status))
                 {
-                    MessageBox.Show("Erro ao emitir NFC-e: " + respostaFocus.mensagem,
-                        "Erro NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    String msgErro = "Retorno da API Focus NFe:\n\n" + (respostaFocus.resposta_raw ?? respostaFocus.mensagem ?? "Sem resposta");
+                    MessageBox.Show(msgErro, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    String msgNfce = "NFC-e enviada com sucesso!" +
+                    String msgNfce = "NFC-e enviada!" +
                         "\nStatus: " + (respostaFocus.status ?? "") +
                         "\nStatus SEFAZ: " + (respostaFocus.status_sefaz ?? "") +
                         "\nMensagem SEFAZ: " + (respostaFocus.mensagem_sefaz ?? "");
@@ -1098,6 +1099,7 @@ namespace CRCorrea
                     if (!String.IsNullOrEmpty(respostaFocus.chave_nfe))
                         msgNfce += "\nChave: " + respostaFocus.chave_nfe;
 
+                    msgNfce += "\n\nResposta completa:\n" + (respostaFocus.resposta_raw ?? "");
                     MessageBox.Show(msgNfce, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
