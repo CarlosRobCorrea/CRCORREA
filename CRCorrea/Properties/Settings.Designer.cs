@@ -98,5 +98,23 @@ namespace CRCorrea.Properties {
                 return ((string)(this["SaidaXML"]));
             }
         }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mhE0TmoicCHB5zeLTp5x6iprdj1EDvHM")]
+        public string FocusNFeToken {
+            get {
+                return ((string)(this["FocusNFeToken"]));
+            }
+        }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://homologacao.focusnfe.com.br")]
+        public string FocusNFeUrl {
+            get {
+                return ((string)(this["FocusNFeUrl"]));
+            }
+        }
     }
 }

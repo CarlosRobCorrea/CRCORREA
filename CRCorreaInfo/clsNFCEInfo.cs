@@ -237,7 +237,7 @@ public String fcp_valor_total_retido_st { get; set; }
         public String uf_local_embarque { get; set; }
         public String local_embarque { get; set; }
         public String local_despacho { get; set; }
-        public String N/A { get; set; }
+        public String campo_reservado { get; set; }
         public String nota_empenho_compra { get; set; }
         public String pedido_compra { get; set; }
         public String contrato_compra { get; set; }

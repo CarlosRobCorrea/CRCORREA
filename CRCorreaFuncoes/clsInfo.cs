@@ -112,5 +112,7 @@ namespace CRCorreaFuncoes
         public static Int32 zusuarioid { get; set; }
         public static Int32 zvendedorid { get; set; }
         public static Int32 zzona { get; set; }
+        public static String focusnfe_token { get; set; }
+        public static String focusnfe_url { get; set; }
     }
 }

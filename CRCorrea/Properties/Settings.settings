@@ -28,5 +28,11 @@
     <Setting Name="SaidaXML" Type="System.String" Scope="Application">
       <Value Profile="(Default)">c:\CasaCorrea\XML\Saidas\</Value>
     </Setting>
+    <Setting Name="FocusNFeToken" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mhE0TmoicCHB5zeLTp5x6iprdj1EDvHM</Value>
+    </Setting>
+    <Setting Name="FocusNFeUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://homologacao.focusnfe.com.br</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

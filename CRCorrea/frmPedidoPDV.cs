@@ -1077,7 +1077,28 @@ namespace CRCorrea
                 using (StreamWriter sw = new StreamWriter(clsInfo.saidaxml + "Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
                 {
                     sw.WriteLine(strJson);
-                    //Console.WriteLine(strJson);
+                }
+
+                String referenciaNfce = "PED" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0');
+                FocusNFeResponse respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
+
+                if (respostaFocus.status == "erro" ||
+                    respostaFocus.status == "erro_autorizacao")
+                {
+                    MessageBox.Show("Erro ao emitir NFC-e: " + respostaFocus.mensagem,
+                        "Erro NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    String msgNfce = "NFC-e enviada com sucesso!" +
+                        "\nStatus: " + (respostaFocus.status ?? "") +
+                        "\nStatus SEFAZ: " + (respostaFocus.status_sefaz ?? "") +
+                        "\nMensagem SEFAZ: " + (respostaFocus.mensagem_sefaz ?? "");
+
+                    if (!String.IsNullOrEmpty(respostaFocus.chave_nfe))
+                        msgNfce += "\nChave: " + respostaFocus.chave_nfe;
+
+                    MessageBox.Show(msgNfce, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 tse.Complete();
