@@ -708,8 +708,32 @@ namespace CRCorrea
                 using (StreamWriter sw = new StreamWriter(clsInfo.saidaxml + "Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
                 {
                     sw.WriteLine(strJson);
-                    //Console.WriteLine(strJson);
                 }
+
+                String referenciaNfce = "PED" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0');
+                FocusNFeResponse respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
+
+                if (respostaFocus.status == "erro" ||
+                    respostaFocus.status == "erro_autorizacao" ||
+                    String.IsNullOrEmpty(respostaFocus.status))
+                {
+                    String msgErro = "Retorno da API Focus NFe:\n\n" + (respostaFocus.resposta_raw ?? respostaFocus.mensagem ?? "Sem resposta");
+                    MessageBox.Show(msgErro, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    String msgNfce = "NFC-e enviada!" +
+                        "\nStatus: " + (respostaFocus.status ?? "") +
+                        "\nStatus SEFAZ: " + (respostaFocus.status_sefaz ?? "") +
+                        "\nMensagem SEFAZ: " + (respostaFocus.mensagem_sefaz ?? "");
+
+                    if (!String.IsNullOrEmpty(respostaFocus.chave_nfe))
+                        msgNfce += "\nChave: " + respostaFocus.chave_nfe;
+
+                    msgNfce += "\n\nResposta completa:\n" + (respostaFocus.resposta_raw ?? "");
+                    MessageBox.Show(msgNfce, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 tse.Complete();
             }
 
