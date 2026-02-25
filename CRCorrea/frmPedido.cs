@@ -681,7 +681,7 @@ namespace CRCorrea
 
                     ListaFormaPagtos.Add(new Formas_Pagamentos
                     {
-                        forma_pagamento = "0",
+                        forma_pagamento = "01",
                         valor_pagamento = clsPedidoInfo.totalmercadoria.ToString().Replace(",", "."),
                         nome_credenciadora = null,
                         bandeira_operadora = null,
