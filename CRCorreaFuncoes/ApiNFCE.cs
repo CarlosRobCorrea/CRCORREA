@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-//using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 
 namespace CRCorreaFuncoes
@@ -33,10 +33,15 @@ namespace CRCorreaFuncoes
     {
         public String forma_pagamento { get; set; }
         public String valor_pagamento { get; set; }
-        public String nome_credenciadora { get; set; }
-        public String bandeira_operadora { get; set; }
-        public String numero_autorizacao { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public String nome_credenciadora { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public String bandeira_operadora { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public String numero_autorizacao { get; set; }
     }
 
 

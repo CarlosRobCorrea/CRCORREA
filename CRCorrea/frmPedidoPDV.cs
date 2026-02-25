@@ -1052,9 +1052,9 @@ namespace CRCorrea
                 {
                     forma_pagamento = "0",
                     valor_pagamento = clsPedidoInfo.totalmercadoria.ToString().Replace(",", "."),
-                    nome_credenciadora = "",
-                    bandeira_operadora = "",
-                    numero_autorizacao = ""
+                    nome_credenciadora = null,
+                    bandeira_operadora = null,
+                    numero_autorizacao = null
                 });
                 //}
                 var MeuRelatorio = new Relatorio
