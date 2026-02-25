@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Data;
-using static System.Net.Mime.MediaTypeNames;
 using System.Data.SqlTypes;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
