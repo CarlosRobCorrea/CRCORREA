@@ -34,6 +34,7 @@ namespace CRCorrea
         private Int32 idvendedor;
         private Int32 idformapagto;
         private Int32 idcondpagto;
+        private FocusNFeResponse ultimaRespostaFocus;
         private Int32 filial;
         private Int32 idufdestino;
 
@@ -712,6 +713,7 @@ namespace CRCorrea
 
                 String referenciaNfce = "PED" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0');
                 FocusNFeResponse respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
+                ultimaRespostaFocus = respostaFocus;
 
                 if (respostaFocus.status == "erro" ||
                     respostaFocus.status == "erro_autorizacao" ||
@@ -3059,6 +3061,57 @@ namespace CRCorrea
             frmCrystalReport.Init(clsInfo.caminhorelatorios, "PEDIDO_PDV.RPT", "", parameters, "", "", "", clsInfo.conexaosqldados, clsInfo.conexaosqldados);
             clsFormHelper.AbrirForm(this.MdiParent, frmCrystalReport, clsInfo.conexaosqldados);
 
+            if (!String.IsNullOrEmpty(clsInfo.impressora_termica))
+            {
+                DialogResult impTermica = MessageBox.Show("Imprimir na impressora termica?", Application.CompanyName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (impTermica == DialogResult.Yes)
+                {
+                    try
+                    {
+                        string nomeEmpresa = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select NOME from EMPRESA where id = " + clsInfo.zempresaid);
+                        string formaPgto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select nome from SITUACAOTIPOTITULO where id = " + idformapagto);
+                        string numPedido = id.ToString();
+                        string dataAtual = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+                        string cliente = tbxClienteC_cognome.Text;
+                        string valorTotal = tbxTotalPedido.Text;
+
+                        string codPagto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from SITUACAOTIPOTITULO where id = " + idformapagto);
+                        bool ehDinheiro = (codPagto == "DI");
+
+                        if (ehDinheiro || ultimaRespostaFocus == null || String.IsNullOrEmpty(ultimaRespostaFocus.chave_nfe))
+                        {
+                            clsImpressoraTermica.ImprimirCupomPedido(
+                                clsInfo.impressora_termica,
+                                nomeEmpresa,
+                                clsInfo.zempresa_cnpj,
+                                numPedido,
+                                dataAtual,
+                                cliente,
+                                dtPedido1,
+                                formaPgto,
+                                valorTotal);
+                        }
+                        else
+                        {
+                            clsImpressoraTermica.ImprimirDanfeNfce(
+                                clsInfo.impressora_termica,
+                                ultimaRespostaFocus,
+                                nomeEmpresa,
+                                clsInfo.zempresa_cnpj,
+                                numPedido,
+                                dataAtual,
+                                cliente,
+                                dtPedido1,
+                                formaPgto,
+                                valorTotal);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao imprimir: " + ex.Message, "Impressora", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
         }
 
         private void tbxPrecoDesconto_TextChanged(object sender, EventArgs e)

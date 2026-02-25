@@ -882,6 +882,7 @@ namespace CRCorrea
         }
         private void PedidoSalvar()
         {
+            FocusNFeResponse respostaFocus = null;
             using (TransactionScope tse = new TransactionScope())
             {
                 // ###############################
@@ -1080,7 +1081,7 @@ namespace CRCorrea
                 }
 
                 String referenciaNfce = "PED" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0');
-                FocusNFeResponse respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
+                respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
 
                 if (respostaFocus.status == "erro" ||
                     respostaFocus.status == "erro_autorizacao" ||
@@ -1110,31 +1111,53 @@ namespace CRCorrea
             resultado1 = MessageBox.Show("Deseja Imprimir Pedido ?", Application.CompanyName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (resultado1 == DialogResult.Yes)
             {
-                frmCrystalReport frmCrystalReport;
-                frmCrystalReport = new frmCrystalReport();
-                ParameterFields parameters = new ParameterFields();
-                // Cabeçalho
-                ParameterDiscreteValue valor = new ParameterDiscreteValue();
-                ParameterField field = new ParameterField();
+                try
+                {
+                    string nomeEmpresa = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select NOME from EMPRESA where id = " + clsInfo.zempresaid);
+                    string formaPgto = "Dinheiro";
+                    if (rbnPix.Checked) formaPgto = "PIX";
+                    else if (rbnCartao.Checked) formaPgto = "Cartao Debito";
+                    else if (rbnCartaoCredito.Checked) formaPgto = "Cartao Credito";
+                    else if (rbnBoleto.Checked) formaPgto = "Boleto";
+                    string numPedido = idpedido.ToString();
+                    string dataAtual = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+                    string cliente = tbxCognome.Text;
+                    string valorTotal = tbxTotalMercadoriaSoma.Text;
 
-                valor.Value = idpedido;
-                field.Name = "id";
-                field.CurrentValues.Add(valor);
-                parameters.Add(field);
+                    bool ehDinheiro = rbnDinheiro.Checked;
 
-                // Fazer um loop para ver os valores e vencimentos
-                String CondPagto = "";
-                CondPagto = "1- " + clsPedidoReceberInfo.data.ToString("dd/MM/yy") + "     R$=" + clsPedidoReceberInfo.valor.ToString("N2") + "      ";
-
-                field = new ParameterField();
-                field.Name = "condpagto";
-                valor = new ParameterDiscreteValue();
-                valor.Value = CondPagto;
-                field.CurrentValues.Add(valor);
-                parameters.Add(field);
-
-                frmCrystalReport.Init(clsInfo.caminhorelatorios, "PEDIDO_PDV.RPT", "", parameters, "", "", "", clsInfo.conexaosqldados, clsInfo.conexaosqldados);
-                clsFormHelper.AbrirForm(this.MdiParent, frmCrystalReport, clsInfo.conexaosqldados);
+                    if (ehDinheiro || respostaFocus == null || String.IsNullOrEmpty(respostaFocus.chave_nfe))
+                    {
+                        clsImpressoraTermica.ImprimirCupomPedido(
+                            clsInfo.impressora_termica,
+                            nomeEmpresa,
+                            clsInfo.zempresa_cnpj,
+                            numPedido,
+                            dataAtual,
+                            cliente,
+                            dtPedido1,
+                            formaPgto,
+                            valorTotal);
+                    }
+                    else
+                    {
+                        clsImpressoraTermica.ImprimirDanfeNfce(
+                            clsInfo.impressora_termica,
+                            respostaFocus,
+                            nomeEmpresa,
+                            clsInfo.zempresa_cnpj,
+                            numPedido,
+                            dataAtual,
+                            cliente,
+                            dtPedido1,
+                            formaPgto,
+                            valorTotal);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao imprimir: " + ex.Message, "Impressora", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 ApagarTelaPrincipal();
             }
@@ -1143,7 +1166,6 @@ namespace CRCorrea
                 ApagarTelaPrincipal();
 
             }
-            // Apagar a Tela principal
             ApagarTelaPrincipal();
     
         }

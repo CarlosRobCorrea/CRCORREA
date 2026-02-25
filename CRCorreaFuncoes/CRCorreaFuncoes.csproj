@@ -211,6 +211,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ApiNFCE.cs" />
+    <Compile Include="clsImpressoraTermica.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">

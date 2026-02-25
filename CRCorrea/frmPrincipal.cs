@@ -36,6 +36,7 @@ namespace CRCorrea
             clsInfo.saidaxml = Properties.Settings.Default.SaidaXML;
             clsInfo.focusnfe_token = Properties.Settings.Default.FocusNFeToken;
             clsInfo.focusnfe_url = Properties.Settings.Default.FocusNFeUrl;
+            clsInfo.impressora_termica = Properties.Settings.Default.ImpressoraTermica;
 
 
         }

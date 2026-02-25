@@ -116,5 +116,14 @@ namespace CRCorrea.Properties {
                 return ((string)(this["FocusNFeUrl"]));
             }
         }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ELGIN i8")]
+        public string ImpressoraTermica {
+            get {
+                return ((string)(this["ImpressoraTermica"]));
+            }
+        }
     }
 }
