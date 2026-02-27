@@ -55,6 +55,19 @@ namespace CRCorrea
         DateTime Mes11Data;
         DateTime Mes12Data;
 
+        Decimal QtdeMes01;
+        Decimal QtdeMes02;
+        Decimal QtdeMes03;
+        Decimal QtdeMes04;
+        Decimal QtdeMes05;
+        Decimal QtdeMes06;
+        Decimal QtdeMes07;
+        Decimal QtdeMes08;
+        Decimal QtdeMes09;
+        Decimal QtdeMes10;
+        Decimal QtdeMes11;
+        Decimal QtdeMes12;
+
         Decimal ValorMes01;
         Decimal ValorMes02;
         Decimal ValorMes03;
@@ -67,6 +80,8 @@ namespace CRCorrea
         Decimal ValorMes10;
         Decimal ValorMes11;
         Decimal ValorMes12;
+        Decimal QtdeAno;
+        Decimal QtdeMedia;
         Decimal TotalAno;
         Decimal MediaAno;
         String Grupo;
@@ -818,7 +833,19 @@ namespace CRCorrea
                     Mes11Nom = Mes11Data.Month.ToString().PadLeft(2, '0') + "/" + Mes11Data.Year.ToString();
                     Mes12Data = Mes11Data.AddMonths(1);
                     Mes12Nom = Mes12Data.Month.ToString().PadLeft(2, '0') + "/" + Mes12Data.Year.ToString();
-                    // Zerar os Valores
+                // Zerar os Valores
+                    QtdeMes01 = 0;
+                    QtdeMes02 = 0;
+                    QtdeMes03 = 0;
+                    QtdeMes04 = 0;
+                    QtdeMes05 = 0;
+                    QtdeMes06 = 0;
+                    QtdeMes07 = 0;
+                    QtdeMes08 = 0;
+                    QtdeMes09 = 0;
+                    QtdeMes10 = 0;
+                    QtdeMes11 = 0;
+                    QtdeMes12 = 0;
                     ValorMes01 = 0;
                     ValorMes02 = 0;
                     ValorMes03 = 0;
@@ -851,107 +878,121 @@ namespace CRCorrea
                     String PecasCodigo = "";
                     foreach (DataRow row in dtaux.Rows)
                     {
-                        if (Grupo.PadRight(3).Substring(0, 3) == "NDC")
+                    if (clsParser.Int32Parse(row["idcodigo"].ToString()) > 0)
+                    {
+                        //if (Grupo.PadRight(3).Substring(0, 3) == "NDC")
+                        //{
+                        // ver todos os grupos
+                        //    bokGrupo = true;
+                        //}
+                        //else if (Grupo.PadRight(3).Substring(0, 3) == row["grupo"].ToString())
+                        //{
+                        //    bokGrupo = true;
+                        //}
+                        //else
+                        //{
+                        //    bokGrupo = false;
+                        //}
+                        //if (bokGrupo == true)
+                        //{
+                        if (PecasCodigo == "")
                         {
-                            // ver todos os grupos
-                            bokGrupo = true;
+                            idcodigo = clsParser.Int32Parse(row["idcodigo"].ToString());
+                            PecasCodigo = row["codigo"].ToString();
                         }
-                        else if (Grupo.PadRight(3).Substring(0, 3) == row["grupo"].ToString())
+                        else if (PecasCodigo != row["codigo"].ToString())
+                        {  // Acumular , Zerar e Continuar
+                            bokGravar = true;
+                        }
+                        else if (PecasCodigo == row["codigo"].ToString())
+                        {  // Acumular 
+                            bokAcumula = true;
+                        }
+                        if (bokGravar == true)
                         {
-                            bokGrupo = true;
+                            GravarRegistro();
+                            idcodigo = clsParser.Int32Parse(row["idcodigo"].ToString());
+                            PecasCodigo = row["codigo"].ToString();
+                            bokGravar = false;
+                        }
+
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes01Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes01Data.Month)
+                        {
+                            ValorMes01 = ValorMes01 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes01 = QtdeMes01 + clsParser.DecimalParse(row["qtde"].ToString());
                         }
                         else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes02Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes02Data.Month)
                         {
-                            bokGrupo = false;
+                            ValorMes02 = ValorMes02 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes02 = QtdeMes02 + clsParser.DecimalParse(row["qtde"].ToString());
                         }
-                        if (bokGrupo == true)
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes03Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes03Data.Month)
                         {
-                            if (PecasCodigo == "")
-                            {
-                                idcodigo = clsParser.Int32Parse(row["idcodigo"].ToString());
-                                PecasCodigo = row["codigo"].ToString();
-                            }
-                            else if (PecasCodigo != row["codigo"].ToString())
-                            {  // Acumular , Zerar e Continuar
-                                bokGravar = true;
-                            }
-                            else if (PecasCodigo == row["codigo"].ToString())
-                            {  // Acumular 
-                                bokAcumula = true;
-                            }
-                            if (bokGravar == true)
-                            {
-                                GravarRegistro();
-                                idcodigo = clsParser.Int32Parse(row["idcodigo"].ToString());
-                                PecasCodigo = row["codigo"].ToString();
-                                bokGravar = false;
-
-                            }
-
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes01Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes01Data.Month)
-                            {
-                                ValorMes01 = ValorMes01 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes02Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes02Data.Month)
-                            {
-                                ValorMes02 = ValorMes02 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes03Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes03Data.Month)
-                            {
-                                ValorMes03 = ValorMes03 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes04Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes04Data.Month)
-                            {
-                                ValorMes04 = ValorMes04 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes05Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes05Data.Month)
-                            {
-                                ValorMes05 = ValorMes05 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes06Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes06Data.Month)
-                            {
-                                ValorMes06 = ValorMes06 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes07Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes07Data.Month)
-                            {
-                                ValorMes07 = ValorMes07 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes08Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes08Data.Month)
-                            {
-                                ValorMes08 = ValorMes08 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes09Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes09Data.Month)
-                            {
-                                ValorMes09 = ValorMes09 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes10Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes10Data.Month)
-                            {
-                                ValorMes10 = ValorMes10 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes11Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes11Data.Month)
-                            {
-                                ValorMes11 = ValorMes11 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
-                            else
-                            if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes12Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes12Data.Month)
-                            {
-                                ValorMes12 = ValorMes12 + clsParser.DecimalParse(row["qtde"].ToString());
-                            }
+                            ValorMes03 = ValorMes03 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes03 = QtdeMes03 + clsParser.DecimalParse(row["qtde"].ToString());
                         }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes04Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes04Data.Month)
+                        {
+                            ValorMes04 = ValorMes04 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes04 = QtdeMes04 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes05Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes05Data.Month)
+                        {
+                            ValorMes05 = ValorMes05 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes05 = QtdeMes05 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes06Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes06Data.Month)
+                        {
+                            ValorMes06 = ValorMes06 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes06 = QtdeMes06 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes07Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes07Data.Month)
+                        {
+                            ValorMes07 = ValorMes07 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes07 = QtdeMes07 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes08Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes08Data.Month)
+                        {
+                            ValorMes08 = ValorMes08 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes08 = QtdeMes08 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes09Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes09Data.Month)
+                        {
+                            ValorMes09 = ValorMes09 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes09 = QtdeMes09 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes10Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes10Data.Month)
+                        {
+                            ValorMes10 = ValorMes10 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes10 = QtdeMes10 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes11Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes11Data.Month)
+                        {
+                            ValorMes11 = ValorMes11 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes11 = QtdeMes11 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        else
+                        if (clsParser.DateTimeParse(row["data"].ToString()).Year == Mes12Data.Year && clsParser.DateTimeParse(row["data"].ToString()).Month == Mes12Data.Month)
+                        {
+                            ValorMes12 = ValorMes12 + clsParser.DecimalParse(row["totalnota"].ToString());
+                            QtdeMes12 = QtdeMes12 + clsParser.DecimalParse(row["qtde"].ToString());
+                        }
+                        //}
+                         }
                     }
                     GravarRegistro();
 
-                    cabecalho = "Qtde de Unidades Vendidas por Produto do Grupo < " + Grupo + " > no Periodo de : " + tbxDataDe.Text + " ate " + tbxDataAte.Text;
+                    cabecalho = "Qtde de Unidades Vendidas por Produto no Periodo de : " + tbxDataDe.Text + " ate " + tbxDataAte.Text;
                     // Imprimir Relatorio
                     frmCrystalReport frmCrystalReport;
                     frmCrystalReport = new frmCrystalReport();
@@ -961,7 +1002,7 @@ namespace CRCorrea
                     ParameterField field = new ParameterField();
 
                     field.Name = "EMPRESA";
-                    valor.Value = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select nome from empresas where id=" + clsInfo.zempresaid + " ");
+                    valor.Value = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select nome from empresa where id=" + clsInfo.zempresaid + " ");
                     field.CurrentValues.Add(valor);
                     parameters.Add(field);
                     // Cabeçalho
@@ -1051,10 +1092,20 @@ namespace CRCorrea
             }
             private void GravarRegistro()
             {
+                QtdeAno = QtdeMes01 + QtdeMes02 + QtdeMes03 + QtdeMes04 + QtdeMes05 + QtdeMes06 + QtdeMes07 + QtdeMes08 + QtdeMes09 + QtdeMes10 + QtdeMes11 + QtdeMes12;
+                if (QtdeAno > 0)
+                {
+                    QtdeMedia = (QtdeAno / 12);
+                }
                 TotalAno = ValorMes01 + ValorMes02 + ValorMes03 + ValorMes04 + ValorMes05 + ValorMes06 + ValorMes07 + ValorMes08 + ValorMes09 + ValorMes10 + ValorMes11 + ValorMes12;
-                MediaAno = (TotalAno / 12);
-
+                if (TotalAno > 0)
+                {
+                    MediaAno = (TotalAno / 12);
+                }
                 clsRptAcumulaAnoInfo = new clsRptAcumulaAnoInfo();
+                clsRptAcumulaAnoInfo.anomes = 0;
+                //clsRptAcumulaAnoInfo.descricao = "";
+                clsRptAcumulaAnoInfo.id = 0;
                 clsRptAcumulaAnoInfo.idcodigo = idcodigo;
                 clsRptAcumulaAnoInfo.mediaano = MediaAno;
                 clsRptAcumulaAnoInfo.mes01data = Mes01Data;
@@ -1081,7 +1132,22 @@ namespace CRCorrea
                 clsRptAcumulaAnoInfo.mes11nom = Mes11Nom;
                 clsRptAcumulaAnoInfo.mes12data = Mes12Data;
                 clsRptAcumulaAnoInfo.mes12nom = Mes12Nom;
+                clsRptAcumulaAnoInfo.qtdeano = QtdeAno;
+                clsRptAcumulaAnoInfo.qtdemedia =QtdeMedia;
+                clsRptAcumulaAnoInfo.qtdemes01 = QtdeMes01;
+                clsRptAcumulaAnoInfo.qtdemes02 = QtdeMes02;
+                clsRptAcumulaAnoInfo.qtdemes03 = QtdeMes03;
+                clsRptAcumulaAnoInfo.qtdemes04 = QtdeMes04;
+                clsRptAcumulaAnoInfo.qtdemes05 = QtdeMes05;
+                clsRptAcumulaAnoInfo.qtdemes06 = QtdeMes06;
+                clsRptAcumulaAnoInfo.qtdemes07 = QtdeMes07;
+                clsRptAcumulaAnoInfo.qtdemes08 = QtdeMes08;
+                clsRptAcumulaAnoInfo.qtdemes09 = QtdeMes09;
+                clsRptAcumulaAnoInfo.qtdemes10 = QtdeMes10;
+                clsRptAcumulaAnoInfo.qtdemes11 = QtdeMes11;
+                clsRptAcumulaAnoInfo.qtdemes12 = QtdeMes12;
                 clsRptAcumulaAnoInfo.totalano = TotalAno;
+                clsRptAcumulaAnoInfo.mediaano = MediaAno;
                 clsRptAcumulaAnoInfo.valormes01 = ValorMes01;
                 clsRptAcumulaAnoInfo.valormes02 = ValorMes02;
                 clsRptAcumulaAnoInfo.valormes03 = ValorMes03;
@@ -1097,6 +1163,19 @@ namespace CRCorrea
 
                 clsRptAcumulaAnoInfo.id = clsRptAcumulaAnoBLL.Incluir(clsRptAcumulaAnoInfo, clsInfo.conexaosqldados);
 
+                QtdeMes01 = 0;
+                QtdeMes02 = 0;
+                QtdeMes03 = 0;
+                QtdeMes04 = 0;
+                QtdeMes05 = 0;
+                QtdeMes06 = 0;
+                QtdeMes07 = 0;
+                QtdeMes08 = 0;
+                QtdeMes09 = 0;
+                QtdeMes10 = 0;
+                QtdeMes11 = 0;
+                QtdeMes12 = 0;
+
                 ValorMes01 = 0;
                 ValorMes02 = 0;
                 ValorMes03 = 0;
@@ -1109,9 +1188,12 @@ namespace CRCorrea
                 ValorMes10 = 0;
                 ValorMes11 = 0;
                 ValorMes12 = 0;
-
-            }
-            private void TrataCampos(Control ctl)
+                QtdeAno = 0;            
+                QtdeMedia = 0;
+                TotalAno = 0;
+                MediaAno = 0;
+        }
+        private void TrataCampos(Control ctl)
             {
                 if (clsInfo.zrow != null && clsInfo.znomegrid != "")
                 {

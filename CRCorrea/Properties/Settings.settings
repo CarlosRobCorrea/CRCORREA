@@ -19,11 +19,11 @@
       <Value Profile="(Default)">C:\CasaCorrea\ImagensIcones\</Value>
     </Setting>
     <Setting Name="conexaosqldados" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=SERVIDOR-PC\SQLEXPRESS;Initial Catalog=CRCDADOS;User ID=sa;Password=Apli5800;
+      <Value Profile="(Default)">Data Source=CARLOSCORREA;Initial Catalog=CRCDADOS;User ID=sa;Password=Apli5800;
 </Value>
     </Setting>
     <Setting Name="conexaosqlbanco" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=SERVIDOR-PC\SQLEXPRESS;Initial Catalog=CRCBANCO;User ID=sa;Password=Apli5800;</Value>
+      <Value Profile="(Default)">Data Source=CARLOSCORREA;Initial Catalog=CRCBANCO;User ID=sa;Password=Apli5800;</Value>
     </Setting>
     <Setting Name="SaidaXML" Type="System.String" Scope="Application">
       <Value Profile="(Default)">c:\CasaCorrea\XML\Saidas\</Value>

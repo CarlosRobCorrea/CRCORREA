@@ -72,8 +72,8 @@ namespace CRCorrea.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SERVIDOR-PC\\SQLEXPRESS;Initial Catalog=CRCDADOS;User ID=sa;Password=A" +
-            "pli5800;\r\n")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CARLOSCORREA;Initial Catalog=CRCDADOS;User ID=sa;Password=Apli5800;\r\n" +
+            "")]
         public string conexaosqldados {
             get {
                 return ((string)(this["conexaosqldados"]));
@@ -82,8 +82,7 @@ namespace CRCorrea.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SERVIDOR-PC\\SQLEXPRESS;Initial Catalog=CRCBANCO;User ID=sa;Password=A" +
-            "pli5800;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CARLOSCORREA;Initial Catalog=CRCBANCO;User ID=sa;Password=Apli5800;")]
         public string conexaosqlbanco {
             get {
                 return ((string)(this["conexaosqlbanco"]));
@@ -98,7 +97,7 @@ namespace CRCorrea.Properties {
                 return ((string)(this["SaidaXML"]));
             }
         }
-
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("mhE0TmoicCHB5zeLTp5x6iprdj1EDvHM")]
@@ -107,7 +106,7 @@ namespace CRCorrea.Properties {
                 return ((string)(this["FocusNFeToken"]));
             }
         }
-
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://homologacao.focusnfe.com.br")]
@@ -116,7 +115,7 @@ namespace CRCorrea.Properties {
                 return ((string)(this["FocusNFeUrl"]));
             }
         }
-
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ELGIN i8")]

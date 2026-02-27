@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 
 namespace CRCorrea
 {
@@ -25,6 +26,7 @@ namespace CRCorrea
         DataTable dtFechamentoCaixa;
         DataTable dtFechamentoCaixaAno;
         DataTable dtPedido;
+        DataTable dtPedido_0;
         String formapagto = "";
         Decimal ValorPix = 0;
         Decimal ValorDinheiro = 0;
@@ -490,6 +492,266 @@ namespace CRCorrea
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnRevisaCustoTodos_Click(object sender, EventArgs e)
+        {
+            // Filtrar a Data
+            Int32 Anomes = 0;
+            Int32 AnomesFinal = clsParser.Int32Parse(tbxDataFechamento.Text.Substring(6, 4) + tbxDataFechamento.Text.Substring(3, 2));
+            String DataFechamento = "01/" + tbxDataFechamento.Text.Substring(3, 2) + "/" + tbxDataFechamento.Text.Substring(6, 4);
+            dtPedido = new DataTable();
+            query = "";
+            query = "select pedido.id, pedido1.id as [idped1], pedido.numero,pedido.data, pedido1.qtde, pedido1.totalnota, pecas.id as [idcodigo], pecas.codigo, pecas.nome as produto, pecasclassifica.codigo as grupo," +
+                    "pedido1.preco, pedido1.precocusto, pedido1.totalcustoitem " +
+                    "from pedido " +
+                    "left join pedido1 on pedido1.idpedido = pedido.id " +
+                    "left join pecas on pecas.id = pedido1.idcodigo " +
+                    "left join pecasclassifica on pecasclassifica.id = pecas.idclassifica " +
+                    "WHERE " +
+                    "PEDIDO.DATA >= " + clsParser.SqlDateTimeFormat("07/08/2025" + " 00:00", true) +
+                    "AND PEDIDO.DATA < " + clsParser.SqlDateTimeFormat(DataFechamento + " 00:00", true);
+            query = query + " ORDER BY PEDIDO.id ";
+            sda = new SqlDataAdapter(query, clsInfo.conexaosqldados);
+            sda.Fill(dtPedido);
+            foreach (DataRow row in dtPedido.Rows)
+            {
+                if (clsParser.DecimalParse(row["precocusto"].ToString()) == 0 & clsParser.Int32Parse(row["idped1"].ToString()) > 0)
+                {
+                    ValorCusto = 0;
+                    // Verificar se tem o preço de custo na peça
+                    ValorCusto = clsParser.DecimalParse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select precocompra from pecas where id = " + clsParser.Int32Parse(row["idcodigo"].ToString())));
+                    if (ValorCusto == 0)
+                    {
+                        // Verificar se tem o preço de custo na classificação
+                        if (clsParser.DecimalParse(row["preco"].ToString()) > 0)
+                        {
+                            ValorCusto = clsParser.DecimalParse(((clsParser.DecimalParse(row["preco"].ToString()) * 70) / 100).ToString("N4"));
+
+                        }
+                        else if (clsParser.DecimalParse(row["totalnota"].ToString()) > 0)
+                        {
+                            Decimal precosos = clsParser.DecimalParse(row["totalnota"].ToString()) / clsParser.DecimalParse(row["qtde"].ToString());
+                            ValorCusto = ((precosos * 70) / 100);
+                        }
+
+                    }
+                    if (ValorCusto == 0)
+                    {
+                        MessageBox.Show("Anote não achou o custo do item: " + row["codigo"].ToString()+ "-" + row["produto"].ToString());
+                    }
+                    else
+                    {
+                        // Atualizar o custo do item
+                        SqlConnection scn;
+                        SqlCommand scd;
+                        scn = new SqlConnection(clsInfo.conexaosqldados);
+                        query = "update pedido1 set precocusto = @precocusto, totalcustoitem = @totalcustoitem where idpedido = @idpedido and idcodigo = @idcodigo";
+                        scd = new SqlCommand(query, scn);
+                        scd.Parameters.Add("@precocusto", SqlDbType.Decimal).Value = ValorCusto;
+                        scd.Parameters.Add("@totalcustoitem", SqlDbType.Decimal).Value = ValorCusto * clsParser.DecimalParse(row["qtde"].ToString()); ;
+                        scd.Parameters.Add("@idpedido", SqlDbType.Int).Value = clsParser.Int32Parse(row["id"].ToString());
+                        scd.Parameters.Add("@idcodigo", SqlDbType.Int).Value = clsParser.Int32Parse(row["idcodigo"].ToString());
+                        scn.Open();
+                        scd.ExecuteNonQuery();
+                        scn.Close();
+                        // Somar o total de custo no cabecalho do pedido
+                        Decimal valorcusto = clsParser.DecimalParse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados,
+                                            "select sum(totalcustoitem) from pedido1 " +
+                                            "where " +
+                                            "pedido1.idpedido= " + clsParser.Int32Parse(row["id"].ToString())));
+
+
+                        query = "update pedido set totalcusto = @totalcusto where id= @idpedido";
+                        scd = new SqlCommand(query, scn);
+                        scd.Parameters.Add("@idpedido", SqlDbType.Int).Value = clsParser.Int32Parse(row["id"].ToString());
+                        scd.Parameters.Add("@totalcusto", SqlDbType.Decimal).Value = valorcusto;
+                        scn.Open();
+                        scd.ExecuteNonQuery();
+                        scn.Close();
+                    }
+                }
+                else
+                {  // Fazer o total do pedido novamente
+                   // Somar o total de custo no cabecalho do pedido
+                    SqlConnection scn;
+                    SqlCommand scd;
+                    scn = new SqlConnection(clsInfo.conexaosqldados);
+                    Decimal valorcusto = clsParser.DecimalParse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados,
+                                        "select sum(totalcustoitem) from pedido1 " +
+                                        "where " +
+                                        "pedido1.idpedido= " + clsParser.Int32Parse(row["id"].ToString())));
+                    query = "update pedido set totalcusto = @totalcusto where id= @idpedido";
+                    scd = new SqlCommand(query, scn);
+                    scd.Parameters.Add("@idpedido", SqlDbType.Int).Value = clsParser.Int32Parse(row["id"].ToString());
+                    scd.Parameters.Add("@totalcusto", SqlDbType.Decimal).Value = valorcusto;
+                    scn.Open();
+                    scd.ExecuteNonQuery();
+                    scn.Close();
+
+                }
+            }
+
+            DateTime DataFechamentoPrevista = clsParser.DateTimeParse("01/07/2025");
+            DateTime DataFechamentoAtual = clsParser.DateTimeParse("01/02/2026");
+
+            int QtdeDiasAteHoje = (DataFechamentoAtual - DataFechamentoPrevista).Days;
+
+
+            for (int i = 0; i < QtdeDiasAteHoje; i++)
+            { // acumular no fechamento de caixa diario
+                DataFechamentoPrevista =  DataFechamentoPrevista.AddDays(1);
+
+                dtPedido_0 = new DataTable();
+                query = "";
+                query = "SELECT PEDIDO.ID,PEDIDO.NUMERO, PEDIDO.DATA, PEDIDO.QTDESALDO,PEDIDO.TOTALPEDIDO, PEDIDO.IDFORMAPAGTO, PEDIDO.TOTALCUSTO " +
+                         "FROM PEDIDO " +
+                         "WHERE " +
+                         "    PEDIDO.DATA >= " + clsParser.SqlDateTimeFormat(DataFechamentoPrevista.ToString("dd/MM/yyyy") + " 00:00", true) + " AND " +
+                        "    PEDIDO.DATA <= " + clsParser.SqlDateTimeFormat(DataFechamentoPrevista.ToString("dd/MM/yyyy") + " 23:59", true);
+
+                query = query + " ORDER BY PEDIDO.DATA DESC ";
+                sda = new SqlDataAdapter(query, clsInfo.conexaosqldados);
+                sda.Fill(dtPedido_0);
+                if (dtPedido_0.Rows.Count > 0)
+                {
+                    ValorPix = 0;
+                    ValorDinheiro = 0;
+                    ValorCartao = 0;
+                    ValorCartaoCredito = 0;
+                    ValorParcela = 0;
+                    TotalCusto = 0;
+
+                    foreach (DataRow row1 in dtPedido_0.Rows)
+                    {
+
+                        formapagto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from situacaotipotitulo where id = " + clsParser.Int32Parse(row1["idformapagto"].ToString()));
+                        switch (formapagto)
+                        {
+                            case "PI": //pIX
+                                ValorPix = ValorPix + clsParser.DecimalParse(row1["TOTALPEDIDO"].ToString());
+                                break;
+                            case "DI": //pIX
+                                ValorDinheiro = ValorDinheiro + clsParser.DecimalParse(row1["TOTALPEDIDO"].ToString());
+                                break;
+                            case "CA": //pIX
+                                ValorCartao = ValorCartao + clsParser.DecimalParse(row1["TOTALPEDIDO"].ToString());
+                                break;
+                            case "CC": //pIX
+                                ValorCartaoCredito = ValorCartaoCredito + clsParser.DecimalParse(row1["TOTALPEDIDO"].ToString());
+                                break;
+                            case "BO": //pIX
+                                ValorParcela = ValorParcela + clsParser.DecimalParse(row1["TOTALPEDIDO"].ToString());
+                                break;
+                            default:
+                                ValorParcela = ValorParcela + clsParser.DecimalParse(row1["TOTALPEDIDO"].ToString());
+                                break;
+                        }
+                        TotalCusto = TotalCusto + clsParser.DecimalParse(row1["TOTALCUSTO"].ToString());
+                    }
+                    TotalFaturado = ValorPix + ValorDinheiro + ValorCartao + ValorCartaoCredito + ValorParcela;
+                    if (TotalFaturado > 0)
+                    {
+                        // Gravar o Registro com o Fechamento
+                        if (TotalCusto > TotalFaturado)
+                        {
+                            TotalCusto = ((TotalFaturado * 70) / 100);
+                        }
+
+                        clsFechamentoCaixaInfo = new clsFechamentoCaixaInfo();
+                        clsFechamentoCaixaInfo.id = id;
+                        clsFechamentoCaixaInfo.data = DataFechamentoPrevista;
+                        clsFechamentoCaixaInfo.dinheiro = ValorDinheiro;
+                        clsFechamentoCaixaInfo.parcelado = ValorParcela;
+                        clsFechamentoCaixaInfo.pix = ValorPix;
+                        clsFechamentoCaixaInfo.totaldia = (ValorCartao + ValorCartaoCredito + ValorParcela + ValorDinheiro + ValorPix);
+                        clsFechamentoCaixaInfo.cartaodebito = ValorCartao;
+                        clsFechamentoCaixaInfo.cartaocredito = ValorCartaoCredito;
+                        clsFechamentoCaixaInfo.totalcusto = TotalCusto;
+                        clsFechamentoCaixaInfo.apurado = TotalFaturado - TotalCusto;
+
+
+                        // Verificar se já não fechou este dia
+                        DateTime DATA = clsParser.DateTimeParse(DataFechamentoPrevista.ToString());
+                        clsFechamentoCaixaInfo.id = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from FECHAMENTOCAIXA where data = " + clsParser.SqlDateTimeFormat(DATA.ToString("dd/MM/yyyy") + " 00:00", true)));
+
+                        if (clsFechamentoCaixaInfo.id == 0)
+                        {
+                            clsFechamentoCaixaInfo.id = clsFechamentoCaixaBLL.Incluir(clsFechamentoCaixaInfo, clsInfo.conexaosqldados);
+                            id = clsFechamentoCaixaInfo.id;
+                        }
+                        else
+                        {
+                            clsFechamentoCaixaBLL.Alterar(clsFechamentoCaixaInfo, clsInfo.conexaosqldados);
+                        }
+                    }
+                }
+
+            }
+            Int32 QtdeMeses = 7;
+            Int32 AnoMes = 202507;
+            for (int i = 0; i < QtdeMeses; i++)
+            { // acumular no fechamento de caixa anual
+              // Acumular os meses
+                String Anomes2 = (clsParser.Int32Parse(AnoMes.ToString().Substring(4, 2))).ToString();
+                Anomes2 = Anomes2.PadLeft(2, '0');
+                Int32 AnomesAcumula = clsParser.Int32Parse(AnoMes.ToString().Substring(0,4) + Anomes2);
+                Int32 idFechamentoAno = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from fechamentocaixaano where anomes = " + AnomesAcumula));
+                if (idFechamentoAno > 0)
+                {
+                    // Fechar o Caixa do Mes Anterior e Lançar no Fechamento Anual
+                    Decimal valoracumulado = clsParser.DecimalParse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados,
+                    "select sum(totaldia) from fechamentocaixa " +
+                    "where " +
+                    " month(data)= " + Anomes2 +
+                    " and year(data) = " + clsParser.Int32Parse(AnoMes.ToString().Substring(0, 4))));
+
+                    Decimal valorcusto = clsParser.DecimalParse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados,
+                    "select sum(totalcusto) from fechamentocaixa " +
+                    "where " +
+                    " month(data)= " + Anomes2 +
+                    " and year(data) = " + clsParser.Int32Parse(AnoMes.ToString().Substring(0, 4))));
+
+                    if (valorcusto > 0 || valoracumulado > 0)
+                    {
+                        SqlConnection scn;
+                        SqlCommand scd;
+                        scn = new SqlConnection(clsInfo.conexaosqldados);
+                        query = "update fechamentocaixaano set totalmes = @totalmes, totalcustomes = @totalcusto, apuradomes = @apuradomes where id = @idFechamentoAno";
+                        //query = "insert into fechamentocaixaano (anomes,totalmes,totalcustomes,apuradomes) values (@anomes, @totalmes, @totalcusto, @apuradomes)";
+                        scd = new SqlCommand(query, scn);
+                        scd.Parameters.Add("@idFechamentoAno", SqlDbType.Int).Value = idFechamentoAno;
+                        scd.Parameters.Add("@totalmes", SqlDbType.Decimal).Value = valoracumulado;
+                        scd.Parameters.Add("@totalcusto", SqlDbType.Decimal).Value = valorcusto;
+                        if (valorcusto != 0)
+                        { scd.Parameters.Add("@apuradomes", SqlDbType.Decimal).Value = valoracumulado - valorcusto; }
+                        else
+                        { scd.Parameters.Add("@apuradomes", SqlDbType.Decimal).Value = 0; }
+
+                        scn.Open();
+                        scd.ExecuteNonQuery();
+                        scn.Close();
+                    }
+                }
+                Int32 Mes12 = clsParser.Int32Parse(Anomes2) + 1;
+                if (Mes12 > 12)
+                {
+                    Int32 Ano = clsParser.Int32Parse(AnoMes.ToString().Substring(0, 4)) + 1;
+                    String Acumula = Ano.ToString() + "01";
+                    AnoMes = clsParser.Int32Parse(Acumula);
+                }
+                else
+                {
+                    String Acumula = AnoMes.ToString().Substring(0, 4).ToString() + Mes12.ToString().PadLeft(2, '0');
+                    AnoMes = clsParser.Int32Parse(Acumula);
+                }
+
+
+            }
+            MessageBox.Show("Revisão de custo finalizada, revise os itens que não foram encontrados o custo para atualizar manualmente", "Aplisoft", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            bwrFechamentoCaixa_Run();
+            bwrFechamentoCaixaAno_Run();
 
         }
     }
