@@ -1,6 +1,7 @@
 using CRCorreaBLL;
 using CRCorreaFuncoes;
 using CRCorreaInfo;
+using CrystalDecisions.ReportAppServer.CommonControls;
 using CrystalDecisions.Shared;
 using System;
 using System.Data;
@@ -52,18 +53,34 @@ namespace CRCorrea
         Int32 idBcoCtaCab05;
         Int32 idBcoCtaCab06;
 
+        Int32 idCreditoColocado;
+
         Decimal credito;
         Decimal debito;
         Decimal saldo;
-
         Int32 idBanco;
         Int32 dias = 0;
+        Int32 ordemfluxofinanceiro;
+
+        Int32 idFornecedor01 = 11;
+        Int32 idFornecedor02 = 3082;
+        Int32 idFornecedor03 = 19;
+        Int32 idFornecedor04 = 15;
+        Int32 idFornecedor05 = 8;
+        Int32 idFornecedor06 = 2076;
+        Int32 idFornecedor07 = 0;
+        Int32 idFornecedor08 = 0;
 
         Boolean bok;
 
         DataTable Rel = new DataTable();
         DataTable RelCopia = new DataTable();
         DataTable dtRPTFluxoFinanceiro = new DataTable();
+
+        DateTime verificadia = DateTime.Now.Date;
+        DateTime verificadata = clsParser.DateTimeParse("01/01/1900");
+        DateTime dataduplicata = clsParser.DateTimeParse("01/01/1900");
+        DateTime datahoje = DateTime.Now.Date;
 
         public frmRelReceber()
         {
@@ -87,6 +104,31 @@ namespace CRCorrea
 
             //tbxRecNorDtEmissaoDe.Text = daData.ToString("dd/MM/yyyy");
             //tbxRecNorDtEmissaoAte.Text = ateData.ToString("dd/MM/yyyy");
+
+            // Procurar os fornecedores do id
+            // Fluxo Financeiro
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor01);
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor02);
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor03);
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor04);
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor05);
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor06);
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor07);
+            clsVisual.AutoCompletar(clsInfo.conexaosqldados, "select cognome from cliente order by cognome", tbxFornecedor08);
+
+            if (idFornecedor01 > 0)
+            {
+                tbxFornecedor01.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor01 + " ");
+                tbxFornecedor02.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor02 + " ");
+                tbxFornecedor03.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor03 + " ");
+                tbxFornecedor04.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor04 + " ");
+                tbxFornecedor05.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor05 + " ");
+                tbxFornecedor06.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor06 + " ");
+                tbxFornecedor07.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor07 + " ");
+                tbxFornecedor08.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select cognome FROM cliente where id=" + idFornecedor08 + " ");
+
+
+            }
 
         }
 
@@ -1290,6 +1332,11 @@ namespace CRCorrea
             {
                 cabecalho = cabecalho + " Ctas a Pagar + Previsão Vendas Diaria de R$ " + clsParser.DecimalParse(tbxPrevisaoDiaria.Text).ToString("N2");
             }
+            else
+            if (rbnFluxoSimplesTitulo.Checked == true)
+            {
+                cabecalho = cabecalho + " Previsao Ctas a Pagar com a Previsão Vendas Diaria de R$ " + clsParser.DecimalParse(tbxPrevisaoDiaria.Text).ToString("N2");
+            }
 
             // filtrar pelo cognome
             if (tbxFluClienteDe.Text.Length > 0 && tbxFluClienteAte.Text.Length == 0)
@@ -1435,7 +1482,7 @@ namespace CRCorrea
                 cabecalho = cabecalho + Environment.NewLine + " Ordenação: Vencimento Previsto + Credito + Debito + Cliente/Fornecedor + Duplicata ";
             }
             // QUERY
-            if (rbnFluxoSimples.Checked == true)
+            if (rbnFluxoSimples.Checked == true)  // Fluxo A Pagar com a Previsão Receber em Data Corrida
             {
                 sql = "SELECT  'BPAG' AS [tabela], PAGAR.VALORDESCONTO AS CREDITO, PAGAR.VALORDESCONTO AS DEBITO, PAGAR.VALORDESCONTO AS SALDO, " +
                         "PAGAR.ID, PAGAR.FILIAL, PAGAR.DUPLICATA, PAGAR.POSICAO, PAGAR.POSICAOFIM, PAGAR.EMISSAO, PAGAR.IDDOCUMENTO,  " +
@@ -1774,6 +1821,385 @@ namespace CRCorrea
 
                 }
             }
+            else if (rbnFluxoSimplesTitulo.Checked == true)  // Prever quando o Titulo Será Pago
+            {
+                sql = "SELECT  'BPAG' AS [tabela], PAGAR.VALORDESCONTO AS CREDITO, PAGAR.VALORDESCONTO AS DEBITO, PAGAR.VALORDESCONTO AS SALDO, " +
+                        "PAGAR.ID, PAGAR.FILIAL, PAGAR.DUPLICATA, PAGAR.POSICAO, PAGAR.POSICAOFIM, PAGAR.EMISSAO, PAGAR.IDDOCUMENTO,  " +
+                        "DOCFISCAL.COGNOME AS DOCUMENTO, PAGAR.SETOR, PAGAR.IDFORNECEDOR AS [IDCLIENTE], CLIENTE.COGNOME AS CLIENTE, PAGAR.DATALANCA, PAGAR.EMITENTE,  " +
+                        "PAGAR.IDHISTORICO, HISTORICOS.CODIGO AS HISTORICO, HISTORICOS.NOME AS HISTORICONOM, PAGAR.IDCENTROCUSTO,  " +
+                        "CENTROCUSTOS.CODIGO AS CENTROCUSTO, CENTROCUSTOS.NOME AS CENTROCUSTONOM, PAGAR.IDCODIGOCTABIL,  " +
+                        "CONTACONTABIL.CODIGO AS CTACONTABIL, CONTACONTABIL.NOME AS CTACONTABILNOM, PAGAR.IDNOTAFISCAL, NFCOMPRA.NUMERO AS NOTAFISCAL, " +
+                        "PAGAR.IDPAGARNFE  AS IDNOTAPRINCIPAL, PAGAR.IDFORMAPAGTO, SITUACAOTIPOTITULO.CODIGO AS FORMAPAGTO, SITUACAOTIPOTITULO.NOME AS FORMAPAGTONOM,  " +
+                        "PAGAR.OBSERVA, PAGAR.IDBANCO, TAB_BANCOS.CODIGO AS BANCO, TAB_BANCOS.COGNOME AS BANCONOM, PAGAR.IDBANCOINT,  " +
+                        "BANCOS.CONTA, BANCOS.NOME, PAGAR.CHEGOU, PAGAR.DESPESAPUBLICA, PAGAR.BOLETO, PAGAR.BOLETONRO, PAGAR.DV,  " +
+                        "PAGAR.BAIXA, PAGAR.VENCIMENTO, PAGAR.VENCIMENTOPREV, PAGAR.VALOR, PAGAR.VALORDESCONTO, PAGAR.ATEVENCIMENTO, PAGAR.VALORLIQUIDO,  " +
+                        "PAGAR.VALORJUROS, PAGAR.VALORMULTA, PAGAR.IDSITBANCO,  SITUACAOTITULO.CODIGO AS [SITBANCOCOD],  " +
+                        "(PAGAR.VALORLIQUIDO + pagar.VALORBAIXANDO) - (PAGAR.VALORPAGO + pagar.VALORDEVOLVIDO) AS [VALORARECEBER], " +
+                        "SITUACAOTITULO.CODIGO AS SITUACAOCODIGO, SITUACAOTITULO.NOME AS SITUACAONOME, PAGAR.IMPRIMIR, PAGAR.VALORPAGO, PAGAR.VALORBAIXANDO,  " +
+                        "PAGAR.VALORDEVOLVIDO, PAGAR.IDVENDEDOR, CLIENTEVEND.COGNOME AS VENDEDOR, PAGAR.VALORCOMISSAO, PAGAR.IDSUPERVISOR,  " +
+                        "CLIENTESUP.COGNOME AS SUPERVISOR, PAGAR.VALORCOMISSAOSUP, PAGAR.IDCOORDENADOR, CLIENTECOO.COGNOME AS COORDENADOR,  " +
+                        "PAGAR.VALORCOMISSAOGER " +
+                        "FROM PAGAR LEFT OUTER JOIN " +
+                        "DOCFISCAL ON DOCFISCAL.ID = PAGAR.IDDOCUMENTO LEFT OUTER JOIN " +
+                        "CLIENTE ON CLIENTE.ID = PAGAR.IDFORNECEDOR LEFT OUTER JOIN " +
+                        "[" + clsInfo.conexaosqlbanco.Split('=').GetValue(2).ToString().Split(';').GetValue(0).ToString() + "].[dbo].HISTORICOS ON HISTORICOS.ID = PAGAR.IDHISTORICO LEFT OUTER JOIN " +
+                        "[" + clsInfo.conexaosqlbanco.Split('=').GetValue(2).ToString().Split(';').GetValue(0).ToString() + "].[dbo].CENTROCUSTOS ON CENTROCUSTOS.ID = PAGAR.IDCENTROCUSTO LEFT OUTER JOIN " +
+                        "CONTACONTABIL ON CONTACONTABIL.ID = PAGAR.IDCODIGOCTABIL LEFT OUTER JOIN " +
+                        "NFCOMPRA ON NFCOMPRA.ID = PAGAR.IDNOTAFISCAL LEFT OUTER JOIN  " +
+                        "SITUACAOTIPOTITULO ON SITUACAOTIPOTITULO.ID = PAGAR.IDFORMAPAGTO LEFT OUTER JOIN " +
+                        "TAB_BANCOS ON TAB_BANCOS.ID = PAGAR.IDBANCO LEFT OUTER JOIN " +
+                        "[" + clsInfo.conexaosqlbanco.Split('=').GetValue(2).ToString().Split(';').GetValue(0).ToString() + "].[dbo].BANCOS ON BANCOS.ID = PAGAR.IDBANCOINT LEFT OUTER JOIN " +
+                        "SITUACAOTITULO ON SITUACAOTITULO.ID = PAGAR.IDSITBANCO LEFT OUTER JOIN  " +
+                        "CLIENTE AS CLIENTEVEND ON CLIENTEVEND.ID = PAGAR.IDVENDEDOR LEFT OUTER JOIN  " +
+                        "CLIENTE AS CLIENTESUP ON CLIENTESUP.ID = PAGAR.IDSUPERVISOR LEFT OUTER JOIN " +
+                        "CLIENTE AS CLIENTECOO ON CLIENTECOO.ID = PAGAR.IDCOORDENADOR ";
+                sql = sql + " WHERE SITUACAOTITULO.CODIGO = 0 ";
+
+                Int32 idBancoInt = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqlbanco, "select ID from BANCOS where CONTA = " + 999, "0"));
+                if (rbnFlu_Todos.Checked == true)
+                {
+                    //cabecalho = cabecalho + " Com e Sem Inadimplentes ";
+                }
+                else if (rbnFlu_Inadimplentes.Checked == true)
+                {
+                    sql = sql + " AND IDBANCOINT = " + idBancoInt;
+                }
+                else
+                {
+                    sql = sql + " AND IDBANCOINT != " + idBancoInt;
+                }
+
+                if (rbnFilial.Checked == true)
+                {
+                    sql = sql + " AND PAGAR.FILIAL=" + clsInfo.zfilial;
+                }
+
+                if (query.Length > 1)
+                {
+                    sql = sql + " AND " + query + " ";
+                }
+                if (rbnFluDtPrevisao.Checked == true)
+                { // data de previsao
+                    //sql = sql + " ORDER BY VENCIMENTOPREV ";
+                    sql = sql + " ORDER BY VENCIMENTO ";
+                }
+                else
+                {
+                    sql = sql + " ORDER BY VENCIMENTO ";
+                }
+
+                SqlDataAdapter sda = new SqlDataAdapter(sql, clsInfo.conexaosqldados);
+                Rel = new DataTable();
+                sda.Fill(Rel);
+
+                // Gravar na Base de Dados para poder manipular melhor
+                // Apagar o Arquivo RPT
+                SqlConnection scn;
+                SqlCommand scd;
+                SqlDataReader sdr;
+                scn = new SqlConnection(clsInfo.conexaosqldados);
+                scd = new SqlCommand("delete rptfluxofinanceiro ", scn);
+                scn.Open();
+                sdr = scd.ExecuteReader();
+                scn.Close();
+
+                foreach (DataRow row in Rel.Rows)
+                {
+                    clsRptFluxoFinanceiroInfo = new clsRptFluxoFinanceiroInfo();
+                    clsRptFluxoFinanceiroInfo.ATEVENCIMENTO = row["atevencimento"].ToString();
+                    clsRptFluxoFinanceiroInfo.BAIXA = row["BAIXA"].ToString();
+                    clsRptFluxoFinanceiroInfo.BANCO = row["BANCO"].ToString();
+                    clsRptFluxoFinanceiroInfo.BANCONOM = row["BANCONOM"].ToString();
+                    clsRptFluxoFinanceiroInfo.BOLETO = row["BOLETO"].ToString();
+                    clsRptFluxoFinanceiroInfo.BOLETONRO = clsParser.Int32Parse(row["BOLETONRO"].ToString());
+                    clsRptFluxoFinanceiroInfo.CENTROCUSTO = row["CENTROCUSTO"].ToString();
+                    clsRptFluxoFinanceiroInfo.CENTROCUSTONOM = row["CENTROCUSTONOM"].ToString();
+                    clsRptFluxoFinanceiroInfo.CHEGOU = row["CHEGOU"].ToString();
+                    clsRptFluxoFinanceiroInfo.CLIENTE = row["CLIENTE"].ToString();
+                    clsRptFluxoFinanceiroInfo.CONTA = row["CONTA"].ToString();
+                    clsRptFluxoFinanceiroInfo.COORDENADOR = row["COORDENADOR"].ToString();
+                    clsRptFluxoFinanceiroInfo.CREDITO = clsParser.DecimalParse(row["CREDITO"].ToString());
+                    clsRptFluxoFinanceiroInfo.CTACONTABIL = row["CTACONTABIL"].ToString();
+                    clsRptFluxoFinanceiroInfo.CENTROCUSTO = row["CENTROCUSTO"].ToString();
+                    clsRptFluxoFinanceiroInfo.CENTROCUSTONOM = row["CENTROCUSTONOM"].ToString();
+                    clsRptFluxoFinanceiroInfo.CHEGOU = row["CHEGOU"].ToString();
+                    clsRptFluxoFinanceiroInfo.CLIENTE = row["CLIENTE"].ToString();
+                    clsRptFluxoFinanceiroInfo.CONTA = row["CONTA"].ToString();
+                    clsRptFluxoFinanceiroInfo.COORDENADOR = row["COORDENADOR"].ToString();
+                    clsRptFluxoFinanceiroInfo.CREDITO = clsParser.DecimalParse(row["CREDITO"].ToString());
+                    clsRptFluxoFinanceiroInfo.CTACONTABIL = row["CTACONTABIL"].ToString();
+                    clsRptFluxoFinanceiroInfo.CTACONTABILNOM = row["CTACONTABILNOM"].ToString();
+                    clsRptFluxoFinanceiroInfo.DATALANCA = clsParser.DateTimeParse(row["DATALANCA"].ToString());
+                    if (row["TABELA"].ToString() == "BPAG")
+                    {
+                        clsRptFluxoFinanceiroInfo.DEBITO = clsParser.DecimalParse(row["VALOR"].ToString());
+                    }
+                    clsRptFluxoFinanceiroInfo.DESPESAPUBLICA = row["DESPESAPUBLICA"].ToString();
+                    clsRptFluxoFinanceiroInfo.DOCUMENTO = row["DOCUMENTO"].ToString();
+                    clsRptFluxoFinanceiroInfo.DUPLICATA = clsParser.Int32Parse(row["DUPLICATA"].ToString());
+                    clsRptFluxoFinanceiroInfo.DV = clsParser.Int32Parse(row["DV"].ToString());
+                    clsRptFluxoFinanceiroInfo.EMISSAO = clsParser.DateTimeParse(row["EMISSAO"].ToString());
+                    clsRptFluxoFinanceiroInfo.EMITENTE = row["EMITENTE"].ToString();
+                    clsRptFluxoFinanceiroInfo.FILIAL = clsParser.Int32Parse(row["FILIAL"].ToString());
+                    clsRptFluxoFinanceiroInfo.FORMAPAGTO = row["FORMAPAGTO"].ToString();
+                    clsRptFluxoFinanceiroInfo.FORMAPAGTONOM = row["FORMAPAGTONOM"].ToString();
+                    clsRptFluxoFinanceiroInfo.HISTORICO = row["HISTORICO"].ToString();
+                    clsRptFluxoFinanceiroInfo.HISTORICONOM = row["HISTORICONOM"].ToString();
+                    clsRptFluxoFinanceiroInfo.ID = clsParser.Int32Parse(row["ID"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDBANCO = clsParser.Int32Parse(row["IDBANCO"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDBANCOINT = clsParser.Int32Parse(row["IDBANCOINT"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDCENTROCUSTO = clsParser.Int32Parse(row["IDCENTROCUSTO"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDCLIENTE = clsParser.Int32Parse(row["IDCLIENTE"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDCODIGOCTABIL = clsParser.Int32Parse(row["IDCODIGOCTABIL"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDCOORDENADOR = clsParser.Int32Parse(row["IDCOORDENADOR"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDDOCUMENTO = clsParser.Int32Parse(row["IDDOCUMENTO"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDFORMAPAGTO = clsParser.Int32Parse(row["IDFORMAPAGTO"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDHISTORICO = clsParser.Int32Parse(row["IDHISTORICO"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDNOTAFISCAL = clsParser.Int32Parse(row["IDNOTAFISCAL"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDNOTAPRINCIPAL = clsParser.Int32Parse(row["IDNOTAPRINCIPAL"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDSITBANCO = clsParser.Int32Parse(row["IDSITBANCO"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDSUPERVISOR = clsParser.Int32Parse(row["IDSUPERVISOR"].ToString());
+                    clsRptFluxoFinanceiroInfo.IDVENDEDOR = clsParser.Int32Parse(row["IDVENDEDOR"].ToString());
+                    clsRptFluxoFinanceiroInfo.IMPRIMIR = row["IMPRIMIR"].ToString();
+                    clsRptFluxoFinanceiroInfo.NOME = row["NOME"].ToString();
+                    clsRptFluxoFinanceiroInfo.NOTAFISCAL = row["NOTAFISCAL"].ToString();
+                    clsRptFluxoFinanceiroInfo.OBSERVA = row["OBSERVA"].ToString();
+                    clsRptFluxoFinanceiroInfo.POSICAO = clsParser.Int32Parse(row["POSICAO"].ToString());
+                    clsRptFluxoFinanceiroInfo.POSICAOFIM = clsParser.Int32Parse(row["POSICAOFIM"].ToString());
+                    clsRptFluxoFinanceiroInfo.SALDO = clsParser.DecimalParse(row["SALDO"].ToString());
+                    clsRptFluxoFinanceiroInfo.SETOR = row["SETOR"].ToString();
+                    clsRptFluxoFinanceiroInfo.SITBANCOCOD = row["SITBANCOCOD"].ToString();
+                    clsRptFluxoFinanceiroInfo.SITUACAOCODIGO = row["SITUACAOCODIGO"].ToString();
+                    clsRptFluxoFinanceiroInfo.SITUACAONOME = row["SITUACAONOME"].ToString();
+                    clsRptFluxoFinanceiroInfo.SUPERVISOR = row["SUPERVISOR"].ToString();
+                    clsRptFluxoFinanceiroInfo.TABELA = row["TABELA"].ToString();
+                    clsRptFluxoFinanceiroInfo.VALOR = clsParser.DecimalParse(row["VALOR"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORARECEBER = clsParser.DecimalParse(row["VALORARECEBER"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORBAIXANDO = clsParser.DecimalParse(row["VALORBAIXANDO"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORCOMISSAO = clsParser.DecimalParse(row["VALORCOMISSAO"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORCOMISSAOGER = clsParser.DecimalParse(row["VALORCOMISSAOGER"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORCOMISSAOSUP = clsParser.DecimalParse(row["VALORCOMISSAOSUP"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORDESCONTO = clsParser.DecimalParse(row["VALORDESCONTO"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORDEVOLVIDO = clsParser.DecimalParse(row["VALORDEVOLVIDO"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORJUROS = clsParser.DecimalParse(row["VALORJUROS"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORLIQUIDO = clsParser.DecimalParse(row["VALORLIQUIDO"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORMULTA = clsParser.DecimalParse(row["VALORMULTA"].ToString());
+                    clsRptFluxoFinanceiroInfo.VALORPAGO = clsParser.DecimalParse(row["VALORPAGO"].ToString());
+                    clsRptFluxoFinanceiroInfo.VENCIMENTO = clsParser.DateTimeParse(row["VENCIMENTOPREV"].ToString());
+                    clsRptFluxoFinanceiroInfo.VENCIMENTOPREV = clsParser.DateTimeParse(row["VENCIMENTOPREV"].ToString());
+                    clsRptFluxoFinanceiroInfo.VENDEDOR = row["VENDEDOR"].ToString();
+                    clsRptFluxoFinanceiroInfo.ID = clsRptFluxoFinanceiroBLL.Incluir(clsRptFluxoFinanceiroInfo, clsInfo.conexaosqldados);
+                }
+                sql = "Select * from RPTFLUXOFINANCEIRO ORDER BY VENCIMENTO, TABELA, ID";
+                sda = new SqlDataAdapter(sql, clsInfo.conexaosqldados);
+                dtRPTFluxoFinanceiro = new DataTable();
+                sda.Fill(dtRPTFluxoFinanceiro);
+
+                verificadia = DateTime.Now.Date; 
+                verificadata = clsParser.DateTimeParse("01/01/1900");
+                dataduplicata = clsParser.DateTimeParse("01/01/1900");
+                datahoje = DateTime.Now.Date;
+
+                verificadia = DateTime.Now.Date;
+                dataduplicata = clsParser.DateTimeParse("01/01/1900");
+                verificadata = clsParser.DateTimeParse("01/01/1900");
+                // Colocar a taxa de previsao
+                foreach (DataRow row in dtRPTFluxoFinanceiro.Rows)
+                {
+
+                    if (row["TABELA"].ToString().Trim() == "BPAG")
+                    { // Apenas se for a pagar
+                        if (verificadata != clsParser.DateTimeParse(row["VENCIMENTO"].ToString()))
+                        {  /// 01/01/1900 != 
+                            verificadata = clsParser.DateTimeParse(row["VENCIMENTO"].ToString());
+                            verificadia = verificadia.AddDays(1); // Data que vai gravar
+                            if (verificadia.DayOfWeek == DayOfWeek.Sunday)
+                            { // Colocar a Data de Hoje se não for sabado ou domingo
+                                verificadia = verificadia.AddDays(1);
+                            }
+                            clsRptFluxoFinanceiroInfo = clsRptFluxoFinanceiroBLL.Carregar(clsParser.Int32Parse(row["ID"].ToString()), clsInfo.conexaosqldados);
+                            //clsRptFluxoFinanceiroInfo.CREDITO = clsParser.DecimalParse(tbxPrevisaoDiaria.Text);
+                            clsRptFluxoFinanceiroInfo.VENCIMENTO = verificadia;
+                            clsRptFluxoFinanceiroBLL.Alterar(clsRptFluxoFinanceiroInfo, clsInfo.conexaosqldados);
+                            //verificadia = clsParser.DateTimeParse(row["VENCIMENTOPREV"].ToString());
+
+                        }
+                        else
+                        {
+                            clsRptFluxoFinanceiroInfo = clsRptFluxoFinanceiroBLL.Carregar(clsParser.Int32Parse(row["ID"].ToString()), clsInfo.conexaosqldados);
+                            //clsRptFluxoFinanceiroInfo.CREDITO = clsParser.DecimalParse(tbxPrevisaoDiaria.Text);
+                            clsRptFluxoFinanceiroInfo.VENCIMENTO = verificadia;
+                            clsRptFluxoFinanceiroBLL.Alterar(clsRptFluxoFinanceiroInfo, clsInfo.conexaosqldados);
+                        }
+                    }
+                }
+                // Gravar os Debitos nas Datas
+                // Incluir Valor Previsto em cada dia
+                // Calcular
+
+                sql = "Select * from RPTFLUXOFINANCEIRO ORDER BY VENCIMENTO, TABELA, ID";
+                sda = new SqlDataAdapter(sql, clsInfo.conexaosqldados);
+                dtRPTFluxoFinanceiro = new DataTable();
+                sda.Fill(dtRPTFluxoFinanceiro);
+
+                saldo = 0;
+                String Creditar = "N";
+                dataduplicata = clsParser.DateTimeParse("01/01/1900");
+                foreach (DataRow row in dtRPTFluxoFinanceiro.Rows)
+                {   // 
+                    if (clsParser.DateTimeParse(row["VENCIMENTO"].ToString()) == clsParser.DateTimeParse("18/03/2026"))
+                    {
+                        //MessageBox.Show("pare");
+                    }
+
+                    if (dataduplicata == clsParser.DateTimeParse("01/01/1900"))
+                    {  // fazer o primeiro credito
+
+                        verificadata = clsParser.DateTimeParse(row["VENCIMENTO"].ToString());
+                        dataduplicata = verificadata; // usada apenas para verificar a primeira entrada
+                        verificadia = verificadata;
+                        IncluirCredito(clsParser.DecimalParse(row["DEBITO"].ToString()));
+                        //credito = clsParser.DecimalParse(tbxPrevisaoDiaria.Text);
+                        Creditar = "N";
+                    }
+                    else if (verificadata != clsParser.DateTimeParse(row["VENCIMENTO"].ToString()))
+                    {
+                        TimeSpan diferencadias = clsParser.DateTimeParse(row["VENCIMENTO"].ToString())- verificadata;
+                        if (diferencadias.Days == 1)
+                        {
+                            /// colocar este debito na data anterior
+                            if (saldo >= clsParser.DecimalParse(row["DEBITO"].ToString()))
+                            { // SE O SALDO FOR MAIOR OU IGUAL
+                              // Retroceder 1 dia neste registro
+                              // manter o verificadata 
+                            }
+                            else
+                            {
+                                verificadia = verificadia.AddDays(1);
+                                verificadata = verificadata.AddDays(1);
+                                if (verificadia.DayOfWeek == DayOfWeek.Sunday)
+                                {
+                                    verificadia = verificadia.AddDays(1);
+                                    verificadata = verificadata.AddDays(1);
+                                }
+                                Creditar = "S";
+                            }
+                        }
+                        else if (diferencadias.Days == 2)
+                        {
+                            /// colocar este debito na data anterior
+                            if (saldo >= clsParser.DecimalParse(row["DEBITO"].ToString()))
+                            { // SE O SALDO FOR MAIOR OU IGUAL
+                              // Retroceder deixar a data como esta
+                              // manter o verificadata 
+
+                            }
+                            else
+                            {
+                                verificadia = verificadia.AddDays(1);
+                                verificadata = verificadata.AddDays(1);
+                                if (verificadia.DayOfWeek == DayOfWeek.Sunday)
+                                {
+                                    verificadia = verificadia.AddDays(1);
+                                    verificadata = verificadata.AddDays(1);
+                                }
+                                Creditar = "S";
+                            }
+                        }
+                        else if (diferencadias.Days >= 3)
+                        {
+                            /// colocar este debito na data anterior
+                            if (saldo >= clsParser.DecimalParse(row["DEBITO"].ToString()))
+                            { // SE O SALDO FOR MAIOR OU IGUAL
+                              // Retroceder 1 dia neste registro
+                              // manter o verificadata 
+
+                            }
+                            else
+                            {
+                                verificadia = verificadia.AddDays(1);
+                                verificadata = verificadata.AddDays(1);
+                                if (verificadia.DayOfWeek == DayOfWeek.Sunday)
+                                {
+                                    verificadia = verificadia.AddDays(1);
+                                    verificadata = verificadata.AddDays(1);
+                                }
+                                Creditar = "S";
+                            }
+
+                        }
+                        else if (diferencadias.Days < 0)
+                        { // pode ser negativo a qtde de dias
+                            /// colocar este debito na data anterior
+                            if (saldo >= clsParser.DecimalParse(row["DEBITO"].ToString()))
+                            { // SE O SALDO FOR MAIOR OU IGUAL
+                              // Retroceder 1 dia neste registro
+                              // manter o verificadata 
+
+                            }
+                            else
+                            {
+                                verificadia = verificadia.AddDays(1);
+                                verificadata = verificadata.AddDays(1);
+                                if (verificadia.DayOfWeek == DayOfWeek.Sunday)
+                                {
+                                    verificadia = verificadia.AddDays(1);
+                                    verificadata = verificadata.AddDays(1);
+                                }
+                                Creditar = "S";
+                            }
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        if (saldo >= clsParser.DecimalParse(row["DEBITO"].ToString()))
+                        { // SE O SALDO FOR MAIOR OU IGUAL
+                          // Retroceder deixar a data como esta
+                          // manter o verificadata 
+
+                        }
+                        else
+                        {
+                            verificadia = verificadia.AddDays(1);
+                            verificadata = verificadata.AddDays(1);
+                            if (verificadia.DayOfWeek == DayOfWeek.Sunday)
+                            {
+                                verificadia = verificadia.AddDays(1);
+                                verificadata = verificadata.AddDays(1);
+                            }
+                            Creditar = "S";
+                        }
+
+                    }
+                    if (Creditar == "S")
+                    {   // COLOCAR O VALOR DA PREVISÃO DE FATURAMENTO
+                        IncluirCredito(clsParser.DecimalParse(row["DEBITO"].ToString()));
+                        //credito = clsParser.DecimalParse(tbxPrevisaoDiaria.Text);
+                    }
+//                    credito = clsParser.DecimalParse(row["CREDITO"].ToString());
+                    debito = clsParser.DecimalParse(row["DEBITO"].ToString());
+                    saldo = ((saldo + credito) - debito);
+                    ordemfluxofinanceiro = ordemfluxofinanceiro + 1;
+                    if (ordemfluxofinanceiro == 55)
+                    {
+                        MessageBox.Show("Pare");
+                    }
+
+                    clsRptFluxoFinanceiroInfo = clsRptFluxoFinanceiroBLL.Carregar(clsParser.Int32Parse(row["ID"].ToString()), clsInfo.conexaosqldados);
+                    //clsRptFluxoFinanceiroInfo.CREDITO = credito;
+                    clsRptFluxoFinanceiroInfo.IDHISTORICO = ordemfluxofinanceiro;
+                    clsRptFluxoFinanceiroInfo.VENCIMENTO = verificadia;
+                    clsRptFluxoFinanceiroInfo.SALDO = saldo;
+                    clsRptFluxoFinanceiroBLL.Alterar(clsRptFluxoFinanceiroInfo, clsInfo.conexaosqldados);
+                    debito = 0;
+                    credito = 0;
+                    Creditar = "N";
+                }
+            }
+
             else
             {
                 sql = "SELECT  'AREC' AS Tabela,  RECEBER.VALORDESCONTO AS CREDITO, RECEBER.VALORDESCONTO AS DEBITO, RECEBER.VALORDESCONTO AS SALDO, " +
@@ -2342,8 +2768,20 @@ namespace CRCorrea
                     {
                         //colocar modelo novo
                         //MessageBox.Show("Acertar Relatorio - DADOS_FLUXOFINANCEIROPREV_ANA_DIA.RPT");
-                        frmCrystalReport.Init(clsInfo.caminhorelatorios, "FLUXOFINANCEIROPREV_DIA.RPT", "", parameters, "", "", "", clsInfo.conexaosqldados, clsInfo.conexaosqldados);
-                        clsFormHelper.AbrirForm(this.MdiParent, frmCrystalReport, clsInfo.conexaosqldados);
+                        if (rbnFluxoSimples.Checked == true)
+                        {
+                            frmCrystalReport.Init(clsInfo.caminhorelatorios, "FLUXOFINANCEIROPREV_DIA.RPT", "", parameters, "", "", "", clsInfo.conexaosqldados, clsInfo.conexaosqldados);
+                            clsFormHelper.AbrirForm(this.MdiParent, frmCrystalReport, clsInfo.conexaosqldados);
+                        }
+                        else if(rbnFluxoSimplesTitulo.Checked == true)
+                        {
+                            frmCrystalReport.Init(clsInfo.caminhorelatorios, "FLUXOFINANCEIROPREV_DIATITULO.RPT", "", parameters, "", "", "", clsInfo.conexaosqldados, clsInfo.conexaosqldados);
+                            clsFormHelper.AbrirForm(this.MdiParent, frmCrystalReport, clsInfo.conexaosqldados);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ver novo relatorio");
+                        }
                     }
                     else if (rbnFluSemanal.Checked == true)
                     {
@@ -2795,6 +3233,7 @@ namespace CRCorrea
 
         private void rbnFluxoAplibank_Click(object sender, EventArgs e)
         {
+            gbxFornecedores.Visible = false;
             if (clsInfo.zempresacliente_cognome.ToUpper().IndexOf("ACASACORREA") != -1)
             {
                 tbxFluBcoCtaNao01.Text = "900";
@@ -2966,8 +3405,8 @@ namespace CRCorrea
                     {
                         idFormapagtoAte = clsInfo.zformapagto;
                     }
-                    tbxFormaPagtoAte.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT CODIGO FROM SITUACAOTIPOTITULO where id=" + idFormapagtoAte,"");
-                    tbxFormaPagtoAte.Text += " = " + Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT NOME FROM SITUACAOTIPOTITULO where id=" + idFormapagtoAte,"");
+                    tbxFormaPagtoAte.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT CODIGO FROM SITUACAOTIPOTITULO where id=" + idFormapagtoAte, "");
+                    tbxFormaPagtoAte.Text += " = " + Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT NOME FROM SITUACAOTIPOTITULO where id=" + idFormapagtoAte, "");
                 }
                 if (clsInfo.znomegrid == btnNorVendedor.Name)
                 {
@@ -2982,7 +3421,7 @@ namespace CRCorrea
                     tbxRecNorVendedor.Select();
                 }
 
-                
+
 
                 //fim buscas para o Aba Ctas Receber Normal
 
@@ -3033,6 +3472,154 @@ namespace CRCorrea
                     }
                     tbxFluClienteAte.Select();
                 }
+                if (clsInfo.znomegrid == btnFornecedor01.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor01 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor01.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor01, "").ToString();
+                    }
+                    tbxFornecedor01.Select();
+                }
+                else if (clsInfo.znomegrid == btnFornecedor02.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor02 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor02.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor02, "").ToString();
+                    }
+                    tbxFornecedor02.Select();
+                }
+                if (clsInfo.znomegrid == btnFornecedor03.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor03 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor03.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor03, "").ToString();
+                    }
+                    tbxFornecedor03.Select();
+                }
+                if (clsInfo.znomegrid == btnFornecedor04.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor04 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor04.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor04, "").ToString();
+                    }
+                    tbxFornecedor04.Select();
+                }
+                if (clsInfo.znomegrid == btnFornecedor05.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor05 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor05.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor05, "").ToString();
+                    }
+                    tbxFornecedor05.Select();
+                }
+                if (clsInfo.znomegrid == btnFornecedor06.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor06 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor06.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor06, "").ToString();
+                    }
+                    tbxFornecedor06.Select();
+                }
+                if (clsInfo.znomegrid == btnFornecedor07.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor07 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor07.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor07, "").ToString();
+                    }
+                    tbxFornecedor07.Select();
+                }
+                if (clsInfo.znomegrid == btnFornecedor08.Name)
+                {
+                    if (clsInfo.zrow != null)
+                    {
+                        idFornecedor08 = clsParser.Int32Parse(clsInfo.zrow.Cells["ID"].Value.ToString());
+                        tbxFornecedor08.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select COGNOME from CLIENTE where ID = " + idFornecedor08, "").ToString();
+                    }
+                    tbxFornecedor08.Select();
+                }
+            }
+            else
+            { 
+                if (ctl.Name == tbxFornecedor01.Name)
+                {
+                idFornecedor01 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor01.Text + "' "));
+                if (idFornecedor01 == 0)
+                {
+                    idFornecedor01 = 0;
+                }
+                tbxFornecedor01.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor01);
+            }
+                else if (ctl.Name == tbxFornecedor02.Name)
+                {
+                    idFornecedor02 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor02.Text + "' "));
+                    if (idFornecedor02 == 0)
+                    {
+                        idFornecedor02 = 0;
+                    }
+                    tbxFornecedor02.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor02);
+                }
+                else if (ctl.Name == tbxFornecedor03.Name)
+                {
+                    idFornecedor03 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor03.Text + "' "));
+                    if (idFornecedor03 == 0)
+                    {
+                        idFornecedor03 = 0;
+                    }
+                    tbxFornecedor03.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor03);
+                }
+                else if (ctl.Name == tbxFornecedor04.Name)
+                {
+                    idFornecedor04 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor04.Text + "' "));
+                    if (idFornecedor04 == 0)
+                    {
+                        idFornecedor04 = 0;
+                    }
+                    tbxFornecedor04.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor04);
+                }
+                else if (ctl.Name == tbxFornecedor05.Name)
+                {
+                    idFornecedor05 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor05.Text + "' "));
+                    if (idFornecedor05 == 0)
+                    {
+                        idFornecedor05 = 0;
+                    }
+                    tbxFornecedor05.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor05);
+                }
+                else if (ctl.Name == tbxFornecedor06.Name)
+                {
+                    idFornecedor06 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor06.Text + "' "));
+                    if (idFornecedor06 == 0)
+                    {
+                        idFornecedor06 = 0;
+                    }
+                    tbxFornecedor06.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor06);
+                }
+                else if (ctl.Name == tbxFornecedor07.Name)
+                {
+                    idFornecedor07 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor07.Text + "' "));
+                    if (idFornecedor07 == 0)
+                    {
+                        idFornecedor07 = 0;
+                    }
+                    tbxFornecedor07.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor07);
+                }
+                else if (ctl.Name == tbxFornecedor08.Name)
+                {
+                    idFornecedor08 = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT ID FROM CLIENTE where COGNOME='" + tbxFornecedor08.Text + "' "));
+                    if (idFornecedor08 == 0)
+                    {
+                        idFornecedor08 = 0;
+                    }
+                    tbxFornecedor08.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "SELECT COGNOME FROM CLIENTE where id=" + idFornecedor08);
+                }
+
                 tbxFluBcoCtaNao01.Text = clsParser.Int32Parse(tbxFluBcoCtaNao01.Text).ToString();
                 tbxFluBcoCtaNao02.Text = clsParser.Int32Parse(tbxFluBcoCtaNao02.Text).ToString();
                 tbxFluBcoCtaNao03.Text = clsParser.Int32Parse(tbxFluBcoCtaNao03.Text).ToString();
@@ -3337,9 +3924,6 @@ namespace CRCorrea
                     tbxFluBcoCtaCab06.Text = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqlbanco, "select CONTA from BANCOS where ID=" + idBcoCtaCab06 + "");
                 }
                 //fim buscas para o Aba Fluxo Financeiro
-            }
-            else
-            {
                 // ###############################
                 // Verifica os campos de pesquisa
                 // ###############################
@@ -3549,7 +4133,189 @@ namespace CRCorrea
 
         private void rbnFluxoSimples_Click(object sender, EventArgs e)
         {
+            gbxFornecedores.Visible = false;
+        }
 
+        private void IncluirCredito(Decimal ValorDuplicata)
+        {
+            //Decimal AcertoLancamento = saldo + ValorDuplicata;
+            //Decimal Acumulado = 0;
+            while (ValorDuplicata > saldo)
+            { 
+                clsRptFluxoFinanceiroInfo = new clsRptFluxoFinanceiroInfo();
+                clsRptFluxoFinanceiroInfo.ATEVENCIMENTO = "N";
+                clsRptFluxoFinanceiroInfo.BAIXA = "";
+                clsRptFluxoFinanceiroInfo.BANCO = "";
+                clsRptFluxoFinanceiroInfo.BANCONOM = "";
+                clsRptFluxoFinanceiroInfo.BOLETO = "";
+                clsRptFluxoFinanceiroInfo.BOLETONRO = 0;
+                clsRptFluxoFinanceiroInfo.CENTROCUSTO = "";
+                clsRptFluxoFinanceiroInfo.CENTROCUSTONOM = "";
+                clsRptFluxoFinanceiroInfo.CHEGOU = "";
+                clsRptFluxoFinanceiroInfo.CLIENTE = clsInfo.zempresacliente_cognome;
+                clsRptFluxoFinanceiroInfo.CONTA = "";
+                clsRptFluxoFinanceiroInfo.COORDENADOR = "";
+                clsRptFluxoFinanceiroInfo.CREDITO = clsParser.DecimalParse(tbxPrevisaoDiaria.Text);
+                clsRptFluxoFinanceiroInfo.CTACONTABIL = "";
+                clsRptFluxoFinanceiroInfo.CTACONTABILNOM = "";
+                clsRptFluxoFinanceiroInfo.DATALANCA = DateTime.Now;
+                clsRptFluxoFinanceiroInfo.DEBITO = 0;
+                clsRptFluxoFinanceiroInfo.DESPESAPUBLICA = "N";
+                clsRptFluxoFinanceiroInfo.DOCUMENTO = "PED";
+                clsRptFluxoFinanceiroInfo.DUPLICATA = 0;
+                clsRptFluxoFinanceiroInfo.DV = 0;
+                clsRptFluxoFinanceiroInfo.EMISSAO = DateTime.Now;
+                clsRptFluxoFinanceiroInfo.EMITENTE = clsInfo.zusuario;
+                clsRptFluxoFinanceiroInfo.FILIAL = 1;
+                clsRptFluxoFinanceiroInfo.FORMAPAGTO = "";
+                clsRptFluxoFinanceiroInfo.FORMAPAGTONOM = "";
+                clsRptFluxoFinanceiroInfo.HISTORICO = "";
+                clsRptFluxoFinanceiroInfo.HISTORICONOM = "";
+                clsRptFluxoFinanceiroInfo.ID = 0;
+                clsRptFluxoFinanceiroInfo.IDBANCO = 0;
+                clsRptFluxoFinanceiroInfo.IDBANCOINT = 0;
+                clsRptFluxoFinanceiroInfo.IDCENTROCUSTO = 0;
+                clsRptFluxoFinanceiroInfo.IDCLIENTE = clsInfo.zempresaclienteid;
+                clsRptFluxoFinanceiroInfo.IDCODIGOCTABIL = 0;
+                clsRptFluxoFinanceiroInfo.IDCOORDENADOR = 0;
+                clsRptFluxoFinanceiroInfo.IDDOCUMENTO = 0;
+                clsRptFluxoFinanceiroInfo.IDFORMAPAGTO = 0;
+                clsRptFluxoFinanceiroInfo.IDHISTORICO = 0;
+                clsRptFluxoFinanceiroInfo.IDNOTAFISCAL = 0;
+                clsRptFluxoFinanceiroInfo.IDNOTAPRINCIPAL = 0;
+                clsRptFluxoFinanceiroInfo.IDSITBANCO = 0;
+                clsRptFluxoFinanceiroInfo.IDSUPERVISOR = 0;
+                clsRptFluxoFinanceiroInfo.IDVENDEDOR = 0;
+                clsRptFluxoFinanceiroInfo.IMPRIMIR = "";
+                clsRptFluxoFinanceiroInfo.NOME = "";
+                clsRptFluxoFinanceiroInfo.NOTAFISCAL = "";
+                clsRptFluxoFinanceiroInfo.OBSERVA = "";
+                clsRptFluxoFinanceiroInfo.POSICAO = 1;
+                clsRptFluxoFinanceiroInfo.POSICAOFIM = 1;
+                clsRptFluxoFinanceiroInfo.SALDO = 0;
+                clsRptFluxoFinanceiroInfo.SETOR = "N";
+                clsRptFluxoFinanceiroInfo.SITBANCOCOD = "";
+                clsRptFluxoFinanceiroInfo.SITUACAOCODIGO = "";
+                clsRptFluxoFinanceiroInfo.SITUACAONOME = "";
+                clsRptFluxoFinanceiroInfo.SUPERVISOR = "";
+                clsRptFluxoFinanceiroInfo.TABELA = "AREC";
+                clsRptFluxoFinanceiroInfo.VALOR = clsParser.DecimalParse(tbxPrevisaoDiaria.Text);
+                clsRptFluxoFinanceiroInfo.VALORARECEBER = 0;
+                clsRptFluxoFinanceiroInfo.VALORBAIXANDO = 0;
+                clsRptFluxoFinanceiroInfo.VALORCOMISSAO = 0;
+                clsRptFluxoFinanceiroInfo.VALORCOMISSAOGER = 0;
+                clsRptFluxoFinanceiroInfo.VALORCOMISSAOSUP = 0;
+                clsRptFluxoFinanceiroInfo.VALORDESCONTO = 0;
+                clsRptFluxoFinanceiroInfo.VALORDEVOLVIDO = 0;
+                clsRptFluxoFinanceiroInfo.VALORJUROS = 0;
+                clsRptFluxoFinanceiroInfo.VALORLIQUIDO = 0;
+                clsRptFluxoFinanceiroInfo.VALORMULTA = 0;
+                clsRptFluxoFinanceiroInfo.VALORPAGO = 0;
+                clsRptFluxoFinanceiroInfo.VENCIMENTO = verificadia;
+                clsRptFluxoFinanceiroInfo.VENCIMENTOPREV = verificadia;
+                clsRptFluxoFinanceiroInfo.VENDEDOR = "";
+                clsRptFluxoFinanceiroInfo.ID = clsRptFluxoFinanceiroBLL.Incluir(clsRptFluxoFinanceiroInfo, clsInfo.conexaosqldados);
+                idCreditoColocado = clsRptFluxoFinanceiroInfo.ID;
+                if (idCreditoColocado > 0)
+                {   // Coloccar o Saldo quando inclui o credito
+                    saldo = saldo + clsParser.DecimalParse(tbxPrevisaoDiaria.Text);
+                    ordemfluxofinanceiro = ordemfluxofinanceiro + 1;
+                    clsRptFluxoFinanceiroInfo = clsRptFluxoFinanceiroBLL.Carregar(idCreditoColocado, clsInfo.conexaosqldados);
+                    clsRptFluxoFinanceiroInfo.IDHISTORICO = ordemfluxofinanceiro;
+                    clsRptFluxoFinanceiroInfo.SALDO = saldo;
+                    clsRptFluxoFinanceiroBLL.Alterar(clsRptFluxoFinanceiroInfo, clsInfo.conexaosqldados);
+                    idCreditoColocado = 0;
+                    credito = 0;
+                }
+                if (ValorDuplicata > saldo)
+                {
+                    //acrescentar uma nova data
+                    verificadia = verificadia.AddDays(1);
+                    verificadata = verificadata.AddDays(1);
+                    if (verificadia.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        verificadia = verificadia.AddDays(1);
+                        verificadata = verificadata.AddDays(1);
+                    }
+                    
+                }
+            }
+
+        }
+
+        private void btnFornecedor01_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor01";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos",  idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+        }
+
+        private void btnFornecedor02_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor02";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos", idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+
+        }
+
+        private void btnFornecedor03_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor03";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos", idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+
+        }
+
+        private void btnFornecedor04_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor04";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos", idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+
+        }
+
+        private void btnFornecedor05_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor05";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos", idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+
+        }
+
+        private void btnFornecedor06_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor06";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos", idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+
+        }
+
+        private void btnFornecedor07_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor07";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos", idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+
+        }
+
+        private void btnFornecedor08_Click(object sender, EventArgs e)
+        {
+            clsInfo.znomegrid = "btnFornecedor08";
+            frmClientePes frmClientePes = new frmClientePes();
+            frmClientePes.Init("Todos", idFluClienteDe);
+            clsFormHelper.AbrirForm(this.MdiParent, frmClientePes, clsInfo.conexaosqldados);
+        }
+
+        private void rbnFluxoSimplesTitulo_Click(object sender, EventArgs e)
+        {
+            gbxFornecedores.Visible = true;
         }
     }
 }

@@ -282,11 +282,30 @@
             this.tbxFluBcoDtVencimentoDe = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.gbxFluxoOpcao = new System.Windows.Forms.GroupBox();
+            this.rbnFluxoSimplesTitulo = new System.Windows.Forms.RadioButton();
             this.tbxPrevisaoDiaria = new System.Windows.Forms.TextBox();
             this.rbnFluxoAplibank = new System.Windows.Forms.RadioButton();
             this.rbnFluxoSimples = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.bwrCarregaAutoComplete = new System.ComponentModel.BackgroundWorker();
+            this.gbxFornecedores = new System.Windows.Forms.GroupBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.btnFornecedor01 = new System.Windows.Forms.Button();
+            this.tbxFornecedor01 = new System.Windows.Forms.TextBox();
+            this.btnFornecedor02 = new System.Windows.Forms.Button();
+            this.tbxFornecedor02 = new System.Windows.Forms.TextBox();
+            this.btnFornecedor04 = new System.Windows.Forms.Button();
+            this.tbxFornecedor04 = new System.Windows.Forms.TextBox();
+            this.btnFornecedor03 = new System.Windows.Forms.Button();
+            this.tbxFornecedor03 = new System.Windows.Forms.TextBox();
+            this.btnFornecedor08 = new System.Windows.Forms.Button();
+            this.tbxFornecedor08 = new System.Windows.Forms.TextBox();
+            this.btnFornecedor07 = new System.Windows.Forms.Button();
+            this.tbxFornecedor07 = new System.Windows.Forms.TextBox();
+            this.btnFornecedor06 = new System.Windows.Forms.Button();
+            this.tbxFornecedor06 = new System.Windows.Forms.TextBox();
+            this.btnFornecedor05 = new System.Windows.Forms.Button();
+            this.tbxFornecedor05 = new System.Windows.Forms.TextBox();
             this.gbxRelReceber.SuspendLayout();
             this.gbxTipoRelatorio.SuspendLayout();
             this.tclRelReceber.SuspendLayout();
@@ -336,6 +355,7 @@
             this.gbxFluBcoReferencia.SuspendLayout();
             this.gbxFluBcoDatas.SuspendLayout();
             this.gbxFluxoOpcao.SuspendLayout();
+            this.gbxFornecedores.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxRelReceber
@@ -2203,6 +2223,7 @@
             // gbxFluxoSimples
             // 
             this.gbxFluxoSimples.AccessibleDescription = "Fluxo Simples";
+            this.gbxFluxoSimples.Controls.Add(this.gbxFornecedores);
             this.gbxFluxoSimples.Controls.Add(this.gbxFluInadimplentes);
             this.gbxFluxoSimples.Controls.Add(this.groupBox5);
             this.gbxFluxoSimples.Controls.Add(this.groupBox1);
@@ -3856,23 +3877,38 @@
             // gbxFluxoOpcao
             // 
             this.gbxFluxoOpcao.AccessibleDescription = "Opções Fluxo Financeiro";
+            this.gbxFluxoOpcao.Controls.Add(this.rbnFluxoSimplesTitulo);
             this.gbxFluxoOpcao.Controls.Add(this.tbxPrevisaoDiaria);
             this.gbxFluxoOpcao.Controls.Add(this.rbnFluxoAplibank);
             this.gbxFluxoOpcao.Controls.Add(this.rbnFluxoSimples);
             this.gbxFluxoOpcao.Location = new System.Drawing.Point(156, 12);
             this.gbxFluxoOpcao.Name = "gbxFluxoOpcao";
-            this.gbxFluxoOpcao.Size = new System.Drawing.Size(688, 76);
+            this.gbxFluxoOpcao.Size = new System.Drawing.Size(688, 80);
             this.gbxFluxoOpcao.TabIndex = 1;
             this.gbxFluxoOpcao.TabStop = false;
             this.gbxFluxoOpcao.Text = "Opções Fluxo Financeiro";
             this.gbxFluxoOpcao.Visible = false;
+            // 
+            // rbnFluxoSimplesTitulo
+            // 
+            this.rbnFluxoSimplesTitulo.AccessibleDescription = "Contas a Pagar + Pgto Titulo";
+            this.rbnFluxoSimplesTitulo.AutoSize = true;
+            this.rbnFluxoSimplesTitulo.ForeColor = System.Drawing.Color.MediumBlue;
+            this.rbnFluxoSimplesTitulo.Location = new System.Drawing.Point(191, 34);
+            this.rbnFluxoSimplesTitulo.Name = "rbnFluxoSimplesTitulo";
+            this.rbnFluxoSimplesTitulo.Size = new System.Drawing.Size(354, 17);
+            this.rbnFluxoSimplesTitulo.TabIndex = 4;
+            this.rbnFluxoSimplesTitulo.Text = "Quando vai pagar o Titulo com a Previsão Diaria a Receber";
+            this.toolTip1.SetToolTip(this.rbnFluxoSimplesTitulo, "Previsão Pagamentos dos Titulos com Base na Previsão Diaria a Receber");
+            this.rbnFluxoSimplesTitulo.UseVisualStyleBackColor = true;
+            this.rbnFluxoSimplesTitulo.Click += new System.EventHandler(this.rbnFluxoSimplesTitulo_Click);
             // 
             // tbxPrevisaoDiaria
             // 
             this.tbxPrevisaoDiaria.AccessibleDescription = "Data Vencimento De";
             this.tbxPrevisaoDiaria.BackColor = System.Drawing.Color.White;
             this.tbxPrevisaoDiaria.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxPrevisaoDiaria.Location = new System.Drawing.Point(450, 15);
+            this.tbxPrevisaoDiaria.Location = new System.Drawing.Point(450, 8);
             this.tbxPrevisaoDiaria.Name = "tbxPrevisaoDiaria";
             this.tbxPrevisaoDiaria.Size = new System.Drawing.Size(77, 21);
             this.tbxPrevisaoDiaria.TabIndex = 3;
@@ -3887,7 +3923,7 @@
             this.rbnFluxoAplibank.AccessibleDescription = "Contas a Pagar + Contas a Receber + Pedido Compras + Aplibank";
             this.rbnFluxoAplibank.AutoSize = true;
             this.rbnFluxoAplibank.ForeColor = System.Drawing.Color.MediumBlue;
-            this.rbnFluxoAplibank.Location = new System.Drawing.Point(190, 42);
+            this.rbnFluxoAplibank.Location = new System.Drawing.Point(190, 54);
             this.rbnFluxoAplibank.Name = "rbnFluxoAplibank";
             this.rbnFluxoAplibank.Size = new System.Drawing.Size(394, 17);
             this.rbnFluxoAplibank.TabIndex = 1;
@@ -3903,7 +3939,7 @@
             this.rbnFluxoSimples.AutoSize = true;
             this.rbnFluxoSimples.Checked = true;
             this.rbnFluxoSimples.ForeColor = System.Drawing.Color.MediumBlue;
-            this.rbnFluxoSimples.Location = new System.Drawing.Point(190, 19);
+            this.rbnFluxoSimples.Location = new System.Drawing.Point(190, 12);
             this.rbnFluxoSimples.Name = "rbnFluxoSimples";
             this.rbnFluxoSimples.Size = new System.Drawing.Size(260, 17);
             this.rbnFluxoSimples.TabIndex = 0;
@@ -3929,6 +3965,299 @@
             // bwrCarregaAutoComplete
             // 
             this.bwrCarregaAutoComplete.WorkerSupportsCancellation = true;
+            // 
+            // gbxFornecedores
+            // 
+            this.gbxFornecedores.AccessibleDescription = "Filtro";
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor08);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor08);
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor07);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor07);
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor06);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor06);
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor05);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor05);
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor04);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor04);
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor03);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor03);
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor02);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor02);
+            this.gbxFornecedores.Controls.Add(this.btnFornecedor01);
+            this.gbxFornecedores.Controls.Add(this.tbxFornecedor01);
+            this.gbxFornecedores.Controls.Add(this.label67);
+            this.gbxFornecedores.Location = new System.Drawing.Point(377, 189);
+            this.gbxFornecedores.Name = "gbxFornecedores";
+            this.gbxFornecedores.Size = new System.Drawing.Size(506, 138);
+            this.gbxFornecedores.TabIndex = 9;
+            this.gbxFornecedores.TabStop = false;
+            this.gbxFornecedores.Text = "Fornecedores não pode deixar de pagar no Dia";
+            this.toolTip1.SetToolTip(this.gbxFornecedores, "Grupo - Item - Dados do Produto");
+            this.gbxFornecedores.Visible = false;
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(3, 13);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(0, 13);
+            this.label67.TabIndex = 9;
+            // 
+            // btnFornecedor01
+            // 
+            this.btnFornecedor01.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor01.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor01.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor01.Image")));
+            this.btnFornecedor01.Location = new System.Drawing.Point(178, 20);
+            this.btnFornecedor01.Name = "btnFornecedor01";
+            this.btnFornecedor01.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor01.TabIndex = 11;
+            this.btnFornecedor01.TabStop = false;
+            this.btnFornecedor01.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor01, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor01.UseVisualStyleBackColor = true;
+            this.btnFornecedor01.Click += new System.EventHandler(this.btnFornecedor01_Click);
+            // 
+            // tbxFornecedor01
+            // 
+            this.tbxFornecedor01.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor01.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor01.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor01.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor01.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor01.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor01.Location = new System.Drawing.Point(19, 20);
+            this.tbxFornecedor01.Name = "tbxFornecedor01";
+            this.tbxFornecedor01.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor01.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.tbxFornecedor01, "Fornecedor");
+            this.tbxFornecedor01.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor01.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor01.Leave += new System.EventHandler(this.ControlLeave);
+            // 
+            // btnFornecedor02
+            // 
+            this.btnFornecedor02.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor02.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor02.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor02.Image")));
+            this.btnFornecedor02.Location = new System.Drawing.Point(178, 47);
+            this.btnFornecedor02.Name = "btnFornecedor02";
+            this.btnFornecedor02.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor02.TabIndex = 13;
+            this.btnFornecedor02.TabStop = false;
+            this.btnFornecedor02.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor02, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor02.UseVisualStyleBackColor = true;
+            this.btnFornecedor02.Click += new System.EventHandler(this.btnFornecedor02_Click);
+            // 
+            // tbxFornecedor02
+            // 
+            this.tbxFornecedor02.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor02.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor02.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor02.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor02.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor02.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor02.Location = new System.Drawing.Point(19, 47);
+            this.tbxFornecedor02.Name = "tbxFornecedor02";
+            this.tbxFornecedor02.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor02.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.tbxFornecedor02, "Fornecedor");
+            this.tbxFornecedor02.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor02.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor02.Leave += new System.EventHandler(this.ControlLeave);
+            // 
+            // btnFornecedor04
+            // 
+            this.btnFornecedor04.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor04.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor04.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor04.Image")));
+            this.btnFornecedor04.Location = new System.Drawing.Point(180, 101);
+            this.btnFornecedor04.Name = "btnFornecedor04";
+            this.btnFornecedor04.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor04.TabIndex = 17;
+            this.btnFornecedor04.TabStop = false;
+            this.btnFornecedor04.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor04, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor04.UseVisualStyleBackColor = true;
+            this.btnFornecedor04.Click += new System.EventHandler(this.btnFornecedor04_Click);
+            // 
+            // tbxFornecedor04
+            // 
+            this.tbxFornecedor04.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor04.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor04.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor04.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor04.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor04.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor04.Location = new System.Drawing.Point(21, 101);
+            this.tbxFornecedor04.Name = "tbxFornecedor04";
+            this.tbxFornecedor04.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor04.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.tbxFornecedor04, "Fornecedor");
+            this.tbxFornecedor04.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor04.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor04.Leave += new System.EventHandler(this.ControlLeave);
+            // 
+            // btnFornecedor03
+            // 
+            this.btnFornecedor03.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor03.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor03.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor03.Image")));
+            this.btnFornecedor03.Location = new System.Drawing.Point(180, 74);
+            this.btnFornecedor03.Name = "btnFornecedor03";
+            this.btnFornecedor03.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor03.TabIndex = 15;
+            this.btnFornecedor03.TabStop = false;
+            this.btnFornecedor03.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor03, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor03.UseVisualStyleBackColor = true;
+            this.btnFornecedor03.Click += new System.EventHandler(this.btnFornecedor03_Click);
+            // 
+            // tbxFornecedor03
+            // 
+            this.tbxFornecedor03.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor03.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor03.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor03.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor03.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor03.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor03.Location = new System.Drawing.Point(21, 74);
+            this.tbxFornecedor03.Name = "tbxFornecedor03";
+            this.tbxFornecedor03.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor03.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.tbxFornecedor03, "Fornecedor");
+            this.tbxFornecedor03.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor03.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor03.Leave += new System.EventHandler(this.ControlLeave);
+            // 
+            // btnFornecedor08
+            // 
+            this.btnFornecedor08.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor08.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor08.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor08.Image")));
+            this.btnFornecedor08.Location = new System.Drawing.Point(396, 101);
+            this.btnFornecedor08.Name = "btnFornecedor08";
+            this.btnFornecedor08.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor08.TabIndex = 25;
+            this.btnFornecedor08.TabStop = false;
+            this.btnFornecedor08.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor08, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor08.UseVisualStyleBackColor = true;
+            this.btnFornecedor08.Click += new System.EventHandler(this.btnFornecedor08_Click);
+            // 
+            // tbxFornecedor08
+            // 
+            this.tbxFornecedor08.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor08.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor08.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor08.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor08.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor08.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor08.Location = new System.Drawing.Point(237, 101);
+            this.tbxFornecedor08.Name = "tbxFornecedor08";
+            this.tbxFornecedor08.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor08.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.tbxFornecedor08, "Fornecedor");
+            this.tbxFornecedor08.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor08.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor08.Leave += new System.EventHandler(this.ControlLeave);
+            // 
+            // btnFornecedor07
+            // 
+            this.btnFornecedor07.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor07.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor07.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor07.Image")));
+            this.btnFornecedor07.Location = new System.Drawing.Point(396, 74);
+            this.btnFornecedor07.Name = "btnFornecedor07";
+            this.btnFornecedor07.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor07.TabIndex = 23;
+            this.btnFornecedor07.TabStop = false;
+            this.btnFornecedor07.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor07, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor07.UseVisualStyleBackColor = true;
+            this.btnFornecedor07.Click += new System.EventHandler(this.btnFornecedor07_Click);
+            // 
+            // tbxFornecedor07
+            // 
+            this.tbxFornecedor07.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor07.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor07.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor07.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor07.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor07.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor07.Location = new System.Drawing.Point(237, 74);
+            this.tbxFornecedor07.Name = "tbxFornecedor07";
+            this.tbxFornecedor07.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor07.TabIndex = 22;
+            this.toolTip1.SetToolTip(this.tbxFornecedor07, "Fornecedor");
+            this.tbxFornecedor07.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor07.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor07.Leave += new System.EventHandler(this.ControlLeave);
+            // 
+            // btnFornecedor06
+            // 
+            this.btnFornecedor06.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor06.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor06.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor06.Image")));
+            this.btnFornecedor06.Location = new System.Drawing.Point(394, 47);
+            this.btnFornecedor06.Name = "btnFornecedor06";
+            this.btnFornecedor06.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor06.TabIndex = 21;
+            this.btnFornecedor06.TabStop = false;
+            this.btnFornecedor06.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor06, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor06.UseVisualStyleBackColor = true;
+            this.btnFornecedor06.Click += new System.EventHandler(this.btnFornecedor06_Click);
+            // 
+            // tbxFornecedor06
+            // 
+            this.tbxFornecedor06.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor06.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor06.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor06.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor06.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor06.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor06.Location = new System.Drawing.Point(235, 47);
+            this.tbxFornecedor06.Name = "tbxFornecedor06";
+            this.tbxFornecedor06.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor06.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.tbxFornecedor06, "Fornecedor");
+            this.tbxFornecedor06.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor06.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor06.Leave += new System.EventHandler(this.ControlLeave);
+            // 
+            // btnFornecedor05
+            // 
+            this.btnFornecedor05.AccessibleDescription = "Busca Fornecedor";
+            this.btnFornecedor05.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFornecedor05.Image = ((System.Drawing.Image)(resources.GetObject("btnFornecedor05.Image")));
+            this.btnFornecedor05.Location = new System.Drawing.Point(394, 20);
+            this.btnFornecedor05.Name = "btnFornecedor05";
+            this.btnFornecedor05.Size = new System.Drawing.Size(20, 21);
+            this.btnFornecedor05.TabIndex = 19;
+            this.btnFornecedor05.TabStop = false;
+            this.btnFornecedor05.Text = "...";
+            this.toolTip1.SetToolTip(this.btnFornecedor05, " Escolher - Resumo -  Fornecedor De");
+            this.btnFornecedor05.UseVisualStyleBackColor = true;
+            this.btnFornecedor05.Click += new System.EventHandler(this.btnFornecedor05_Click);
+            // 
+            // tbxFornecedor05
+            // 
+            this.tbxFornecedor05.AccessibleDescription = "Fornecedor";
+            this.tbxFornecedor05.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tbxFornecedor05.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.tbxFornecedor05.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tbxFornecedor05.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxFornecedor05.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxFornecedor05.Location = new System.Drawing.Point(235, 20);
+            this.tbxFornecedor05.Name = "tbxFornecedor05";
+            this.tbxFornecedor05.Size = new System.Drawing.Size(153, 21);
+            this.tbxFornecedor05.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.tbxFornecedor05, "Fornecedor");
+            this.tbxFornecedor05.Enter += new System.EventHandler(this.ControlEnter);
+            this.tbxFornecedor05.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ControlKeyDown);
+            this.tbxFornecedor05.Leave += new System.EventHandler(this.ControlLeave);
             // 
             // frmRelReceber
             // 
@@ -4034,6 +4363,8 @@
             this.gbxFluBcoDatas.PerformLayout();
             this.gbxFluxoOpcao.ResumeLayout(false);
             this.gbxFluxoOpcao.PerformLayout();
+            this.gbxFornecedores.ResumeLayout(false);
+            this.gbxFornecedores.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4297,5 +4628,24 @@
         private System.Windows.Forms.RadioButton rbnFlu_NaoInadimplentes;
         private System.Windows.Forms.RadioButton rbnFlu_Inadimplentes;
         private System.Windows.Forms.RadioButton rbnFlu_Todos;
+        private System.Windows.Forms.RadioButton rbnFluxoSimplesTitulo;
+        private System.Windows.Forms.GroupBox gbxFornecedores;
+        private System.Windows.Forms.Button btnFornecedor04;
+        private System.Windows.Forms.TextBox tbxFornecedor04;
+        private System.Windows.Forms.Button btnFornecedor03;
+        private System.Windows.Forms.TextBox tbxFornecedor03;
+        private System.Windows.Forms.Button btnFornecedor02;
+        private System.Windows.Forms.TextBox tbxFornecedor02;
+        private System.Windows.Forms.Button btnFornecedor01;
+        private System.Windows.Forms.TextBox tbxFornecedor01;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Button btnFornecedor08;
+        private System.Windows.Forms.TextBox tbxFornecedor08;
+        private System.Windows.Forms.Button btnFornecedor07;
+        private System.Windows.Forms.TextBox tbxFornecedor07;
+        private System.Windows.Forms.Button btnFornecedor06;
+        private System.Windows.Forms.TextBox tbxFornecedor06;
+        private System.Windows.Forms.Button btnFornecedor05;
+        private System.Windows.Forms.TextBox tbxFornecedor05;
     }
 }

@@ -24,7 +24,7 @@ namespace CRCorreaFuncoes
         public String icms_situacao_tributaria { get; set; }
         public String unidade_comercial { get; set; }
         public String unidade_tributavel { get; set; }
-        public String valor_total_tributos { get; set; }
+        //public String valor_total_tributos { get; set; }
 
     }
     public class Formas_Pagamentos

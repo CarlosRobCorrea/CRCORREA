@@ -672,7 +672,7 @@ namespace CRCorrea
                         icms_situacao_tributaria = "102",
                         unidade_comercial = "UN",
                         unidade_tributavel = "UN",
-                        valor_total_tributos = row["tributo_previsto"].ToString().Replace(",", ".")
+                        //valor_total_tributos = row["tributo_previsto"].ToString().Replace(",", ".")
                     });
                 }
 
