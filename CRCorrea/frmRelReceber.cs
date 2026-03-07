@@ -2185,7 +2185,7 @@ namespace CRCorrea
                     ordemfluxofinanceiro = ordemfluxofinanceiro + 1;
                     if (ordemfluxofinanceiro == 55)
                     {
-                        MessageBox.Show("Pare");
+                       // MessageBox.Show("Pare");
                     }
 
                     clsRptFluxoFinanceiroInfo = clsRptFluxoFinanceiroBLL.Carregar(clsParser.Int32Parse(row["ID"].ToString()), clsInfo.conexaosqldados);
@@ -3233,7 +3233,17 @@ namespace CRCorrea
 
         private void rbnFluxoAplibank_Click(object sender, EventArgs e)
         {
+
+            tclFluxo.Visible = true;
+            tclFluxo.SelectedTab = tabFluxoAplibank;
+
+            gbxReceberNormal.Visible = false;
+            gbxRecebidasNormal.Visible = false;
+            gbxFluxoOpcao.Visible = true;
+            gbxFluxoBanco.Visible = true;
+            
             gbxFornecedores.Visible = false;
+
             if (clsInfo.zempresacliente_cognome.ToUpper().IndexOf("ACASACORREA") != -1)
             {
                 tbxFluBcoCtaNao01.Text = "900";
@@ -3249,12 +3259,6 @@ namespace CRCorrea
             }
            
 
-            tclFluxo.Visible = true;
-            tclFluxo.SelectedTab = tabFluxoAplibank;
-            gbxReceberNormal.Visible = false;
-            gbxRecebidasNormal.Visible = false;
-            gbxFluxoOpcao.Visible = true;
-            gbxFluxoBanco.Visible = true;
 
         }
         private void btnFluBcoCtaCab01_Click(object sender, EventArgs e)
@@ -4133,6 +4137,8 @@ namespace CRCorrea
 
         private void rbnFluxoSimples_Click(object sender, EventArgs e)
         {
+            //tclRelReceber.SelectedTab = tabFluxo;
+            tclFluxo.SelectedTab = tabFluxoSimples;
             gbxFornecedores.Visible = false;
         }
 
@@ -4315,6 +4321,8 @@ namespace CRCorrea
 
         private void rbnFluxoSimplesTitulo_Click(object sender, EventArgs e)
         {
+            //tclRelReceber.SelectedTab = tabFluxo;
+            tclFluxo.SelectedTab = tabFluxoSimples;
             gbxFornecedores.Visible = true;
         }
     }
