@@ -451,47 +451,47 @@ namespace CRCorrea
             cabecalho1 += " Ate : " + tbxItemDtEmissaoAte.Text;
             field.CurrentValues.Add(valor);
             parameters.Add(field);
-            // Do Vendedor
-            field = new ParameterField();
-            field.Name = "VendedorDe";
-            valor = new ParameterDiscreteValue();
-            valor.Value = tbxItemVendedorDe.Text;
-            if (tbxItemVendedorDe.Text.Length > 0)
-            {
-                cabecalho1 += " Vendedor = " + tbxItemVendedorDe.Text;
-            }
-            field.CurrentValues.Add(valor);
-            parameters.Add(field);
-            // Do Nome do Material
-            field = new ParameterField();
-            field.Name = "MaterialDe";
-            valor = new ParameterDiscreteValue();
-            valor.Value = tbxItemCodDe.Text;
-            if (tbxItemCodDe.Text.Length > 0)
-            {
-                cabecalho1 += " Material De = " + tbxItemCodDe.Text.Substring(0, 10); 
-            }
-            field.CurrentValues.Add(valor);
-            parameters.Add(field);
-            // Ate Nome do Material
-            field = new ParameterField();
-            field.Name = "MaterialAte";
-            valor = new ParameterDiscreteValue();
-            valor.Value = tbxItemCodAte.Text;
-            if (tbxItemCodAte.Text.Length > 0)
-            {
-                cabecalho1 += " Até = " + tbxItemCodAte.Text.Substring(0, 10); 
-            }
-            field.CurrentValues.Add(valor);
-            parameters.Add(field);
-            // Cabeçalho1
-            field = new ParameterField();
-            field.Name = "CABECALHO1";
-            valor = new ParameterDiscreteValue();
-            //cabecalho1 = "";"
-            valor.Value = cabecalho1;
-            field.CurrentValues.Add(valor);
-            parameters.Add(field);
+            //// Do Vendedor
+            //field = new ParameterField();
+            //field.Name = "VendedorDe";
+            //valor = new ParameterDiscreteValue();
+            //valor.Value = tbxItemVendedorDe.Text;
+            //if (tbxItemVendedorDe.Text.Length > 0)
+            //{
+            //    cabecalho1 += " Vendedor = " + tbxItemVendedorDe.Text;
+            //}
+            //field.CurrentValues.Add(valor);
+            //parameters.Add(field);
+            //// Do Nome do Material
+            //field = new ParameterField();
+            //field.Name = "MaterialDe";
+            //valor = new ParameterDiscreteValue();
+            //valor.Value = tbxItemCodDe.Text;
+            //if (tbxItemCodDe.Text.Length > 0)
+            //{
+            //    cabecalho1 += " Material De = " + tbxItemCodDe.Text.Substring(0, 10); 
+            //}
+            //field.CurrentValues.Add(valor);
+            //parameters.Add(field);
+            //// Ate Nome do Material
+            //field = new ParameterField();
+            //field.Name = "MaterialAte";
+            //valor = new ParameterDiscreteValue();
+            //valor.Value = tbxItemCodAte.Text;
+            //if (tbxItemCodAte.Text.Length > 0)
+            //{
+            //    cabecalho1 += " Até = " + tbxItemCodAte.Text.Substring(0, 10); 
+            //}
+            //field.CurrentValues.Add(valor);
+            //parameters.Add(field);
+            //// Cabeçalho1
+            //field = new ParameterField();
+            //field.Name = "CABECALHO1";
+            //valor = new ParameterDiscreteValue();
+            ////cabecalho1 = "";"
+            //valor.Value = cabecalho1;
+            //field.CurrentValues.Add(valor);
+            //parameters.Add(field);
 
 
 
