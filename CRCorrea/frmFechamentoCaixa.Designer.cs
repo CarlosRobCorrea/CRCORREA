@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFechamentoCaixa));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbxFechamentoCaixa = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbxTotalApurado = new System.Windows.Forms.TextBox();
@@ -52,6 +52,8 @@
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnRevisaCusto = new System.Windows.Forms.Button();
             this.btnRevisaCustoTodos = new System.Windows.Forms.Button();
+            this.tbxTotalCusto = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.gbxFechamentoCaixa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFechamentoCaixa)).BeginInit();
             this.tspTool.SuspendLayout();
@@ -62,6 +64,8 @@
             // gbxFechamentoCaixa
             // 
             this.gbxFechamentoCaixa.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.gbxFechamentoCaixa.Controls.Add(this.tbxTotalCusto);
+            this.gbxFechamentoCaixa.Controls.Add(this.label5);
             this.gbxFechamentoCaixa.Controls.Add(this.label4);
             this.gbxFechamentoCaixa.Controls.Add(this.tbxTotalApurado);
             this.gbxFechamentoCaixa.Controls.Add(this.label3);
@@ -100,6 +104,7 @@
             this.tbxTotalApurado.TabIndex = 21;
             this.tbxTotalApurado.Tag = "CGC";
             this.tbxTotalApurado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToolTip.SetToolTip(this.tbxTotalApurado, "Total Apurado");
             this.tbxTotalApurado.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
@@ -107,7 +112,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Silver;
-            this.label3.Location = new System.Drawing.Point(467, 577);
+            this.label3.Location = new System.Drawing.Point(343, 577);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 20;
@@ -117,7 +122,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(518, 595);
+            this.label2.Location = new System.Drawing.Point(394, 595);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(15, 13);
             this.label2.TabIndex = 19;
@@ -130,12 +135,13 @@
             this.tbxTaxaCrescimo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.tbxTaxaCrescimo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbxTaxaCrescimo.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxTaxaCrescimo.Location = new System.Drawing.Point(474, 592);
+            this.tbxTaxaCrescimo.Location = new System.Drawing.Point(350, 592);
             this.tbxTaxaCrescimo.Name = "tbxTaxaCrescimo";
             this.tbxTaxaCrescimo.Size = new System.Drawing.Size(43, 21);
             this.tbxTaxaCrescimo.TabIndex = 18;
             this.tbxTaxaCrescimo.Tag = "CGC";
             this.tbxTaxaCrescimo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToolTip.SetToolTip(this.tbxTaxaCrescimo, "% Comparação c/Mes Anterior");
             // 
             // tbxTotalMes
             // 
@@ -144,19 +150,20 @@
             this.tbxTotalMes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.tbxTotalMes.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbxTotalMes.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxTotalMes.Location = new System.Drawing.Point(359, 592);
+            this.tbxTotalMes.Location = new System.Drawing.Point(235, 592);
             this.tbxTotalMes.Name = "tbxTotalMes";
             this.tbxTotalMes.Size = new System.Drawing.Size(112, 21);
             this.tbxTotalMes.TabIndex = 9;
             this.tbxTotalMes.Tag = "CGC";
             this.tbxTotalMes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToolTip.SetToolTip(this.tbxTotalMes, "Total Faturado");
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.DarkGray;
-            this.label1.Location = new System.Drawing.Point(364, 577);
+            this.label1.Location = new System.Drawing.Point(240, 577);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(105, 13);
             this.label1.TabIndex = 10;
@@ -169,8 +176,8 @@
             this.dgvFechamentoCaixa.AllowUserToDeleteRows = false;
             this.dgvFechamentoCaixa.AllowUserToOrderColumns = true;
             this.dgvFechamentoCaixa.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            this.dgvFechamentoCaixa.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvFechamentoCaixa.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvFechamentoCaixa.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvFechamentoCaixa.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvFechamentoCaixa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -290,8 +297,8 @@
             this.dgvFechamentoCaixaAno.AllowUserToDeleteRows = false;
             this.dgvFechamentoCaixaAno.AllowUserToOrderColumns = true;
             this.dgvFechamentoCaixaAno.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.dgvFechamentoCaixaAno.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.dgvFechamentoCaixaAno.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvFechamentoCaixaAno.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvFechamentoCaixaAno.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvFechamentoCaixaAno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -332,6 +339,32 @@
             this.ToolTip.SetToolTip(this.btnRevisaCustoTodos, "Revisar Custo Todos Fora Mes Atual");
             this.btnRevisaCustoTodos.UseVisualStyleBackColor = true;
             this.btnRevisaCustoTodos.Click += new System.EventHandler(this.btnRevisaCustoTodos_Click);
+            // 
+            // tbxTotalCusto
+            // 
+            this.tbxTotalCusto.AccessibleDescription = "Suframa";
+            this.tbxTotalCusto.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbxTotalCusto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.tbxTotalCusto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tbxTotalCusto.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxTotalCusto.Location = new System.Drawing.Point(419, 592);
+            this.tbxTotalCusto.Name = "tbxTotalCusto";
+            this.tbxTotalCusto.Size = new System.Drawing.Size(112, 21);
+            this.tbxTotalCusto.TabIndex = 23;
+            this.tbxTotalCusto.Tag = "CGC";
+            this.tbxTotalCusto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.ToolTip.SetToolTip(this.tbxTotalCusto, "Total Custo");
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.DarkGray;
+            this.label5.Location = new System.Drawing.Point(434, 577);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Total  Custo Mês ";
             // 
             // frmFechamentoCaixa
             // 
@@ -386,5 +419,7 @@
         private System.Windows.Forms.TextBox tbxTotalApurado;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnRevisaCustoTodos;
+        private System.Windows.Forms.TextBox tbxTotalCusto;
+        private System.Windows.Forms.Label label5;
     }
 }

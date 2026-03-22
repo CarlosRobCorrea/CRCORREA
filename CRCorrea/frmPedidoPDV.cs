@@ -42,6 +42,10 @@ namespace CRCorrea
         Int32 pedido1_posicao = 0;
         Int32 idipi = 0;
         Double fatortributo = 30.75 / 100;
+        Int32 sefaz_formapagto = 0;
+        String sefaz_meiopagamento = "01";
+        String sefaz_pagamentotband = "01"; // visa
+        String sefaz_pagamentocaut = "01"; // visa
 
         clsPecasInfo clsPecasInfo = new clsPecasInfo();
         clsPecasBLL clsPecasBLL = new clsPecasBLL();
@@ -1028,58 +1032,59 @@ namespace CRCorrea
                     listaProdutos.Add(new Produto
                     {
                         numero_item = row["NITEM"].ToString(),
-                        codigo_ncm = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from IPI where id = " + clsParser.Int32Parse(row["idIPI"].ToString()) + " "),
-                        quantidade_comercial = row["QTDE"].ToString().Replace(",", "."),
-                        quantidade_tributavel = row["QTDE"].ToString().Replace(",", "."),
-                        cfop = "5102",
-                        valor_unitario_tributavel = row["PRECO"].ToString().Replace(",", "."),
-                        valor_unitario_comercial = row["PRECO"].ToString().Replace(",", "."),
-                        valor_desconto = 0.ToString("N2").Replace(",", "."),
-                        descricao = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select NOME from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
                         codigo_produto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
-                        icms_origem = "0",
-                        icms_situacao_tributaria = "102",
-                        unidade_comercial = "UN",
-                        unidade_tributavel = "UN",
-                        //valor_total_tributos = row["tributo_previsto"].ToString().Replace(",", ".")
+                        descricao = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select NOME from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
+                        cfop = 5102,
+                        unidade_comercial = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from UNIDADE where id = " + clsParser.Int32Parse(row["idunidade"].ToString()) + " "),    /// pesquisar 
+                        quantidade_comercial = clsParser.DecimalParse(row["QTDE"].ToString().Replace(",", ".")),
+                        codigo_ncm = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from IPI where id = " + clsParser.Int32Parse(row["idIPI"].ToString()) + " "),
+                        valor_total = clsParser.DecimalParse(row["TOTALNOTA"].ToString().Replace(",", ".")),
+                        valor_total_sem_desconto = clsParser.DecimalParse(row["TOTALNOTA"].ToString().Replace(",", ".")),
+                        icms_csosn = 101,
+                        pis_situacao_tributaria = "01",
+                        cofins_situacao_tributaria = "01",
+                        ipi_situacao_tributaria = "01"
                     });
                 }
 
-                List<Formas_Pagamentos> ListaFormaPagtos = new List<Formas_Pagamentos>();
-                //foreach (DataRow row in dtPedido1.Rows)
-                //{
-
-                ListaFormaPagtos.Add(new Formas_Pagamentos
+                //List<Dados_NFCE> Dados = new List<Dados_NFCE>();
+                var dadosNotaNFCE = new Dados_NFCE
                 {
-                    forma_pagamento = "01",
-                    valor_pagamento = clsPedidoInfo.totalmercadoria.ToString().Replace(",", "."),
-                    nome_credenciadora = null,
-                    bandeira_operadora = null,
-                    numero_autorizacao = null
-                });
-                //}
-                var MeuRelatorio = new Relatorio
-                {
-                    cnpj_emitente = "38029184000195",
-                    data_emissao = clsPedidoInfo.data.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
-                    indicador_inscricao_estadual_destinatario = "9",
-                    modalidade_frete = "9",
-                    local_destino = "1",
-                    presenca_comprador = "1",
-                    natureza_operacao = "VENDA AO CONSUMIDOR",
-                    items = listaProdutos,
-                    formas_pagamento = ListaFormaPagtos
-
+                    tipo_operacao = "0",
+                    natureza_operacao = "Venda de mercadoria adquirida ou recebida de terceiros",
+                    forma_pagamento = sefaz_formapagto,
+                    meio_pagamento = sefaz_meiopagamento,
+                    pagamento_cnpj = "",
+                    pagamento_tband = sefaz_pagamentotband,
+                    pagamento_caut = sefaz_pagamentocaut,
+                    data_emissao = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
+                    data_saida_entrada = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
+                    hora_saida_entrada = clsPedidoInfo.data.ToString("HH:mm:ss"),
+                    finalidade_emissao = "1",
+                    valor_total = clsPedidoInfo.totalpedido,
+                    valor_total_sem_desconto = clsPedidoInfo.totalpedido,
+                    valor_ipi = 0,
+                    modalidade_frete = 0,
+                    items = listaProdutos
                 };
+
+                var minhaNotaNFCE = new Nota_NFCE
+                {
+                    ApiKey = "hydxD6V4J5jdNiCIJrdcolrd4",
+                    Cnpj = "38029184000195",
+                    Dados = dadosNotaNFCE
+                };
+
+
                 // 3. Serialize
                 //string json = JsonSerializer.Serialize(MeuRelatorio);
-                var strJson = JsonConvert.SerializeObject(MeuRelatorio, Formatting.Indented);
+                var strJson = JsonConvert.SerializeObject(minhaNotaNFCE, Formatting.Indented);
                 //using (StreamWriter sw = new StreamWriter("C:\\Clientes\\CASACORREA\\XML\\Saidas\\Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
                 using (StreamWriter sw = new StreamWriter(clsInfo.saidaxml + "Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
                 {
                     sw.WriteLine(strJson);
                 }
-
+                
                 String referenciaNfce = "PED" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0');
                 respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
 
@@ -1103,7 +1108,7 @@ namespace CRCorrea
                     msgNfce += "\n\nResposta completa:\n" + (respostaFocus.resposta_raw ?? "");
                     MessageBox.Show(msgNfce, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
+                
                 tse.Complete();
             }
 
@@ -1375,15 +1380,28 @@ namespace CRCorrea
             info.idredespacho = idcliente;
             info.idcondpagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from condpagto where codigo = '0' "));
             if (rbnPix.Checked == true)
-            { info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'PI' ")); }
+            {
+                sefaz_formapagto = 0;
+                sefaz_meiopagamento = "01";
+                info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'PI' ")); }
             else if (rbnDinheiro.Checked == true)
-            { info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'DI' ")); }
+            {   sefaz_formapagto = 0;
+                sefaz_meiopagamento = "01";
+                info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'DI' ")); }
             else if (rbnCartao.Checked == true)
-            { info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'CA' ")); }
+            {
+                sefaz_formapagto = 1;
+                sefaz_meiopagamento = "04";
+                info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'CA' ")); }
             else if (rbnCartaoCredito.Checked == true)
-            { info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'CC' ")); }
+            {
+                sefaz_formapagto = 1;
+                sefaz_meiopagamento = "05";
+                info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'CC' ")); }
             else
             {
+                sefaz_formapagto = 1;
+                sefaz_meiopagamento = "99";
                 info.idformapagto = clsParser.Int32Parse(Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select id from situacaotipotitulo where codigo = 'BO' "));
             }
             idformapagto = info.idformapagto;

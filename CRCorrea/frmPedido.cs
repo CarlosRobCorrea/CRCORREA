@@ -38,6 +38,11 @@ namespace CRCorrea
         private Int32 filial;
         private Int32 idufdestino;
 
+        Int32 sefaz_formapagto = 0;
+        String sefaz_meiopagamento = "01";
+        String sefaz_pagamentotband = "01"; // visa
+        String sefaz_pagamentocaut = "01"; // visa
+
 
         // Pedido1
         DataTable dtPedido1;
@@ -652,59 +657,59 @@ namespace CRCorrea
                     }
                 }
                 //////////////////////////////
-                List<Produto> listaProdutos = new List<Produto>();
-                foreach (DataRow row in dtPedido1.Rows)
-                {
-
-                    listaProdutos.Add(new Produto
-                    {
-                        numero_item = row["NITEM"].ToString(),
-                        codigo_ncm = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from IPI where id = " + clsParser.Int32Parse(row["idIPI"].ToString()) + " "),
-                        quantidade_comercial = row["QTDE"].ToString().Replace(",", "."),
-                        quantidade_tributavel = row["QTDE"].ToString().Replace(",", "."),
-                        cfop = "5102",
-                        valor_unitario_tributavel = row["PRECO"].ToString().Replace(",", "."),
-                        valor_unitario_comercial = row["PRECO"].ToString().Replace(",", "."),
-                        valor_desconto = 0.ToString("N2").Replace(",", "."),
-                        descricao = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select NOME from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
-                        codigo_produto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
-                        icms_origem = "0",
-                        icms_situacao_tributaria = "102",
-                        unidade_comercial = "UN",
-                        unidade_tributavel = "UN",
-                        //valor_total_tributos = row["tributo_previsto"].ToString().Replace(",", ".")
-                    });
-                }
-
-                List<Formas_Pagamentos> ListaFormaPagtos = new List<Formas_Pagamentos>();
+                //List<Produto> listaProdutos = new List<Produto>();
                 //foreach (DataRow row in dtPedido1.Rows)
                 //{
 
-                    ListaFormaPagtos.Add(new Formas_Pagamentos
-                    {
-                        forma_pagamento = "01",
-                        valor_pagamento = clsPedidoInfo.totalmercadoria.ToString().Replace(",", "."),
-                        nome_credenciadora = null,
-                        bandeira_operadora = null,
-                        numero_autorizacao = null
-                    });
+                //    listaProdutos.Add(new Produto
+                //    {
+                //        numero_item = row["NITEM"].ToString(),
+                //        codigo_produto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
+                //        descricao = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select NOME from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
+                //        cfop = 5102,
+                //        unidade_comercial = "UN",    /// pesquisar 
+                //        quantidade_comercial = clsParser.DecimalParse(row["QTDE"].ToString().Replace(",", ".")),
+                //        codigo_ncm = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from IPI where id = " + clsParser.Int32Parse(row["idIPI"].ToString()) + " "),
+                //        valor_total = clsParser.DecimalParse(row["VALORTOTAL"].ToString().Replace(",", ".")),
+                //        valor_total_sem_desconto = clsParser.DecimalParse(row["VALORTOTAL"].ToString().Replace(",", ".")),
+                //        icms_csosn = 101,
+                //        pis_situacao_tributaria = "01",
+                //        cofins_situacao_tributaria = "01",
+                //        ipi_situacao_tributaria = "01"
+                //    });
                 //}
-                var MeuRelatorio = new Relatorio
+
+                var minhaNotaNFCE = new Nota_NFCE
                 {
-                    cnpj_emitente = "38029184000195",
-                    data_emissao = clsPedidoInfo.data.ToString("yyyy-MM-ddTHH:mm:ss.fff"),
-                    indicador_inscricao_estadual_destinatario = "9",
-                    modalidade_frete = "9",
-                    local_destino = "1",
-                    presenca_comprador = "1",
-                    natureza_operacao = "VENDA AO CONSUMIDOR",
-                    items = listaProdutos,
-                    formas_pagamento = ListaFormaPagtos
-                    
-                }; 
+                    ApiKey = "hydxD6V4J5jdNiCIJrdcolrd4",
+                    Cnpj = "38029184000195",
+
+                };
+                //var MeusDados = new Dados
+                //{
+                //    tipo_operacao = "0",
+                //    natureza_operacao = "Venda de mercadoria adquirida ou recebida de terceiros",
+                //    forma_pagamento = sefaz_formapagto,
+                //    meio_pagamento = sefaz_meiopagamento,
+                //    pagamento_cnpj = "",
+                //    pagamento_tband = sefaz_pagamentotband,
+                //    pagamento_caut = sefaz_pagamentocaut,
+                //    data_emissao = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
+                //    data_saida_entrada = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
+                //    hora_saida_entrada = clsPedidoInfo.data.ToString("HH:mm:ss"),
+                //    finalidade_emissao = "1",
+                //    valor_total = clsPedidoInfo.totalpedido,
+                //    valor_total_sem_desconto = clsPedidoInfo.totalpedido,
+                //    valor_ipi = 0,
+                //    modalidade_frete = 0
+
+
+                //};
+
+
                 // 3. Serialize
                 //string json = JsonSerializer.Serialize(MeuRelatorio);
-                var strJson = JsonConvert.SerializeObject(MeuRelatorio, Formatting.Indented);
+                var strJson = JsonConvert.SerializeObject(minhaNotaNFCE, Formatting.Indented);
                 //using (StreamWriter sw = new StreamWriter("C:\\Clientes\\CASACORREA\\XML\\Saidas\\Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
                 using (StreamWriter sw = new StreamWriter(clsInfo.saidaxml + "Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
                 {

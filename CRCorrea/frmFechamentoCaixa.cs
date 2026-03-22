@@ -366,18 +366,22 @@ namespace CRCorrea
         private void SomarFaturamento()
         {
             tbxTotalMes.Text = "0";
+            tbxTotalCusto.Text = "0";
             tbxTotalApurado.Text = "0";
 
             Decimal soma = 0;
             Decimal soma1 = 0;
+            Decimal soma2 = 0;
 
 
             foreach (DataRow row in dtFechamentoCaixa.Rows)
             {
                     soma = (soma + clsParser.DecimalParse(row["TOTALDIA"].ToString()));
                     soma1 = (soma1 + clsParser.DecimalParse(row["APURADO"].ToString()));
+                    soma2 = (soma2 + clsParser.DecimalParse(row["TOTALCUSTO"].ToString()));
             }
             tbxTotalMes.Text = soma.ToString("N2");
+            tbxTotalCusto.Text = soma2.ToString("N2");
             tbxTotalApurado.Text = soma1.ToString("N2");
             Decimal TaxaCrescimento = 0;
             if (soma > 0)

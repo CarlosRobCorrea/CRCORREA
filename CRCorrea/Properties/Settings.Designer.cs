@@ -72,8 +72,8 @@ namespace CRCorrea.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CARLOSCORREA;Initial Catalog=CRCDADOS;User ID=sa;Password=Apli5800;\r\n" +
-            "")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SERVIDOR-PC\\SQLEXPRESS;Initial Catalog=CRCDADOS;User ID=sa;Password=A" +
+            "pli5800;\r\n")]
         public string conexaosqldados {
             get {
                 return ((string)(this["conexaosqldados"]));
@@ -82,7 +82,8 @@ namespace CRCorrea.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CARLOSCORREA;Initial Catalog=CRCBANCO;User ID=sa;Password=Apli5800;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SERVIDOR-PC\\SQLEXPRESS;Initial Catalog=CRCBANCO;User ID=sa;Password=A" +
+            "pli5800;")]
         public string conexaosqlbanco {
             get {
                 return ((string)(this["conexaosqlbanco"]));
@@ -100,19 +101,19 @@ namespace CRCorrea.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mhE0TmoicCHB5zeLTp5x6iprdj1EDvHM")]
-        public string FocusNFeToken {
+        [global::System.Configuration.DefaultSettingValueAttribute("hydxD6V4J5jdNiCIJrdcolrd4")]
+        public string TransmiteNFToken {
             get {
-                return ((string)(this["FocusNFeToken"]));
+                return ((string)(this["TransmiteNFToken"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://homologacao.focusnfe.com.br")]
-        public string FocusNFeUrl {
+        [global::System.Configuration.DefaultSettingValueAttribute("https://app1.transmitenota.com.br/api/homologacao/EnviarNfce/")]
+        public string TransmiteNFUrl {
             get {
-                return ((string)(this["FocusNFeUrl"]));
+                return ((string)(this["TransmiteNFUrl"]));
             }
         }
         
