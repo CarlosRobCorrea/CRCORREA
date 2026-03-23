@@ -101,28 +101,28 @@ namespace CRCorrea.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("hydxD6V4J5jdNiCIJrdcolrd4")]
-        public string TransmiteNFToken {
-            get {
-                return ((string)(this["TransmiteNFToken"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://app1.transmitenota.com.br/api/homologacao/EnviarNfce/")]
-        public string TransmiteNFUrl {
-            get {
-                return ((string)(this["TransmiteNFUrl"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ELGIN i8")]
         public string ImpressoraTermica {
             get {
                 return ((string)(this["ImpressoraTermica"]));
+            }
+        }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("hydxD6V4J5jdNiCIJrdcolrd4")]
+        public string TransmiteNotaToken {
+            get {
+                return ((string)(this["TransmiteNotaToken"]));
+            }
+        }
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://app1.transmitenota.com.br/api/homologacao/EnviarNfce/")]
+        public string TransmiteNotaUrl {
+            get {
+                return ((string)(this["TransmiteNotaUrl"]));
             }
         }
     }

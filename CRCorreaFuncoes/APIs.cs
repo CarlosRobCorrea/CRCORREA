@@ -26,6 +26,19 @@ namespace CRCorreaFuncoes
         public String resposta_raw { get; set; }
     }
 
+    public class TransmiteNotaResponse
+    {
+        public String status { get; set; }
+        public String codigo { get; set; }
+        public String descricao { get; set; }
+        public String campo { get; set; }
+        public String searchkey { get; set; }
+        public String serie { get; set; }
+        public String numero { get; set; }
+        public String chave { get; set; }
+        public String resposta_raw { get; set; }
+    }
+
     public class APIs
     {
         public static dynamic Requisicao(String Url)
@@ -140,6 +153,44 @@ namespace CRCorreaFuncoes
         /// </summary>
         /// <param name="referencia">Referencia unica da nota</param>
         /// <returns>FocusNFeResponse com status atual</returns>
+        public static TransmiteNotaResponse EmitirNFCeTransmiteNota(String jsonNfce)
+        {
+            TransmiteNotaResponse resposta = new TransmiteNotaResponse();
+
+            try
+            {
+                String url = clsInfo.transmitenota_url;
+
+                using (HttpClient http = new HttpClient())
+                {
+                    var content = new StringContent(jsonNfce, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage httpResponse = http.PostAsync(url, content).Result;
+                    String respostaString = httpResponse.Content.ReadAsStringAsync().Result;
+
+                    resposta = JsonConvert.DeserializeObject<TransmiteNotaResponse>(respostaString);
+
+                    if (resposta == null)
+                    {
+                        resposta = new TransmiteNotaResponse();
+                        resposta.status = "Erro";
+                        resposta.descricao = "Resposta vazia da API. HTTP Status: " + httpResponse.StatusCode;
+                    }
+
+                    resposta.resposta_raw = "HTTP " + (int)httpResponse.StatusCode + ": " + respostaString;
+                }
+            }
+            catch (Exception ex)
+            {
+                resposta.status = "Erro";
+                resposta.descricao = "Erro ao chamar API TransmiteNota: " + ex.Message;
+                if (ex.InnerException != null)
+                    resposta.descricao += " | " + ex.InnerException.Message;
+            }
+
+            return resposta;
+        }
+
         public static FocusNFeResponse ConsultarNFCe(String referencia)
         {
             FocusNFeResponse resposta = new FocusNFeResponse();

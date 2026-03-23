@@ -109,6 +109,8 @@ namespace CRCorreaFuncoes
         public static Int32 zzona { get; set; }
         public static String focusnfe_token { get; set; }
         public static String focusnfe_url { get; set; }
+        public static String transmitenota_token { get; set; }
+        public static String transmitenota_url { get; set; }
         public static String impressora_termica { get; set; }
     }
 }

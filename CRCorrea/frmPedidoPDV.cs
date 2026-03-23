@@ -886,7 +886,7 @@ namespace CRCorrea
         }
         private void PedidoSalvar()
         {
-            FocusNFeResponse respostaFocus = null;
+            TransmiteNotaResponse respostaTransmite = null;
             using (TransactionScope tse = new TransactionScope())
             {
                 // ###############################
@@ -1023,89 +1023,93 @@ namespace CRCorrea
                         }
                     }
                 }
-                // Emitir NFCE
+                // Emitir NFCE - TransmiteNota
                 //////////////////////////////
-                List<Produto> listaProdutos = new List<Produto>();
+                string meioPgto = "01";
+                if (rbnPix.Checked) meioPgto = "17";
+                else if (rbnCartao.Checked) meioPgto = "04";
+                else if (rbnCartaoCredito.Checked) meioPgto = "03";
+
+                int itemNum = 0;
+                List<TransmiteNotaItem> listaItens = new List<TransmiteNotaItem>();
                 foreach (DataRow row in dtPedido1.Rows)
                 {
+                    itemNum++;
+                    Decimal qtde = clsParser.DecimalParse(row["QTDE"].ToString());
+                    Decimal preco = clsParser.DecimalParse(row["PRECO"].ToString());
+                    Decimal totalItem = clsParser.DecimalParse(row["TOTALNOTA"].ToString());
 
-                    listaProdutos.Add(new Produto
+                    listaItens.Add(new TransmiteNotaItem
                     {
-                        numero_item = row["NITEM"].ToString(),
+                        numero_item = itemNum,
                         codigo_produto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
                         descricao = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select NOME from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
-                        cfop = 5102,
-                        unidade_comercial = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from UNIDADE where id = " + clsParser.Int32Parse(row["idunidade"].ToString()) + " "),    /// pesquisar 
-                        quantidade_comercial = clsParser.DecimalParse(row["QTDE"].ToString().Replace(",", ".")),
+                        cfop = "5102",
+                        unidade_comercial = "un",
+                        quantidade_comercial = qtde,
+                        valor_unitario_comercial = preco.ToString("F2").Replace(",", "."),
                         codigo_ncm = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from IPI where id = " + clsParser.Int32Parse(row["idIPI"].ToString()) + " "),
-                        valor_total = clsParser.DecimalParse(row["TOTALNOTA"].ToString().Replace(",", ".")),
-                        valor_total_sem_desconto = clsParser.DecimalParse(row["TOTALNOTA"].ToString().Replace(",", ".")),
-                        icms_csosn = 101,
-                        pis_situacao_tributaria = "01",
-                        cofins_situacao_tributaria = "01",
-                        ipi_situacao_tributaria = "01"
+                        valor_total = totalItem.ToString("F2").Replace(",", "."),
+                        valor_desconto = "",
+                        icms_origem_cstb = "0",
+                        icms_csosn = "500",
+                        pis_situacao_tributaria = "07",
+                        cofins_situacao_tributaria = "07"
                     });
                 }
 
-                //List<Dados_NFCE> Dados = new List<Dados_NFCE>();
-                var dadosNotaNFCE = new Dados_NFCE
+                List<TransmiteNotaFormaPagamento> listaFormasPgto = new List<TransmiteNotaFormaPagamento>();
+                listaFormasPgto.Add(new TransmiteNotaFormaPagamento
                 {
-                    tipo_operacao = "0",
-                    natureza_operacao = "Venda de mercadoria adquirida ou recebida de terceiros",
-                    forma_pagamento = sefaz_formapagto,
-                    meio_pagamento = sefaz_meiopagamento,
-                    pagamento_cnpj = "",
-                    pagamento_tband = sefaz_pagamentotband,
-                    pagamento_caut = sefaz_pagamentocaut,
-                    data_emissao = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
-                    data_saida_entrada = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
-                    hora_saida_entrada = clsPedidoInfo.data.ToString("HH:mm:ss"),
-                    finalidade_emissao = "1",
-                    valor_total = clsPedidoInfo.totalpedido,
-                    valor_total_sem_desconto = clsPedidoInfo.totalpedido,
-                    valor_ipi = 0,
-                    modalidade_frete = 0,
-                    items = listaProdutos
+                    codigo = meioPgto,
+                    valor = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", ".")
+                });
+
+                var requestTransmite = new TransmiteNotaRequest
+                {
+                    ApiKey = clsInfo.transmitenota_token,
+                    Cnpj = clsInfo.zempresa_cnpj,
+                    Dados = new TransmiteNotaDados
+                    {
+                        tipo_operacao = 1,
+                        natureza_operacao = "VENDA AO CONSUMIDOR",
+                        forma_pagamento = 0,
+                        meio_pagamento = meioPgto,
+                        data_emissao = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
+                        finalidade_emissao = 1,
+                        modalidade_frete = 9,
+                        valor_total = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", "."),
+                        indicador_ie_destinatario = 9,
+                        Itens = listaItens,
+                        FormasPagamento = listaFormasPgto
+                    }
                 };
 
-                var minhaNotaNFCE = new Nota_NFCE
-                {
-                    ApiKey = "hydxD6V4J5jdNiCIJrdcolrd4",
-                    Cnpj = "38029184000195",
-                    Dados = dadosNotaNFCE
-                };
-
-
-                // 3. Serialize
-                //string json = JsonSerializer.Serialize(MeuRelatorio);
-                var strJson = JsonConvert.SerializeObject(minhaNotaNFCE, Formatting.Indented);
-                //using (StreamWriter sw = new StreamWriter("C:\\Clientes\\CASACORREA\\XML\\Saidas\\Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
+                var strJson = JsonConvert.SerializeObject(requestTransmite, Formatting.Indented);
                 using (StreamWriter sw = new StreamWriter(clsInfo.saidaxml + "Ped" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0') + ".json"))
                 {
                     sw.WriteLine(strJson);
                 }
-                
-                String referenciaNfce = "PED" + clsPedidoInfo.ano + clsPedidoInfo.numero.ToString().PadLeft(5, '0');
-                respostaFocus = APIs.EmitirNFCe(strJson, referenciaNfce);
 
-                if (respostaFocus.status == "erro" ||
-                    respostaFocus.status == "erro_autorizacao" ||
-                    String.IsNullOrEmpty(respostaFocus.status))
+                respostaTransmite = APIs.EmitirNFCeTransmiteNota(strJson);
+
+                if (respostaTransmite.status == "Erro" || String.IsNullOrEmpty(respostaTransmite.status))
                 {
-                    String msgErro = "Retorno da API Focus NFe:\n\n" + (respostaFocus.resposta_raw ?? respostaFocus.mensagem ?? "Sem resposta");
+                    String msgErro = "Retorno da API TransmiteNota:\n\n" + (respostaTransmite.resposta_raw ?? respostaTransmite.descricao ?? "Sem resposta");
                     MessageBox.Show(msgErro, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
                     String msgNfce = "NFC-e enviada!" +
-                        "\nStatus: " + (respostaFocus.status ?? "") +
-                        "\nStatus SEFAZ: " + (respostaFocus.status_sefaz ?? "") +
-                        "\nMensagem SEFAZ: " + (respostaFocus.mensagem_sefaz ?? "");
+                        "\nStatus: " + (respostaTransmite.status ?? "") +
+                        "\nDescricao: " + (respostaTransmite.descricao ?? "");
 
-                    if (!String.IsNullOrEmpty(respostaFocus.chave_nfe))
-                        msgNfce += "\nChave: " + respostaFocus.chave_nfe;
+                    if (!String.IsNullOrEmpty(respostaTransmite.chave))
+                        msgNfce += "\nChave: " + respostaTransmite.chave;
+                    if (!String.IsNullOrEmpty(respostaTransmite.numero))
+                        msgNfce += "\nNumero: " + respostaTransmite.numero;
 
-                    msgNfce += "\n\nResposta completa:\n" + (respostaFocus.resposta_raw ?? "");
+                    msgNfce += "\n\nResposta completa:\n" + (respostaTransmite.resposta_raw ?? "");
                     MessageBox.Show(msgNfce, "NFC-e", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 
@@ -1131,33 +1135,16 @@ namespace CRCorrea
 
                     bool ehDinheiro = rbnDinheiro.Checked;
 
-                    if (ehDinheiro || respostaFocus == null || String.IsNullOrEmpty(respostaFocus.chave_nfe))
-                    {
-                        clsImpressoraTermica.ImprimirCupomPedido(
-                            clsInfo.impressora_termica,
-                            nomeEmpresa,
-                            clsInfo.zempresa_cnpj,
-                            numPedido,
-                            dataAtual,
-                            cliente,
-                            dtPedido1,
-                            formaPgto,
-                            valorTotal);
-                    }
-                    else
-                    {
-                        clsImpressoraTermica.ImprimirDanfeNfce(
-                            clsInfo.impressora_termica,
-                            respostaFocus,
-                            nomeEmpresa,
-                            clsInfo.zempresa_cnpj,
-                            numPedido,
-                            dataAtual,
-                            cliente,
-                            dtPedido1,
-                            formaPgto,
-                            valorTotal);
-                    }
+                    clsImpressoraTermica.ImprimirCupomPedido(
+                        clsInfo.impressora_termica,
+                        nomeEmpresa,
+                        clsInfo.zempresa_cnpj,
+                        numPedido,
+                        dataAtual,
+                        cliente,
+                        dtPedido1,
+                        formaPgto,
+                        valorTotal);
                 }
                 catch (Exception ex)
                 {

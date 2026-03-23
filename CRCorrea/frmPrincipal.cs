@@ -34,8 +34,8 @@ namespace CRCorrea
             //clsInfo.imagens = Properties.Settings.Default.imagens;
             clsInfo.arquivos = Properties.Settings.Default.arquivos;
             clsInfo.saidaxml = Properties.Settings.Default.SaidaXML;
-            clsInfo.focusnfe_token = Properties.Settings.Default.TransmiteNFToken;
-            clsInfo.focusnfe_url = Properties.Settings.Default.TransmiteNFUrl;
+            clsInfo.transmitenota_token = Properties.Settings.Default.TransmiteNotaToken;
+            clsInfo.transmitenota_url = Properties.Settings.Default.TransmiteNotaUrl;
             clsInfo.impressora_termica = Properties.Settings.Default.ImpressoraTermica;
 
 
