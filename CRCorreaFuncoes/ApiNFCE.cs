@@ -19,6 +19,7 @@ namespace CRCorreaFuncoes
         public String valor_unitario_comercial { get; set; }
         public String codigo_ncm { get; set; }
         public String valor_total { get; set; }
+        public String valor_total_sem_desconto { get; set; }
         public String valor_desconto { get; set; }
         public String icms_origem_cstb { get; set; }
         public String icms_csosn { get; set; }
@@ -58,9 +59,12 @@ namespace CRCorreaFuncoes
         public Int32 forma_pagamento { get; set; }
         public String meio_pagamento { get; set; }
         public String data_emissao { get; set; }
+        public String data_saida_entrada { get; set; }
+        public String hora_saida_entrada { get; set; }
         public Int32 finalidade_emissao { get; set; }
         public Int32 modalidade_frete { get; set; }
         public String valor_total { get; set; }
+        public String valor_total_sem_desconto { get; set; }
         public Int32 indicador_ie_destinatario { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
