@@ -1051,20 +1051,18 @@ namespace CRCorrea
                         codigo_ncm = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from IPI where id = " + clsParser.Int32Parse(row["idIPI"].ToString()) + " "),
                         valor_total = totalItem.ToString("F2").Replace(",", "."),
                         valor_total_sem_desconto = totalItem.ToString("F2").Replace(",", "."),
-                        valor_desconto = "",
-                        icms_origem_cstb = "0",
                         icms_csosn = "500",
                         pis_situacao_tributaria = "07",
                         cofins_situacao_tributaria = "07"
                     });
                 }
 
-                List<TransmiteNotaFormaPagamento> listaFormasPgto = new List<TransmiteNotaFormaPagamento>();
-                listaFormasPgto.Add(new TransmiteNotaFormaPagamento
-                {
-                    codigo = meioPgto,
-                    valor = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", ".")
-                });
+                //List<TransmiteNotaFormaPagamento> listaFormasPgto = new List<TransmiteNotaFormaPagamento>();
+                //listaFormasPgto.Add(new TransmiteNotaFormaPagamento
+                //{
+                //    codigo = meioPgto,
+                //    valor = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", ".")
+                //});
 
                 var requestTransmite = new TransmiteNotaRequest
                 {
@@ -1076,16 +1074,19 @@ namespace CRCorrea
                         natureza_operacao = "VENDA AO CONSUMIDOR",
                         forma_pagamento = 0,
                         meio_pagamento = meioPgto,
+                        pagamento_cnpj = "",
+                        pagamento_tband = "01",
+                        pagamento_caut = "01",
                         data_emissao = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
                         data_saida_entrada = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
                         hora_saida_entrada = DateTime.Now.ToString("HH:mm:ss"),
                         finalidade_emissao = 1,
-                        modalidade_frete = 9,
                         valor_total = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", "."),
                         valor_total_sem_desconto = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", "."),
-                        indicador_ie_destinatario = 9,
-                        Itens = listaItens,
-                        FormasPagamento = listaFormasPgto
+                        valor_ipi = "0.00",
+                        modalidade_frete = 0,
+                        Itens = listaItens
+                        //FormasPagamento = listaFormasPgto
                     }
                 };
 
