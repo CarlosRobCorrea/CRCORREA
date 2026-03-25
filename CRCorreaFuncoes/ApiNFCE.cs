@@ -59,7 +59,7 @@ namespace CRCorreaFuncoes
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public String informacoes_adicionais_contribuinte { get; set; }
 
-        public List<TransmiteNotaItem> Itens { get; set; }
+        public List<List<TransmiteNotaItem>> Itens { get; set; }
     }
 
     public class TransmiteNotaRequest

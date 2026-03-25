@@ -1031,7 +1031,7 @@ namespace CRCorrea
                 else if (rbnCartaoCredito.Checked) meioPgto = "03";
 
                 int itemNum = 0;
-                List<TransmiteNotaItem> listaItens = new List<TransmiteNotaItem>();
+                List<List<TransmiteNotaItem>> listaItens = new List<List<TransmiteNotaItem>>();
                 foreach (DataRow row in dtPedido1.Rows)
                 {
                     itemNum++;
@@ -1039,7 +1039,7 @@ namespace CRCorrea
                     Decimal preco = clsParser.DecimalParse(row["PRECO"].ToString());
                     Decimal totalItem = clsParser.DecimalParse(row["TOTALNOTA"].ToString());
 
-                    listaItens.Add(new TransmiteNotaItem
+                    listaItens.Add(new List<TransmiteNotaItem> { new TransmiteNotaItem
                     {
                         numero_item = itemNum,
                         codigo_produto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from PECAS where id = " + clsParser.Int32Parse(row["idcodigo"].ToString()) + " "),
@@ -1055,7 +1055,7 @@ namespace CRCorrea
                         pis_situacao_tributaria = "01",
                         cofins_situacao_tributaria = "01",
                         ipi_situacao_tributaria = "01"
-                    });
+                    }});
                 }
 
                 var requestTransmite = new TransmiteNotaRequest
