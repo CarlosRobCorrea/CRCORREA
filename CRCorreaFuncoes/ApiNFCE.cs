@@ -16,13 +16,11 @@ namespace CRCorreaFuncoes
         public String cfop { get; set; }
         public String unidade_comercial { get; set; }
         public Decimal quantidade_comercial { get; set; }
-        public Decimal valor_unitario_comercial { get; set; }
+        public String valor_unitario_comercial { get; set; }
         public String codigo_ncm { get; set; }
-        public Decimal valor_total { get; set; }
-        public Decimal valor_total_sem_desconto { get; set; }
-        public String valor_desconto { get; set; }
-        public String icms_origem_cstb { get; set; }
-        public Int32 icms_csosn { get; set; }
+        public String valor_total { get; set; }
+        public String valor_total_sem_desconto { get; set; }
+        public String icms_csosn { get; set; }
         public String pis_situacao_tributaria { get; set; }
         public String cofins_situacao_tributaria { get; set; }
         public String ipi_situacao_tributaria { get; set; }
@@ -37,34 +35,23 @@ namespace CRCorreaFuncoes
         public String gtin_tributavel { get; set; }
     }
 
-    public class TransmiteNotaFormaPagamento
-    {
-        public String codigo { get; set; }
-        public String valor { get; set; }
-    }
-
     public class TransmiteNotaDados
     {
-        public String tipo_operacao { get; set; }
+        public Int32 tipo_operacao { get; set; }
         public String natureza_operacao { get; set; }
         public Int32 forma_pagamento { get; set; }
         public String meio_pagamento { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public String pagamento_cnpj { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public String pagamento_tband { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public String pagamento_caut { get; set; }
         public String data_emissao { get; set; }
         public String data_saida_entrada { get; set; }
         public String hora_saida_entrada { get; set; }
-        public String finalidade_emissao { get; set; }
-        public Decimal valor_total { get; set; }
-        public Decimal valor_total_sem_desconto { get; set; }
-        public Decimal valor_ipi { get; set; }
+        public Int32 finalidade_emissao { get; set; }
+        public String valor_total { get; set; }
+        public String valor_total_sem_desconto { get; set; }
+        public String valor_ipi { get; set; }
         public Int32 modalidade_frete { get; set; }
-        public Int32 indicador_ie_destinatario { get; set; }
-
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public String nome_destinatario { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -73,7 +60,6 @@ namespace CRCorreaFuncoes
         public String informacoes_adicionais_contribuinte { get; set; }
 
         public List<TransmiteNotaItem> Itens { get; set; }
-        public List<TransmiteNotaFormaPagamento> FormasPagamento { get; set; }
     }
 
     public class TransmiteNotaRequest

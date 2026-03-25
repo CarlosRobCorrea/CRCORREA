@@ -43,7 +43,6 @@ namespace CRCorrea
         String sefaz_pagamentotband = "01"; // visa
         String sefaz_pagamentocaut = "01"; // visa
 
-
         // Pedido1
         DataTable dtPedido1;
         clsPedido1Info clsPedido1Info;
@@ -657,6 +656,11 @@ namespace CRCorrea
                     }
                 }
                 // Emitir NFCE - TransmiteNota
+
+                Decimal qtde = 0;
+                Decimal valorunitario = 0;
+                Decimal totalnota = 0;
+
                 string meioPgto = "01";
                 String codPagto = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select codigo from SITUACAOTIPOTITULO where id = " + idformapagto);
                 if (codPagto == "CC") meioPgto = "03";
@@ -668,9 +672,9 @@ namespace CRCorrea
                 foreach (DataRow row in dtPedido1.Rows)
                 {
                     itemNum++;
-                    Decimal qtde = clsParser.DecimalParse(row["QTDE"].ToString());
-                    Decimal preco = clsParser.DecimalParse(row["PRECO"].ToString());
-                    Decimal totalItem = clsParser.DecimalParse(row["TOTALNOTA"].ToString());
+                    qtde = clsParser.DecimalParse(row["QTDE"].ToString());
+                    valorunitario = clsParser.DecimalParse(row["PRECO"].ToString());
+                    totalnota = clsParser.DecimalParse(row["TOTALNOTA"].ToString());
 
                     listaItens.Add(new TransmiteNotaItem
                     {
@@ -680,25 +684,16 @@ namespace CRCorrea
                         cfop = "5102",
                         unidade_comercial = "un",
                         quantidade_comercial = qtde,
-                        valor_unitario_comercial = preco,
+                        valor_unitario_comercial = valorunitario.ToString("F2").Replace(",", "."),
                         codigo_ncm = Procedure.PesquisaoPrimeiro(clsInfo.conexaosqldados, "select CODIGO from IPI where id = " + clsParser.Int32Parse(row["idIPI"].ToString()) + " "),
-                        valor_total = totalItem,
-                        valor_total_sem_desconto = totalItem,
-                        valor_desconto = "",
-                        icms_origem_cstb = "0",
-                        icms_csosn = 101,
+                        valor_total = totalnota.ToString("F2").Replace(",", "."),
+                        valor_total_sem_desconto = totalnota.ToString("F2").Replace(",", "."),
+                        icms_csosn = "101",
                         pis_situacao_tributaria = "01",
                         cofins_situacao_tributaria = "01",
                         ipi_situacao_tributaria = "01"
                     });
                 }
-
-                List<TransmiteNotaFormaPagamento> listaFormasPgto = new List<TransmiteNotaFormaPagamento>();
-                listaFormasPgto.Add(new TransmiteNotaFormaPagamento
-                {
-                    codigo = meioPgto,
-                    valor = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", ".")
-                });
 
                 var requestTransmite = new TransmiteNotaRequest
                 {
@@ -706,24 +701,22 @@ namespace CRCorrea
                     Cnpj = clsInfo.zempresa_cnpj,
                     Dados = new TransmiteNotaDados
                     {
-                        tipo_operacao = "0",
+                        tipo_operacao = 1,
                         natureza_operacao = "Venda de mercadoria adquirida ou recebida de terceiros",
                         forma_pagamento = 0,
                         meio_pagamento = meioPgto,
                         pagamento_cnpj = "",
-                        pagamento_tband = "01",
+                        pagamento_tband = "",
                         pagamento_caut = "01",
                         data_emissao = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
                         data_saida_entrada = clsPedidoInfo.data.ToString("dd/MM/yyyy"),
                         hora_saida_entrada = DateTime.Now.ToString("HH:mm:ss"),
-                        finalidade_emissao = "1",
-                        valor_total = clsPedidoInfo.totalmercadoria,
-                        valor_total_sem_desconto = clsPedidoInfo.totalmercadoria,
-                        valor_ipi = 0,
+                        finalidade_emissao = 1,
+                        valor_total = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", "."),
+                        valor_total_sem_desconto = clsPedidoInfo.totalmercadoria.ToString("F2").Replace(",", "."),
+                        valor_ipi = "0.00",
                         modalidade_frete = 0,
-                        indicador_ie_destinatario = 9,
-                        Itens = listaItens,
-                        FormasPagamento = listaFormasPgto
+                        Itens = listaItens
                     }
                 };
 
